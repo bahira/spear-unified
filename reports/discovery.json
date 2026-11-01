@@ -1,0 +1,145 @@
+[
+  {
+    "status": "ok",
+    "kind": "candidate",
+    "formula": "(x)\u00b2",
+    "tree": {
+      "o": "sq",
+      "c": [
+        {
+          "o": "var",
+          "n": "x"
+        }
+      ]
+    },
+    "holdout": {
+      "mse": 0,
+      "max_abs_error": 0,
+      "rows": 127
+    },
+    "cost_units": 1,
+    "duration_ms": 14.983154999999996,
+    "evaluations": 288,
+    "config": {
+      "formula": "x*x",
+      "rows": 64,
+      "generations": 8,
+      "population": 32,
+      "seed": 42,
+      "lo": -2,
+      "hi": 2
+    },
+    "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+    "accepted_on_probe": true,
+    "requested_max_abs_error": 0.0001,
+    "registry_updated": false,
+    "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a"
+  },
+  {
+    "status": "ok",
+    "kind": "candidate",
+    "formula": "((0.623599 + x) + (2 + x))",
+    "tree": {
+      "o": "add",
+      "c": [
+        {
+          "o": "add",
+          "c": [
+            {
+              "o": "const",
+              "v": 0.623599
+            },
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        {
+          "o": "add",
+          "c": [
+            {
+              "o": "const",
+              "v": 2
+            },
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        }
+      ]
+    },
+    "holdout": {
+      "mse": 1.506328949657896,
+      "max_abs_error": 2.3422282522403957,
+      "rows": 127
+    },
+    "cost_units": 3,
+    "duration_ms": 15.874583999999999,
+    "evaluations": 288,
+    "config": {
+      "formula": "x*x + 2*x + 1",
+      "rows": 64,
+      "generations": 8,
+      "population": 32,
+      "seed": 42,
+      "lo": -2,
+      "hi": 2
+    },
+    "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+    "accepted_on_probe": false,
+    "requested_max_abs_error": 0.0001,
+    "registry_updated": false,
+    "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a"
+  },
+  {
+    "status": "ok",
+    "kind": "candidate",
+    "formula": "(x - (0.484746 * x))",
+    "tree": {
+      "o": "sub",
+      "c": [
+        {
+          "o": "var",
+          "n": "x"
+        },
+        {
+          "o": "mul",
+          "c": [
+            {
+              "o": "const",
+              "v": 0.484746
+            },
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        }
+      ]
+    },
+    "holdout": {
+      "mse": 0.051219026879134745,
+      "max_abs_error": 0.32658437433856013,
+      "rows": 127
+    },
+    "cost_units": 2,
+    "duration_ms": 14.48100199999999,
+    "evaluations": 288,
+    "config": {
+      "formula": "sin(x)",
+      "rows": 64,
+      "generations": 8,
+      "population": 32,
+      "seed": 42,
+      "lo": -2,
+      "hi": 2
+    },
+    "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+    "accepted_on_probe": false,
+    "requested_max_abs_error": 0.0001,
+    "registry_updated": false,
+    "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a"
+  }
+]

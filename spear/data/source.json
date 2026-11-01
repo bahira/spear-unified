@@ -1,0 +1,10 @@
+{
+  "repository": "bahira/superspear",
+  "commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+  "sha256": {
+    "silu": "4c5b17248bd6c6143e1f1a358adea4b8a874b8fcbe327fc945b8bc581a02af39",
+    "gelu": "a2b8cbf5bab35dd3d421efed9b5b00d974c3df13af67d500c2fd737d0a3d2497"
+  },
+  "license": "MIT",
+  "note": "Pinned upstream records, not locally rediscovered. Validation ranges are local probes, not certified deployment domains."
+}

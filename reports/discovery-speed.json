@@ -1,0 +1,74 @@
+{
+  "node": "v24.19.0",
+  "platform": "linux",
+  "arch": "x64",
+  "points": 4096,
+  "repeats": 21,
+  "inner": 8,
+  "warmup": 30,
+  "domain": [
+    -2,
+    2
+  ],
+  "method": "Same upstream vector evaluator and Float64Array allocations; warmed, alternating order, median. Timings exclude discovery. No C/SIMD claim.",
+  "results": [
+    {
+      "target": "x*x",
+      "candidate": "(x)²",
+      "max_abs_error": 0,
+      "eligible": true,
+      "base_ns_per_element": 4.758819580078389,
+      "candidate_ns_per_element": 4.414031982421813,
+      "speedup": 1.0781117126087074,
+      "base_range_ns": [
+        3.1282043457029305,
+        12.432495117187855
+      ],
+      "candidate_range_ns": [
+        3.377014160156275,
+        7.784637451171972
+      ]
+    },
+    {
+      "target": "x*x + 2*x + 1",
+      "candidate": "((0.623599 + x) + (2 + x))",
+      "max_abs_error": 2.376401,
+      "eligible": false,
+      "base_ns_per_element": 23.16589355468761,
+      "candidate_ns_per_element": 19.619567871093697,
+      "speedup": 1.1807545256294283,
+      "base_range_ns": [
+        14.7262878417969,
+        30.744842529296847
+      ],
+      "candidate_range_ns": [
+        11.027160644530923,
+        127.67922973632751
+      ]
+    },
+    {
+      "target": "sin(x)",
+      "candidate": "(x - (0.484746 * x))",
+      "max_abs_error": 0.32658739948759063,
+      "eligible": false,
+      "base_ns_per_element": 25.027557373046537,
+      "candidate_ns_per_element": 9.724517822265119,
+      "speedup": 2.573655355512208,
+      "base_range_ns": [
+        22.28445434570344,
+        42.10299682617154
+      ],
+      "candidate_range_ns": [
+        7.4404602050780895,
+        61.483276367187145
+      ]
+    }
+  ],
+  "direct_square_control": {
+    "note": "Target x*x and discovered sq(x) both lower to the same multiplication; identical hand-written implementation, noise control only.",
+    "base_ns_per_element": 9.217163085936848,
+    "candidate_ns_per_element": 9.093383789062978,
+    "speedup": 1.0136120172363938
+  },
+  "sink": 2289.759802081225
+}

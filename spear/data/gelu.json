@@ -1,0 +1,111 @@
+{
+  "taskId": "gelu",
+  "title": "GELU (GPT · BERT — GEGLU)",
+  "direction": "min",
+  "metric": 1.5455587803707568e-34,
+  "level": 5,
+  "formula": "((0.5 * x) * (1 + erf((x * 0.7071067811865476))))",
+  "seed": 4242,
+  "iteration": 400,
+  "speed": {
+    "formulaCost": 24,
+    "exactCost": 46,
+    "speedup": 1.9166666666666667,
+    "costProfile": "cpu-transcendental-20",
+    "measured": {
+      "measuredSpeedup": 0.9926,
+      "nsFormula": 11.179,
+      "nsExact": 11.0961,
+      "agreement": 0.5179,
+      "resolvable": false,
+      "harness": "gcc -O2 · scalar x86-64 · median of 9×40 passes"
+    }
+  },
+  "tree": {
+    "o": "mul",
+    "c": [
+      {
+        "o": "mul",
+        "c": [
+          {
+            "o": "const",
+            "v": 0.5
+          },
+          {
+            "o": "var",
+            "n": "x"
+          }
+        ]
+      },
+      {
+        "o": "add",
+        "c": [
+          {
+            "o": "const",
+            "v": 1
+          },
+          {
+            "o": "erf",
+            "c": [
+              {
+                "o": "mul",
+                "c": [
+                  {
+                    "o": "var",
+                    "n": "x"
+                  },
+                  {
+                    "o": "const",
+                    "v": 0.7071067811865475
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fast": {
+    "formula": "((1.010719 * relu(x)) + -0.057684)",
+    "metric": 0.0029735142917741517,
+    "level": 2,
+    "formulaCost": 3,
+    "deploy": true,
+    "measured": {
+      "measuredSpeedup": 6.4889,
+      "nsChampion": 17.7787,
+      "nsFast": 2.7399,
+      "resolvable": true,
+      "harness": "gcc -O2 · scalar x86-64 · median of 9×40 passes"
+    }
+  },
+  "fastTree": {
+    "o": "add",
+    "c": [
+      {
+        "o": "mul",
+        "c": [
+          {
+            "o": "const",
+            "v": 1.010718752548154
+          },
+          {
+            "o": "relu",
+            "c": [
+              {
+                "o": "var",
+                "n": "x"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "o": "const",
+        "v": -0.05768408949876516
+      }
+    ]
+  },
+  "holdout": 1.6840908810878668e-15
+}

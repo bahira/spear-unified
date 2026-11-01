@@ -1,0 +1,98 @@
+{
+  "taskId": "silu",
+  "title": "SiLU / Swish (LLaMA · Mistral · Qwen — SwiGLU)",
+  "direction": "min",
+  "metric": 0,
+  "level": 5,
+  "formula": "(x / (1 + exp((-x))))",
+  "seed": 4242,
+  "iteration": 400,
+  "speed": {
+    "formulaCost": 26,
+    "exactCost": 34,
+    "speedup": 1.3076923076923077,
+    "costProfile": "cpu-transcendental-20",
+    "measured": {
+      "measuredSpeedup": 0.9986,
+      "nsFormula": 14.5282,
+      "nsExact": 14.5085,
+      "agreement": 0.7637,
+      "resolvable": false,
+      "harness": "gcc -O2 · scalar x86-64 · median of 9×40 passes"
+    }
+  },
+  "tree": {
+    "o": "pdiv",
+    "c": [
+      {
+        "o": "var",
+        "n": "x"
+      },
+      {
+        "o": "add",
+        "c": [
+          {
+            "o": "const",
+            "v": 1
+          },
+          {
+            "o": "exp",
+            "c": [
+              {
+                "o": "neg",
+                "c": [
+                  {
+                    "o": "var",
+                    "n": "x"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "holdout": 0,
+  "fast": {
+    "formula": "((1.016356 * relu(x)) + -0.15849)",
+    "metric": 0.007335732937479303,
+    "level": 2,
+    "formulaCost": 3,
+    "deploy": true,
+    "measured": {
+      "measuredSpeedup": 5.4343,
+      "nsChampion": 14.8216,
+      "nsFast": 2.7274,
+      "resolvable": true,
+      "harness": "gcc -O2 · scalar x86-64 · median of 9×40 passes"
+    }
+  },
+  "fastTree": {
+    "o": "add",
+    "c": [
+      {
+        "o": "mul",
+        "c": [
+          {
+            "o": "const",
+            "v": 1.016356
+          },
+          {
+            "o": "relu",
+            "c": [
+              {
+                "o": "var",
+                "n": "x"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "o": "const",
+        "v": -0.15848979653132886
+      }
+    ]
+  }
+}

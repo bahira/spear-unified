@@ -1,0 +1,68 @@
+{
+  "session": 1,
+  "signals": {
+    "RFR": null,
+    "CSR": null,
+    "convergence_score": null,
+    "PHR": null
+  },
+  "config": {
+    "pareto_ratio": 0.2,
+    "pareto_ratio_bounds": [
+      0.1,
+      0.4
+    ],
+    "falsifier_K": 6,
+    "active_falsifiers": [
+      "F-RESOURCE",
+      "F-DEPENDENCY",
+      "F-SPEC",
+      "F-SAFETY",
+      "F-EDGE",
+      "F-COUNTERFACTUAL"
+    ],
+    "grounded_min_depth": "L2",
+    "probe_set_size": 5,
+    "safety_locked_task_types": [
+      "math_proof",
+      "security_review"
+    ],
+    "safety_locked_params": [
+      "grounded_min_depth"
+    ],
+    "adaptation_enabled": false
+  },
+  "trials": [],
+  "cooldowns": [],
+  "discovered_signals": [],
+  "discovered_edges": [],
+  "cascade_reversals_this_session": 0,
+  "sessions_since_self_retro": 1,
+  "history": [
+    {
+      "task": "Make skill available and publish private project with tracking",
+      "loops": [
+        "tactical planning",
+        "strategic falsification",
+        "operational verification",
+        "retrospective pending remote verification"
+      ],
+      "deferred": [
+        "heavy installs",
+        "native backend",
+        "optional adapters"
+      ],
+      "required_tasks_skipped": 0,
+      "counterexamples": [
+        "hardcoded benchmark domain",
+        "weak unsimplified speed baseline",
+        "skill CSR and rollback rule contradictions"
+      ],
+      "evidence": [
+        "reports/benchmark-review.md",
+        "reports/search-agent.md"
+      ],
+      "adaptations": []
+    }
+  ]
+}

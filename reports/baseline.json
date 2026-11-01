@@ -1,0 +1,40 @@
+{
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+  "probe_range": [
+    -8,
+    8
+  ],
+  "note": "Scalar Python probe, not upstream C/WASM results. Fast variants measured but not enabled.",
+  "kernels": {
+    "silu": {
+      "reference": {
+        "median_ns_per_element": 138.0,
+        "max_abs_error": 0.0
+      },
+      "champion": {
+        "median_ns_per_element": 508.4,
+        "max_abs_error": 0.0
+      },
+      "fast": {
+        "median_ns_per_element": 133.4,
+        "max_abs_error": 0.15848979653132886
+      }
+    },
+    "gelu": {
+      "reference": {
+        "median_ns_per_element": 231.0,
+        "max_abs_error": 0.0
+      },
+      "champion": {
+        "median_ns_per_element": 367.1,
+        "max_abs_error": 2.1111472081614124e-07
+      },
+      "fast": {
+        "median_ns_per_element": 176.1,
+        "max_abs_error": 0.12047113573928614
+      }
+    }
+  }
+}
