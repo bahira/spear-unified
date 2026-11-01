@@ -165,9 +165,15 @@
         "reports/discovery-opportunities.md",
         "reports/samples-discovery.md",
         "reports/pareto-caveman-prompt.md",
-        "reports/grounded-loop-prompt.md"
+        "reports/grounded-loop-prompt.md",
+        "reports/STATUS.md",
+        "AGENTS.md"
       ],
-      "adaptations": []
+      "adaptations": [],
+      "visual_verification": {
+        "dashboard": "not performed: supported preview unavailable",
+        "sprite_animation": "not integrated or playback-verified"
+      }
     }
   ]
 }

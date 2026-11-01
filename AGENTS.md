@@ -16,3 +16,7 @@ Current commands:
 - `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON benchmark_discovery.mjs`
 
 No literal `/goal` command is installed. GOAL.md is the persistent equivalent for agent planning; do not claim a platform slash command exists.
+
+## Visual Grounded Loop — user preference
+
+Whenever creating or modifying visual output, inspect the actual rendered result: produce → capture → inspect → correct → recheck. For images/designs, inspect the final image; for interfaces, capture relevant viewport sizes and check interactions; for animation, inspect a played sequence or video, not only a still frame. Check against the requested criteria and stop once they are met. If rendering, capture or inspection is unavailable, report visual verification as incomplete; source-code checks are not a substitute. Do not add visual checks to work without visual output. Respect the environment's supported preview and browser paths.
