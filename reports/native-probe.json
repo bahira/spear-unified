@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "compiler": "/usr/bin/cc",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "domain": [
+    -1,
+    1
+  ],
+  "points": 65537,
+  "inner": 16,
+  "repeats": 9,
+  "candidate": "x*(1+x*x*(-1/6+x*x*(1/120-x*x/5040)))",
+  "candidate_origin": "Classical seventh-order Taylor polynomial, not discovered by Superspear",
+  "reference": "C libm sin(double)",
+  "method": "Same noinline function call and checksum reduction for both; warmup, alternating order, nine repetitions. Scalar double, no fast-math.",
+  "limitations": "Includes function-call and reduction overhead; one process on this VM. No Python/JS integration overhead measured; no claim of general sin replacement or SIMD gain.",
+  "build_seconds": 0.29512562900004013,
+  "run_seconds": 0.15295916300010504,
+  "reference_ns": [
+    8.71495491,
+    8.57464104,
+    8.23797817,
+    8.41017288,
+    8.21495205,
+    8.53324744,
+    8.23911588,
+    8.79706502,
+    9.22105166
+  ],
+  "candidate_ns": [
+    3.76867457,
+    3.39897405,
+    3.31126787,
+    3.64050937,
+    3.38589842,
+    3.39058948,
+    3.32438069,
+    3.44151395,
+    3.43896387
+  ],
+  "max_abs_error": 2.7308396425285153e-06,
+  "mse": 3.9328542676504966e-13,
+  "sink": 8.703437970325467e-11,
+  "compiler_flags": [
+    "-O2",
+    "-std=c11",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-builtin-sin"
+  ],
+  "reference_median_ns": 8.53324744,
+  "candidate_median_ns": 3.39897405,
+  "speedup": 2.51053621312584,
+  "requested_max_abs_error": 0.0001,
+  "accepted_on_probe": true
+}
