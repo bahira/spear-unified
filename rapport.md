@@ -154,3 +154,33 @@ Le navigateur/Pomerado, REA et le routage LLM restent des pistes séparées. Ne 
 Repo privé : https://github.com/bahira/spear-unified. Le suivi technique reste dans les issues/milestones. Les prix et scénarios de ce document doivent être révisés à partir des objections, du temps réellement passé, des coûts et des ventes constatées.
 
 La description GitHub reste non modifiée : le jeton refuse ce réglage. Texte proposé dans github-description.txt. Les fichiers de documentation peuvent être mis à jour et poussés normalement.
+
+## 11. Extension de Discovery à d'autres domaines — vérification rapide
+
+Le moteur est une recherche de programmes/formules ; son usage n'est pas limité aux activations ML. **L'adaptateur actuel reçoit toutefois une formule analytique cible et une seule variable x**, pas un CSV de mesures ni plusieurs variables physiques. Les candidats utilisent seulement add/sub/mul/sq/neg : on explore des approximations polynomiales peu profondes. Cela limite les formes atteignables, même lorsqu'une formule exacte existe.
+
+Essais synthétiques exécutés en environ 0,42 seconde au total, graine 42, 64 points d'apprentissage, population 64, 30 générations. Contrôle indépendant avec Python math sur 1 001 points incluant les bornes :
+
+| Exemple de domaine | Cible et intervalle | Tolérance illustrative | Erreur max observée | Ce qui est établi |
+|---|---|---:|---:|---|
+| Signal | sin(x), [-0.1,0.1] | 2e-4 | 1,67e-4 | Approximation admissible sur cette grille |
+| Décroissance thermique normalisée | exp(-x), [0,0.1] | 1e-2 | 9,06e-3 | Approximation locale admissible avec cette tolérance assez large |
+| Activation ML | tanh(x), [-0.1,0.1] | 1e-3 | 3,32e-4 | Approximation locale admissible, effet sur le modèle non mesuré |
+
+Les tolérances ont été choisies pour ces sondes ; aucun métier ne les a validées. Ces essais ne démontrent ni gain de vitesse, ni causalité, ni découverte scientifique. Les cibles sont connues ; les données réelles, le bruit, les unités et les dérives n'ont pas été testés. Source reproductible : scripts/probe_domains.py et reports/domain-probes.json.
+
+### Pour découvrir une relation depuis des mesures
+
+Ajouter une entrée X/y, un traitement des valeurs manquantes et des unités, des baselines simples, un découpage apprentissage/validation/test et un test final indépendant jamais utilisé pour choisir le candidat. Pour des séries temporelles, respecter le temps ; pour plusieurs machines ou personnes, séparer les groupes afin d'éviter les fuites. Quantifier le bruit et l'incertitude, ne pas rechercher une précision inférieure à celle des mesures.
+
+Le moteur upstream accepte des variables multiples, mais notre adaptateur, la validation et le runtime sont à étendre ensemble. Ajouter une telle entrée ne suffit pas à identifier une causalité : contrôler les hypothèses et valider l'extrapolation séparément. Une formule corrélée au jeu de données n'est pas une loi physique.
+
+**Priorité produit :** signal ou simulation avec domaine contrôlé, un calcul client réel et tolérance métier explicite. Finance et maintenance prédictive demandent notamment validation temporelle et tests de dérive ; ne pas les vendre comme déjà couverts.
+
+Pour les pistes voisines (calibration, modèle de coût, surrogate, simplification, auto-tuning, cache, distillation et identification dynamique), voir [reports/discovery-opportunities.md](reports/discovery-opportunities.md). Chaque piste est distinguée des fonctions déjà livrées.
+
+### Démo de relation depuis des points, désormais disponible séparément
+
+`scripts/discover_samples.mjs` fournit une preuve de concept autonome à partir de paires train/validation/test, sans formule cible donnée au moteur. La démo utilise des données synthétiques quadratiques bruitées et retrouve environ `1,748953*x² + 0,401007` en environ 60 ms. Ce n'est pas encore l'import de mesures client dans l'API principale.
+
+La comparaison à une baseline affine est favorable mais insuffisante. Face à une régression quadratique ajustée sur train, RMSE validation : GP 0,005645 vs quadratique 0,005414 ; test : GP 0,006042 vs quadratique 0,006148. **Aucun avantage clair de la recherche évolutive sur une méthode simple n'est démontré.** Les données sont synthétiques, les splits sont exclus de la recherche et aucun speedup d'exécution n'est revendiqué. Voir reports/samples-discovery.md.

@@ -1,0 +1,209 @@
+{
+  "elapsed_seconds": 0.42196643299985226,
+  "note": "Synthetic analytical targets with illustrative tolerances. No real-world domain validation, causal inference, novel law or speedup demonstrated. Candidates not promoted.",
+  "results": [
+    {
+      "use_case": "signal",
+      "result": {
+        "status": "ok",
+        "kind": "candidate",
+        "formula": "((x)\u00b2 + (x - (x)\u00b2))",
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "var",
+                  "n": "x"
+                }
+              ]
+            },
+            {
+              "o": "sub",
+              "c": [
+                {
+                  "o": "var",
+                  "n": "x"
+                },
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 3.964523425722982e-09,
+          "max_abs_error": 0.0001644538924365363,
+          "rows": 127
+        },
+        "cost_units": 4,
+        "duration_ms": 48.874943999999985,
+        "evaluations": 1984,
+        "config": {
+          "formula": "sin(x)",
+          "rows": 64,
+          "generations": 30,
+          "population": 64,
+          "seed": 42,
+          "lo": -0.1,
+          "hi": 0.1
+        },
+        "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+        "elapsed_total_ms": 143.09599399985018,
+        "effective_seed": 42,
+        "accepted_on_probe": true,
+        "requested_max_abs_error": 0.0002,
+        "registry_updated": false,
+        "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+        "independent_probe": {
+          "reference": "Python math analytical target",
+          "points": 1001,
+          "endpoints_included": true,
+          "max_abs_error": 0.0001665833531718508,
+          "within_requested_tolerance": true
+        }
+      }
+    },
+    {
+      "use_case": "normalized_thermal_decay",
+      "result": {
+        "status": "ok",
+        "kind": "candidate",
+        "formula": "((1.694639 - x) + -0.698863)",
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "sub",
+              "c": [
+                {
+                  "o": "const",
+                  "v": 1.694639
+                },
+                {
+                  "o": "var",
+                  "n": "x"
+                }
+              ]
+            },
+            {
+              "o": "const",
+              "v": -0.698863
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 3.619334136891577e-05,
+          "max_abs_error": 0.009007004017576481,
+          "rows": 127
+        },
+        "cost_units": 2,
+        "duration_ms": 44.28062299999999,
+        "evaluations": 1984,
+        "config": {
+          "formula": "exp(-x)",
+          "rows": 64,
+          "generations": 30,
+          "population": 64,
+          "seed": 42,
+          "lo": 0,
+          "hi": 0.1
+        },
+        "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+        "elapsed_total_ms": 134.84562199982975,
+        "effective_seed": 42,
+        "accepted_on_probe": true,
+        "requested_max_abs_error": 0.01,
+        "registry_updated": false,
+        "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+        "independent_probe": {
+          "reference": "Python math analytical target",
+          "points": 1001,
+          "endpoints_included": true,
+          "max_abs_error": 0.009061418035959612,
+          "within_requested_tolerance": true
+        }
+      }
+    },
+    {
+      "use_case": "ml_activation",
+      "result": {
+        "status": "ok",
+        "kind": "candidate",
+        "formula": "((x)\u00b2 + (x - (x)\u00b2))",
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "var",
+                  "n": "x"
+                }
+              ]
+            },
+            {
+              "o": "sub",
+              "c": [
+                {
+                  "o": "var",
+                  "n": "x"
+                },
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 1.5772179416914396e-08,
+          "max_abs_error": 0.00032777105411531393,
+          "rows": 127
+        },
+        "cost_units": 4,
+        "duration_ms": 53.95917,
+        "evaluations": 1984,
+        "config": {
+          "formula": "tanh(x)",
+          "rows": 64,
+          "generations": 30,
+          "population": 64,
+          "seed": 42,
+          "lo": -0.1,
+          "hi": 0.1
+        },
+        "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+        "elapsed_total_ms": 141.65362600033404,
+        "effective_seed": 42,
+        "accepted_on_probe": true,
+        "requested_max_abs_error": 0.001,
+        "registry_updated": false,
+        "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+        "independent_probe": {
+          "reference": "Python math analytical target",
+          "points": 1001,
+          "endpoints_included": true,
+          "max_abs_error": 0.0003320053750441865,
+          "within_requested_tolerance": true
+        }
+      }
+    }
+  ]
+}

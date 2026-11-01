@@ -1,0 +1,158 @@
+{
+  "status": "ok",
+  "kind": "symbolic_regression_from_samples",
+  "origin": {
+    "kind": "synthetic_demo",
+    "ground_truth": "1.75*x*x + 0.4",
+    "noise": "Seeded additive uniform [-0.01,0.01)",
+    "domain": [
+      -2,
+      2
+    ],
+    "note": "Ground-truth expression generates data only; search receives x/y arrays, never this expression."
+  },
+  "config": {
+    "seed": 42,
+    "generations": 20,
+    "population": 48,
+    "maxDepth": 3,
+    "ops": [
+      "add",
+      "sub",
+      "mul",
+      "sq",
+      "neg"
+    ],
+    "complexity_penalty": 1e-7
+  },
+  "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+  "selection": "Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.",
+  "candidate": {
+    "formula": "((1.748953 * (x)²) + 0.401007)",
+    "tree": {
+      "o": "add",
+      "c": [
+        {
+          "o": "mul",
+          "c": [
+            {
+              "o": "const",
+              "v": 1.7489526336050631
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "var",
+                  "n": "x"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "o": "const",
+          "v": 0.40100743962561314
+        }
+      ]
+    }
+  },
+  "baseline": {
+    "formula": "((-0.130102 * x) + 2.728248)",
+    "kind": "least_squares_affine_train_only"
+  },
+  "quadratic_baseline": {
+    "kind": "least_squares_quadratic_train_only",
+    "coordinate": "z=(x-center)/scale",
+    "center": -0.03750000000000006,
+    "scale": 1.9375,
+    "coefficients_ascending": [
+      0.4033663680618069,
+      -0.2520730244412777,
+      6.565687551548481
+    ],
+    "method": "Centered/scaled normal equations with partial pivoting, 3x3; no external dependencies."
+  },
+  "baseline_comparison": {
+    "train": {
+      "gp_mse_minus_quadratic": 0.0000015309431078332575,
+      "gp_better_than_quadratic": false
+    },
+    "validation": {
+      "gp_mse_minus_quadratic": 0.000002553562052750042,
+      "gp_better_than_quadratic": false
+    },
+    "test": {
+      "gp_mse_minus_quadratic": -0.0000012816766667806694,
+      "gp_better_than_quadratic": true
+    }
+  },
+  "conclusion": "No clear GP advantage demonstrated: the train-fitted quadratic baseline is better on validation (RMSE 0.00541 vs GP 0.00564), while GP is only slightly better on the small test split (0.00604 vs 0.00615). Both recover the quadratic trend near the noise level.",
+  "splits": {
+    "train": {
+      "candidate": {
+        "n": 32,
+        "mse": 0.000034870833833916834,
+        "rmse": 0.005905153159226002,
+        "max_abs_error": 0.009559136844478067
+      },
+      "affine_baseline": {
+        "n": 32,
+        "mse": 4.329525235076504,
+        "rmse": 2.0807511228103435,
+        "max_abs_error": 4.232445599881256
+      },
+      "quadratic_baseline": {
+        "n": 32,
+        "mse": 0.000033339890726083576,
+        "rmse": 0.005774070550840505,
+        "max_abs_error": 0.010117661095812025
+      }
+    },
+    "validation": {
+      "candidate": {
+        "n": 21,
+        "mse": 0.00003186421203436263,
+        "rmse": 0.005644839416171431,
+        "max_abs_error": 0.01071926309712179
+      },
+      "affine_baseline": {
+        "n": 21,
+        "mse": 4.305463912974125,
+        "rmse": 2.0749611834861215,
+        "max_abs_error": 4.093364922268348
+      },
+      "quadratic_baseline": {
+        "n": 21,
+        "mse": 0.000029310649981612585,
+        "rmse": 0.0054139311024072505,
+        "max_abs_error": 0.012420641822939338
+      }
+    },
+    "test": {
+      "candidate": {
+        "n": 23,
+        "mse": 0.00003651085910616278,
+        "rmse": 0.006042421625984302,
+        "max_abs_error": 0.00998893710245019
+      },
+      "affine_baseline": {
+        "n": 23,
+        "mse": 4.400700619630611,
+        "rmse": 2.097784693344532,
+        "max_abs_error": 4.583032131056484
+      },
+      "quadratic_baseline": {
+        "n": 23,
+        "mse": 0.000037792535772943446,
+        "rmse": 0.006147563401295138,
+        "max_abs_error": 0.011055120632623261
+      }
+    }
+  },
+  "search_ms": 60.50934799999999,
+  "total_ms": 62.05676799999999,
+  "evaluations": 1008,
+  "registry_updated": false,
+  "interpretation": "A formula fitted to supplied observations; finite split checks do not establish causality, a new physical law, generalization beyond the sampled domain, or an execution speedup."
+}
