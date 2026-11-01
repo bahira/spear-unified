@@ -1,0 +1,50 @@
+{
+  "repository": "bahira/spear-unified",
+  "visibility": "private",
+  "milestones": [
+    {
+      "title": "M1 — Validation et benchmarks fiables",
+      "description": "Domaines corrects, métriques finies, baseline forte, oracle indépendant et coût complet."
+    },
+    {
+      "title": "M2 — Compromis précision et vitesse",
+      "description": "Comparer plusieurs tolérances explicites sur des domaines définis ; mesurer les gains utilisables."
+    },
+    {
+      "title": "M3 — Backends et outils optionnels",
+      "description": "Évaluer un backend natif puis des adaptateurs séparés selon les usages, sans duplication."
+    }
+  ],
+  "issues": [
+    {
+      "title": "Corriger le domaine et les valeurs non finies du benchmark",
+      "milestone": "M1 — Validation et benchmarks fiables",
+      "body": "Utiliser config.lo/hi pour chaque cible ; rejeter NaN/Infinity avant sérialisation. Ajouter un cas de domaine positif et mesurer séparément le temps de processus.\n\nValidation : test ciblé et preuve enregistrée dans reports/. Itérations courtes, pas d’installation lourde par défaut."
+    },
+    {
+      "title": "Valider le candidat exp(log(x)) contre la baseline x",
+      "milestone": "M1 — Validation et benchmarks fiables",
+      "body": "Sur [0.1,2], inclure les bornes et un oracle indépendant. Ne pas confondre simplification connue et nouvelle loi ; comparer la formule découverte à x, pas seulement à exp(log(x)).\n\nValidation : test ciblé et preuve enregistrée dans reports/. Itérations courtes, pas d’installation lourde par défaut."
+    },
+    {
+      "title": "Évaluer une frontière précision/vitesse mesurée",
+      "milestone": "M2 — Compromis précision et vitesse",
+      "body": "Définir plusieurs tolérances, grille indépendante et erreur maximale. Répéter les timings en ordre alterné et rapporter dispersion et qualité finale. Ne promouvoir aucun candidat automatiquement.\n\nValidation : test ciblé et preuve enregistrée dans reports/. Itérations courtes, pas d’installation lourde par défaut."
+    },
+    {
+      "title": "Comparer un backend natif sur un seul kernel",
+      "milestone": "M3 — Backends et outils optionnels",
+      "body": "Comparer SpearVM ou C à une référence forte, précision et domaine équivalents, en incluant coût des appels et petits lots. Garder seulement un gain démontré.\n\nValidation : test ciblé et preuve enregistrée dans reports/. Itérations courtes, pas d’installation lourde par défaut."
+    },
+    {
+      "title": "Brancher les adaptateurs navigateur, LLM et REA selon les besoins",
+      "milestone": "M3 — Backends et outils optionnels",
+      "body": "Interfaces séparées, disponibilité explicite, pas de copie de formules. Vérifier les autorisations sur tous les chemins de rejeu navigateur avant activation.\n\nValidation : test ciblé et preuve enregistrée dans reports/. Itérations courtes, pas d’installation lourde par défaut."
+    },
+    {
+      "title": "Clarifier les contradictions de Triple Helix avant adaptation automatique",
+      "milestone": "M1 — Validation et benchmarks fiables",
+      "body": "Le texte donne des interprétations contradictoires de CSR et des règles de rollback. Conserver les adaptations désactivées et les métriques non définies à null ; documenter une convention cohérente avant activation.\n\nValidation : test ciblé et preuve enregistrée dans reports/. Itérations courtes, pas d’installation lourde par défaut."
+    }
+  ]
+}

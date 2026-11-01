@@ -49,3 +49,17 @@ Budget par défaut : 64 points, population 32, 8 générations ; limites : 256 p
 Validation sur 127 points distincts de l'apprentissage. `accepted_on_probe` compare l'erreur maximale à `max_abs_error` (défaut 1e-4) ; ceci ne certifie ni le domaine continu ni une nouvelle loi physique. `status=ok` signifie que la recherche a terminé, pas que la formule est assez précise. `registry_updated=false` : aucun candidat n'est promu automatiquement. Résultats : reports/discovery.json.
 
 Moteur et sémantique de validation upstream ; contrôle indépendant Python ajouté pour le cas x². Recherche limitée aux opérateurs algébriques add/sub/mul/sq/neg ; elle peut échouer sur des cibles simples avec ce petit budget. Les adaptateurs LLM, navigateur et SIMD restent non connectés.
+
+## Objectif et méthode persistants
+
+Voir GOAL.md et AGENTS.md. La skill fournie est disponible dans `.agents/skills/triple-helix/SKILL.md` ; son état local est `.agents/triple_helix_state.json`. Les adaptations automatiques restent désactivées tant que les contradictions du texte ne sont pas clarifiées.
+
+Le plan GitHub est prêt dans github-plan.json : 3 milestones et 6 issues. La création distante est actuellement bloquée par les droits du jeton GitHub (`Resource not accessible by integration`). Après création d'un dépôt privé accessible :
+
+```sh
+git remote add origin https://github.com/bahira/spear-unified.git
+git push -u origin main
+python scripts/publish_github.py bahira/spear-unified
+```
+
+Le script vérifie la visibilité privée et réutilise les milestones/issues portant les mêmes titres. Le sprite personnel reste local dans assets/ et est exclu de Git.
