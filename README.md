@@ -54,12 +54,12 @@ Moteur et sémantique de validation upstream ; contrôle indépendant Python ajo
 
 Voir GOAL.md et AGENTS.md. La skill fournie est disponible dans `.agents/skills/triple-helix/SKILL.md` ; son état local est `.agents/triple_helix_state.json`. Les adaptations automatiques restent désactivées tant que les contradictions du texte ne sont pas clarifiées.
 
-Le plan GitHub est prêt dans github-plan.json : 3 milestones et 6 issues. La création distante est actuellement bloquée par les droits du jeton GitHub (`Resource not accessible by integration`). Après création d'un dépôt privé accessible :
+Le projet est publié sur le dépôt privé https://github.com/bahira/spear-unified avec 3 milestones et 6 issues. Le plan source reste dans github-plan.json.
+
+Pour republier les éléments manquants sans dupliquer les titres existants :
 
 ```sh
-git remote add origin https://github.com/bahira/spear-unified.git
-git push -u origin main
 python scripts/publish_github.py bahira/spear-unified
 ```
 
-Le script vérifie la visibilité privée et réutilise les milestones/issues portant les mêmes titres. Le sprite personnel reste local dans assets/ et est exclu de Git.
+Le sprite personnel reste local dans assets/ et est exclu de Git.
