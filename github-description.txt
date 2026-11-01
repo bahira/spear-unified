@@ -1,0 +1,1 @@
+Toolkit SPEAR léger : découverte symbolique, validation indépendante et benchmarks précision/vitesse ; orchestration Triple Helix. Python + Node, backends optionnels.

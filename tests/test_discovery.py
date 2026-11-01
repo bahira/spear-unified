@@ -30,6 +30,22 @@ class DiscoveryChecks(unittest.TestCase):
                      {'formula':'x','hi':float('nan')}]:
             with self.assertRaises(ValueError):discover(task)
 
+    def test_nonfinite_metrics_are_rejected(self):
+        from unittest.mock import patch
+        import json
+        import subprocess
+        record={'holdout':{'mse':float('inf'),'max_abs_error':0},'duration_ms':1}
+        output=subprocess.CompletedProcess([],0,json.dumps(record),'')
+        with patch('spear.discovery.subprocess.run',return_value=output):
+            self.assertEqual(discover({'formula':'x'})['status'],'error')
+
+    def test_vendor_integrity_checked(self):
+        from unittest.mock import patch
+        with patch('spear.discovery.hashlib.sha256') as digest:
+            digest.return_value.hexdigest.return_value='invalid'
+            with self.assertRaisesRegex(ValueError,'Vendor checksum mismatch'):
+                discover({'formula':'x'})
+
     def test_timeout(self):
         from unittest.mock import patch
         import subprocess

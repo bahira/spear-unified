@@ -1,0 +1,68 @@
+{
+  "status": "ok",
+  "kind": "candidate",
+  "formula": "((x)\u00b2 + (x - (x)\u00b2))",
+  "tree": {
+    "o": "add",
+    "c": [
+      {
+        "o": "sq",
+        "c": [
+          {
+            "o": "var",
+            "n": "x"
+          }
+        ]
+      },
+      {
+        "o": "sub",
+        "c": [
+          {
+            "o": "var",
+            "n": "x"
+          },
+          {
+            "o": "sq",
+            "c": [
+              {
+                "o": "var",
+                "n": "x"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "holdout": {
+    "mse": 3.942848705044735e-35,
+    "max_abs_error": 5.551115123125783e-17,
+    "rows": 127
+  },
+  "cost_units": 4,
+  "duration_ms": 50.258813,
+  "evaluations": 1984,
+  "config": {
+    "formula": "exp(log(x))",
+    "rows": 64,
+    "generations": 30,
+    "population": 64,
+    "seed": 42,
+    "lo": 0.1,
+    "hi": 2
+  },
+  "note": "Candidate only; holdout uses upstream numerical semantics; cost is modelled, no measured speedup.",
+  "elapsed_total_ms": 140.386461999924,
+  "effective_seed": 42,
+  "accepted_on_probe": true,
+  "requested_max_abs_error": 0.0001,
+  "registry_updated": false,
+  "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+  "independent_python_probe": {
+    "points": 10001,
+    "endpoints_included": true,
+    "target": "math.exp(math.log(x))",
+    "max_abs_error": 5.551115123125783e-17,
+    "max_error_vs_identity": 2.7755575615628914e-17
+  }
+}

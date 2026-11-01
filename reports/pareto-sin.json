@@ -1,0 +1,154 @@
+{
+  "node": "v24.19.0",
+  "platform": "linux",
+  "arch": "x64",
+  "methodology": {
+    "points": 4097,
+    "passes": 16,
+    "repeats": 31,
+    "warmup": 40,
+    "allocation": "Fresh Float64Array for every function call, same loop and callback structure",
+    "order": "Rotated and reversed across repetitions",
+    "timing": "Median ns/element; p10/p90 and min/max report dispersion",
+    "note": "Known approximations, not outputs of the discovery engine. No C/SIMD or general speedup claim."
+  },
+  "domains": [
+    {
+      "domain": [
+        -0.1,
+        0.1
+      ],
+      "results": {
+        "sin": {
+          "max_abs_error": 0,
+          "mse": 0,
+          "endpoint_errors": [
+            0,
+            0
+          ],
+          "median_ns_per_element": 14.56306443739304,
+          "p10_ns": 13.926882474981328,
+          "p90_ns": 17.28087625091529,
+          "min_ns": 13.424701000731991,
+          "max_ns": 670.9535330729803,
+          "speedup_vs_sin": 1,
+          "dominated_on_this_run": false
+        },
+        "linear": {
+          "max_abs_error": 0.0001665833531718508,
+          "mse": 3.970977516416171e-9,
+          "endpoint_errors": [
+            0.0001665833531718508,
+            0.0001665833531718508
+          ],
+          "median_ns_per_element": 8.905586404686243,
+          "p10_ns": 8.22312057603138,
+          "p90_ns": 9.528237124725399,
+          "min_ns": 8.097525628508633,
+          "max_ns": 10.902276055650386,
+          "speedup_vs_sin": 1.6352729371902734,
+          "dominated_on_this_run": false
+        },
+        "taylor3": {
+          "max_abs_error": 8.331349482526562e-8,
+          "mse": 6.326003622610683e-16,
+          "endpoint_errors": [
+            8.331349482526562e-8,
+            8.331349482526562e-8
+          ],
+          "median_ns_per_element": 12.049212838662456,
+          "p10_ns": 11.23595008542837,
+          "p90_ns": 13.149377593361281,
+          "min_ns": 10.893565413717143,
+          "max_ns": 17.027718452526187,
+          "speedup_vs_sin": 1.2086320187377184,
+          "dominated_on_this_run": false
+        },
+        "taylor5": {
+          "max_abs_error": 1.983851971587569e-11,
+          "mse": 2.6328400674736334e-23,
+          "endpoint_errors": [
+            1.983851971587569e-11,
+            1.983851971587569e-11
+          ],
+          "median_ns_per_element": 12.215126922138111,
+          "p10_ns": 11.717979619233521,
+          "p90_ns": 14.371918476934413,
+          "min_ns": 11.574673541615747,
+          "max_ns": 16.567229070051308,
+          "speedup_vs_sin": 1.192215564375319,
+          "dominated_on_this_run": false
+        }
+      }
+    },
+    {
+      "domain": [
+        -1,
+        1
+      ],
+      "results": {
+        "sin": {
+          "max_abs_error": 0,
+          "mse": 0,
+          "endpoint_errors": [
+            0,
+            0
+          ],
+          "median_ns_per_element": 15.406410178179025,
+          "p10_ns": 14.78397302904574,
+          "p90_ns": 15.956263729558575,
+          "min_ns": 14.549151818403974,
+          "max_ns": 17.324261654869776,
+          "speedup_vs_sin": 1,
+          "dominated_on_this_run": false
+        },
+        "linear": {
+          "max_abs_error": 0.1585290151921035,
+          "mse": 0.0036768595799948306,
+          "endpoint_errors": [
+            0.1585290151921035,
+            0.1585290151921035
+          ],
+          "median_ns_per_element": 8.667256529167929,
+          "p10_ns": 8.173770441786756,
+          "p90_ns": 8.943632536002038,
+          "min_ns": 8.08606907493283,
+          "max_ns": 11.85577861850153,
+          "speedup_vs_sin": 1.7775417314962139,
+          "dominated_on_this_run": false
+        },
+        "taylor3": {
+          "max_abs_error": 0.008137651474563135,
+          "mse": 0.000006079050872272781,
+          "endpoint_errors": [
+            0.008137651474563135,
+            0.008137651474563135
+          ],
+          "median_ns_per_element": 11.855473517207805,
+          "p10_ns": 11.073697217476456,
+          "p90_ns": 12.95839943861351,
+          "min_ns": 10.853856480351798,
+          "max_ns": 14.597907005125574,
+          "speedup_vs_sin": 1.2995187544231919,
+          "dominated_on_this_run": false
+        },
+        "taylor5": {
+          "max_abs_error": 0.0001956818587701692,
+          "mse": 2.569825527851814e-9,
+          "endpoint_errors": [
+            0.0001956818587701692,
+            0.0001956818587701692
+          ],
+          "median_ns_per_element": 12.252395045154943,
+          "p10_ns": 11.727300463754217,
+          "p90_ns": 13.081233219429055,
+          "min_ns": 11.202953380522294,
+          "max_ns": 62.18098608738099,
+          "speedup_vs_sin": 1.2574202938609376,
+          "dominated_on_this_run": false
+        }
+      }
+    }
+  ],
+  "sink": -2092.3928677325266
+}

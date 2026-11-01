@@ -1,4 +1,6 @@
 """Bounded subprocess adapter for the pinned Superspear search engine."""
+import hashlib
+import time
 import json
 import math
 from pathlib import Path
@@ -23,6 +25,11 @@ def discover(task):
         if type(v) not in (int,float) or not math.isfinite(v) or abs(v)>1e4:raise ValueError('Invalid domain')
         cfg[key]=v
     if cfg['lo']>=cfg['hi']:raise ValueError('lo must be below hi')
+    checksums=json.loads((ROOT/'vendor/superspear/checksums.json').read_text())
+    for name,expected in checksums.items():
+        if hashlib.sha256((ROOT/'vendor/superspear'/name).read_bytes()).hexdigest()!=expected:
+            raise ValueError('Vendor checksum mismatch: '+name)
+    started=time.perf_counter()
     try:
         p=subprocess.run(['node','--disable-warning=MODULE_TYPELESS_PACKAGE_JSON','--max-old-space-size=128',str(ROOT/'spear/discover.mjs'),json.dumps(cfg)],capture_output=True,text=True,timeout=5,cwd=ROOT)
     except subprocess.TimeoutExpired:
@@ -31,7 +38,13 @@ def discover(task):
         return {'status':'unavailable','reason':'Discovery requires Node 22.18+ or 24+'}
     if p.returncode:
         return {'status':'error','reason':p.stderr[-1500:]}
+    elapsed=(time.perf_counter()-started)*1000
     result=json.loads(p.stdout)
+    for v in [result['holdout']['mse'],result['holdout']['max_abs_error'],result['duration_ms']]:
+        if type(v) not in (int,float) or not math.isfinite(v):
+            return {'status':'error','reason':'Non-finite discovery metrics'}
+    result['elapsed_total_ms']=elapsed
+    result['effective_seed']=cfg['seed'] or 1
     result['accepted_on_probe']=result['holdout']['max_abs_error']<=tolerance
     result['requested_max_abs_error']=tolerance
     result['registry_updated']=False

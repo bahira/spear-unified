@@ -63,3 +63,41 @@ python scripts/publish_github.py bahira/spear-unified
 ```
 
 Le sprite personnel reste local dans assets/ et est exclu de Git.
+
+## Derniers résultats vérifiés
+
+Voir reports/validation-update.md : domaines individuels, rejet des métriques non finies, contrôle du moteur et coût complet de recherche. Le candidat exp(log(x)) est précis mais perd contre la baseline simplifiée x ; aucune promotion automatique.
+
+Tests du benchmark : `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/benchmark.test.mjs`.
+
+## Carte du projet
+
+```mermaid
+mindmap
+  root((SPEAR Unified))
+    Découvrir — actif
+      Moteur Superspear
+      Budget court et graine fixe
+    Valider — actif
+      Domaine et erreur maximale
+      Holdout et oracle indépendant
+      Aucun ajout automatique
+    Mesurer — actif
+      Baseline simplifiée
+      Temps réel et dispersion
+      Compromis précision et vitesse
+    Exécuter — partiel
+      CLI Python et JSON
+      SiLU et GELU
+      Backends natifs à évaluer
+    Piloter — actif
+      Triple Helix
+      Objectif et état persistants
+      Milestones et issues GitHub
+    Extensions — non connectées
+      Navigateur et Pomerado
+      LLM et routage inspiré de Frankenspear
+      Investigation REA
+```
+
+Sonde précision/vitesse : `node scripts/pareto-sin.mjs`. Taylor degré 3 sur [-0.1,0.1] atteint une erreur max de 8,33e-8 et ~1,21× sur un premier run JS. Approximations connues, mesures locales, aucune promotion ; voir reports/pareto-sin.md.
