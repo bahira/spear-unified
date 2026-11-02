@@ -14,6 +14,8 @@ class DiscoveryChecks(unittest.TestCase):
         self.assertEqual(a['tree'],b['tree'])
         self.assertEqual(a['holdout'],b['holdout'])
         self.assertEqual(a['holdout']['max_abs_error'],0)
+        self.assertEqual(a['holdout']['rows'],129)
+        self.assertTrue(a['holdout']['endpoints_included'])
         from spear.core import compile_tree
         fn=compile_tree(a['tree'])
         for x in [-2,-1.2345,0,0.12345,1.71,2]:
@@ -22,6 +24,22 @@ class DiscoveryChecks(unittest.TestCase):
     def test_inaccurate_candidate_rejected(self):
         r=discover({'formula':'sin(x)'})
         self.assertFalse(r['accepted_on_probe'])
+        self.assertFalse(r['registry_updated'])
+
+    def test_endpoint_error_rejects_interior_only_false_positive(self):
+        # On the previous interior-only grid seed 42 finds constant 1.032672:
+        # max error ~0.166181 passes 0.167, but x=0.1 has error 0.167328.
+        r=discover({'formula':'2*x+1','lo':0,'hi':0.1,'seed':42,
+                    'max_abs_error':0.167})
+        self.assertEqual(r['status'],'ok')
+        from spear.core import compile_tree
+        fn=compile_tree(r['tree'])
+        endpoint_error=max(abs(fn(x)-(2*x+1)) for x in (0,0.1))
+        self.assertGreater(endpoint_error,r['requested_max_abs_error'])
+        self.assertFalse(r['accepted_on_probe'])
+        self.assertAlmostEqual(r['holdout']['max_abs_error'],endpoint_error,places=13)
+        self.assertTrue(r['holdout']['endpoints_included'])
+        self.assertEqual(r['holdout']['rows'],129)
         self.assertFalse(r['registry_updated'])
 
     def test_budget_and_domain_validation(self):
