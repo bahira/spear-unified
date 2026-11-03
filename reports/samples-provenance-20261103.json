@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-03",
+  "base_commit": "ee0e9fe86a2cd89546ed3771273325b8ec7bab61",
+  "node": "v24.19.0",
+  "python": "3.12.14",
+  "method": "Five alternating base/patched pairs in isolated temporary checkouts, fresh Node subprocesses, default synthetic data only. Full subprocess time includes startup, module loading, search, report serialization and writes. No kernel speedup measured.",
+  "samples_per_variant": 5,
+  "same_candidate_and_metrics_in_all_pairs": true,
+  "base_median_process_ms": 150.94655600000806,
+  "patched_median_process_ms": 159.48969999999463,
+  "records": [
+    {
+      "base": {
+        "process_ms": 150.94655600000806,
+        "search_ms": 58.138362,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": false
+      },
+      "patched": {
+        "process_ms": 158.06106399998043,
+        "search_ms": 54.25205199999999,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": true
+      }
+    },
+    {
+      "patched": {
+        "process_ms": 167.68044900001655,
+        "search_ms": 68.847127,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": true
+      },
+      "base": {
+        "process_ms": 166.03602399999318,
+        "search_ms": 56.307246000000006,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": false
+      }
+    },
+    {
+      "base": {
+        "process_ms": 159.0166780000004,
+        "search_ms": 57.67858000000001,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": false
+      },
+      "patched": {
+        "process_ms": 166.23101299998666,
+        "search_ms": 61.50138900000002,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": true
+      }
+    },
+    {
+      "patched": {
+        "process_ms": 159.48969999999463,
+        "search_ms": 57.13162700000001,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": true
+      },
+      "base": {
+        "process_ms": 139.68799399998488,
+        "search_ms": 55.01511099999999,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": false
+      }
+    },
+    {
+      "base": {
+        "process_ms": 144.07836799998108,
+        "search_ms": 51.724472000000006,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": false
+      },
+      "patched": {
+        "process_ms": 149.59076999997478,
+        "search_ms": 52.938114999999996,
+        "candidate": "((1.748953 * (x)\u00b2) + 0.401007)",
+        "validation_rmse": 0.005644839416171431,
+        "test_rmse": 0.006042421625984302,
+        "source_files_verified": true
+      }
+    }
+  ],
+  "limitations": "Very short noisy VM probe, not a statistical performance study. Checksums are compared to the trusted local manifest, not a signed upstream attestation or sandbox. Data remain synthetic; no physical law or application gain established."
+}

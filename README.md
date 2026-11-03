@@ -122,3 +122,5 @@ Analyse du noyau de priorisation pour les instructions permanentes : [reports/pa
 POC de recherche depuis des observations : `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/discover_samples.mjs` ; entrée JSON facultative train/validation/test, données synthétiques par défaut. Rapports : reports/samples-discovery.md et .json. Aucun avantage clair contre la baseline quadratique.
 
 Grounded Loop : [reports/grounded-loop-prompt.md](reports/grounded-loop-prompt.md), noyau permanent recommandé et limites de preuve.
+
+La démo sur observations vérifie maintenant les empreintes locales du moteur et de son helper **avant leur import**, puis expose `source_files_verified` et `source_file_sha256`. Un fichier divergent ou une empreinte requise absente provoque un échec sans écriture de rapport. Le manifeste doit rester fiable ; ce n’est pas une signature amont ni une sandbox. Voir [reports/samples-provenance-20261103.md](reports/samples-provenance-20261103.md).

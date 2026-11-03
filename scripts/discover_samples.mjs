@@ -3,9 +3,21 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {evolve,setSeed,evaluateNode,fitLinearScaling,wrapAffine,makeNode,nodeToString,serializeNode} from '../vendor/superspear/engine.ts';
+import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const started=performance.now();
+// Verify both pinned files before dynamic import: static imports execute first.
+const vendor=path.join(root,'vendor/superspear');
+const manifest=JSON.parse(fs.readFileSync(path.join(vendor,'checksums.json'),'utf8'));
+const verifiedHashes={};
+for(const name of ['engine.ts','math-utils.ts']) {
+ const expected=manifest?.[name];
+ if(typeof expected!=='string'||! /^[a-f0-9]{64}$/.test(expected))throw new Error(`Invalid vendor checksum: ${name}`);
+ const actual=createHash('sha256').update(fs.readFileSync(path.join(vendor,name))).digest('hex');
+ if(actual!==expected)throw new Error(`Vendor checksum mismatch: ${name}`);
+ verifiedHashes[name]=actual;
+}
+const {evolve,setSeed,evaluateNode,fitLinearScaling,wrapAffine,makeNode,nodeToString,serializeNode}=await import('../vendor/superspear/engine.ts');
 const cfg={seed:42,generations:20,population:48,maxDepth:3,ops:['add','sub','mul','sq','neg'],complexity_penalty:1e-7};
 let data,origin;
 if(process.argv[2]) {
@@ -83,6 +95,7 @@ function metrics(node,rows) {
 const splits={};
 for(const name of ['train','validation','test'])if(data[name])splits[name]={candidate:metrics(candidate,data[name]),affine_baseline:metrics(baseline,data[name]),quadratic_baseline:metrics(quadratic.predict,data[name])};
 const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:cfg,
+ source_files_verified:true,source_file_sha256:verifiedHashes,
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
  selection:'Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
  candidate:{formula:nodeToString(candidate),tree:serializeNode(candidate)},baseline:{formula:nodeToString(baseline),kind:'least_squares_affine_train_only'},
