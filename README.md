@@ -124,3 +124,5 @@ POC de recherche depuis des observations : `node --disable-warning=MODULE_TYPELE
 Grounded Loop : [reports/grounded-loop-prompt.md](reports/grounded-loop-prompt.md), noyau permanent recommandé et limites de preuve.
 
 La démo sur observations vérifie maintenant les empreintes locales du moteur et de son helper **avant leur import**, puis expose `source_files_verified` et `source_file_sha256`. Un fichier divergent ou une empreinte requise absente provoque un échec sans écriture de rapport. Le manifeste doit rester fiable ; ce n’est pas une signature amont ni une sandbox. Voir [reports/samples-provenance-20261103.md](reports/samples-provenance-20261103.md).
+
+Le chemin Python `discover` exige lui aussi les deux empreintes obligatoires avant Node : un manifeste vide, incomplet ou mal formé ne peut plus désactiver les contrôles. Les réponses réussies exposent les empreintes vérifiées. Preuves : [reports/discovery-manifest-20261104.md](reports/discovery-manifest-20261104.md).

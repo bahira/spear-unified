@@ -1,0 +1,248 @@
+{
+  "date": "2026-11-04",
+  "base_commit": "3be3bcfcd6630026369e2a43323aaa35f4b5f8e4",
+  "task": {
+    "formula": "x*x",
+    "seed": 42
+  },
+  "python": "3.12.14",
+  "node": "v24.19.0",
+  "method": "Five alternating old/new discover calls, pinned vendor files unchanged, each with fresh Node subprocess. Full call timing includes Python validation, both hashes, subprocess startup/search/output parsing and provenance metadata. Base adapter loaded from the current branch HEAD before edits.",
+  "pairs": [
+    {
+      "base": {
+        "full_call_ms": 117.96191400000566,
+        "subprocess_ms": 117.65456099999483,
+        "search_ms": 16.04677500000001,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": null
+      },
+      "patched": {
+        "full_call_ms": 106.45244399998433,
+        "subprocess_ms": 106.07820100000254,
+        "search_ms": 16.596103,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": true
+      }
+    },
+    {
+      "patched": {
+        "full_call_ms": 108.89861900000142,
+        "subprocess_ms": 108.58418600000164,
+        "search_ms": 15.143554999999992,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": true
+      },
+      "base": {
+        "full_call_ms": 110.03950999997869,
+        "subprocess_ms": 109.75411999999096,
+        "search_ms": 17.785955,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": null
+      }
+    },
+    {
+      "base": {
+        "full_call_ms": 111.91675799997824,
+        "subprocess_ms": 111.29815500001428,
+        "search_ms": 15.833825000000004,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": null
+      },
+      "patched": {
+        "full_call_ms": 105.70833199997764,
+        "subprocess_ms": 105.4322470000102,
+        "search_ms": 15.871471999999997,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": true
+      }
+    },
+    {
+      "patched": {
+        "full_call_ms": 115.66902999999229,
+        "subprocess_ms": 115.3875859999971,
+        "search_ms": 14.729946000000012,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": true
+      },
+      "base": {
+        "full_call_ms": 115.94734900000958,
+        "subprocess_ms": 115.65494900000317,
+        "search_ms": 16.484784000000005,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": null
+      }
+    },
+    {
+      "base": {
+        "full_call_ms": 105.19832500000348,
+        "subprocess_ms": 104.93612999999868,
+        "search_ms": 16.69460099999999,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": null
+      },
+      "patched": {
+        "full_call_ms": 107.59044899998571,
+        "subprocess_ms": 107.31866000000423,
+        "search_ms": 16.630139,
+        "tree": {
+          "o": "sq",
+          "c": [
+            {
+              "o": "var",
+              "n": "x"
+            }
+          ]
+        },
+        "holdout": {
+          "mse": 0,
+          "max_abs_error": 0,
+          "rows": 127
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "source_files_verified": true
+      }
+    }
+  ],
+  "same_candidate_holdout_and_acceptance": true,
+  "base_median_full_call_ms": 111.91675799997824,
+  "patched_median_full_call_ms": 107.59044899998571,
+  "probe_elapsed_seconds": 1.1129313839999782,
+  "limitations": "Short noisy VM probe, not a kernel speed benchmark. Manifest assumed trusted; simultaneous edits to code and manifest are not detected. Synthetic formula only; no client data or continuous-domain certification."
+}

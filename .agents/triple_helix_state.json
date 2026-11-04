@@ -1,5 +1,5 @@
 {
-  "session": 5,
+  "session": 6,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 5,
+  "sessions_since_self_retro": 6,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -213,6 +213,46 @@
       "adaptations": [],
       "visual_verification": "Not applicable: no visual output changed",
       "self_retrospective": "Not due: branch-local state session 5; draft PR #9 remains independent"
+    },
+    {
+      "task": "Require both vendor checksums before Python discovery starts Node",
+      "date": "2026-11-04",
+      "base_commit": "3be3bcfcd6630026369e2a43323aaa35f4b5f8e4",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "native backend integration",
+        "real client data",
+        "service adapters"
+      ],
+      "counterexamples": [
+        "Empty manifest bypassed all Python integrity checks",
+        "Omitted helper checksum hid helper drift"
+      ],
+      "probes": {
+        "regressions_failed_before_fix": true,
+        "python_tests_passed": 19,
+        "node_tests_passed": 3,
+        "base_patched_pairs": 5,
+        "candidate_holdout_acceptance_unchanged": true,
+        "base_median_full_call_ms": 111.91675799997824,
+        "patched_median_full_call_ms": 107.59044899998571
+      },
+      "evidence": [
+        "tests/test_discovery_manifest.py",
+        "reports/discovery-manifest-20261104.md",
+        "reports/discovery-manifest-20261104.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch state session 6"
     }
   ]
 }
