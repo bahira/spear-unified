@@ -122,3 +122,7 @@ Analyse du noyau de priorisation pour les instructions permanentes : [reports/pa
 POC de recherche depuis des observations : `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/discover_samples.mjs` ; entrée JSON facultative train/validation/test, données synthétiques par défaut. Rapports : reports/samples-discovery.md et .json. Aucun avantage clair contre la baseline quadratique.
 
 Grounded Loop : [reports/grounded-loop-prompt.md](reports/grounded-loop-prompt.md), noyau permanent recommandé et limites de preuve.
+
+## Expérience du pont Python/C
+
+`python scripts/bench_native_bridge.py` compile temporairement les fonctions C déjà présentes et mesure leur appel depuis Python sur des buffers `array('d')`, avec validation et allocation incluses. Aucun composant installé ni backend activé. Sur cette VM, le grand lot est plus rapide que Python, le lot d’un élément est plus lent. Construction/conversion initiale du buffer et démarrage CLI exclus : voir [reports/native-bridge-20261105.md](reports/native-bridge-20261105.md) pour précision, deux essais indépendants et limites. Linux et compilateur C déjà présent requis.

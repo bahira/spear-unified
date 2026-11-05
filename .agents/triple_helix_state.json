@@ -1,5 +1,5 @@
 {
-  "session": 4,
+  "session": 5,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 4,
+  "sessions_since_self_retro": 5,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -174,6 +174,59 @@
         "dashboard": "not performed: supported preview unavailable",
         "sprite_animation": "not integrated or playback-verified"
       }
+    },
+    {
+      "task": "Measure one native kernel across the Python/C buffer boundary",
+      "date": "2026-11-05",
+      "base_commit": "ee0e9fe86a2cd89546ed3771273325b8ec7bab61",
+      "branch": "perf/native-buffer-bridge-20261105",
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "runtime backend selection",
+        "list/JSON conversion pipeline",
+        "real client data",
+        "service adapters"
+      ],
+      "counterexamples": [
+        "Single-element native call loses to Python",
+        "Taylor/libm order is unstable at 4096 elements",
+        "Initial buffer construction and JSON/list conversions are excluded from timing"
+      ],
+      "probes": {
+        "python_tests_passed": 14,
+        "node_tests_passed": 3,
+        "independent_benchmark_processes": 2,
+        "max_abs_error": 2.7308396425285153e-06,
+        "domain": [
+          -1,
+          1
+        ],
+        "requested_max_abs_error": 3e-06,
+        "large_batch_speedup_vs_python": [
+          2.509856913664673,
+          2.425377795044037
+        ],
+        "large_batch_speedup_vs_c_reference": [
+          1.1645660379887148,
+          1.2593984842782706
+        ]
+      },
+      "evidence": [
+        "scripts/bench_native_bridge.py",
+        "tests/test_native_bridge.py",
+        "reports/native-bridge-20261105.md",
+        "reports/native-bridge-20261105.json",
+        "reports/native-bridge-20261105-repeat.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 5, pending drafts #9/#10 independent"
     }
   ]
 }

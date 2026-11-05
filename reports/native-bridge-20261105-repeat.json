@@ -1,0 +1,249 @@
+{
+  "date": "2026-11-05",
+  "status": "ok",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "compiler": "/usr/bin/cc",
+  "flags": [
+    "-O2",
+    "-std=c11",
+    "-fPIC",
+    "-shared",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-builtin-sin"
+  ],
+  "source_sha256": "d5cd2e40ce4d66816806ac089d31a39b4c7d8ec926e5e8ed270c31767f4d987d",
+  "source": "ref/approx prefix reused from scripts/native_probe.py; classical Taylor7, not GP discovery",
+  "domain": [
+    -1,
+    1
+  ],
+  "requested_max_abs_error": 3e-06,
+  "warmup": 3,
+  "repetitions": 11,
+  "build_ms": 71.14838799998324,
+  "elapsed_seconds": 0.4224246280000159,
+  "results": [
+    {
+      "size": 1,
+      "passes": 100,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 1,
+      "median_call_ns": {
+        "python": 655.99,
+        "c_reference": 2265.21,
+        "c_approx": 2825.75
+      },
+      "speedup_approx_vs_python": 0.23214721755286208,
+      "speedup_approx_vs_c_reference": 0.8016314252853225,
+      "raw_call_ns": {
+        "python": [
+          688.74,
+          653.48,
+          655.99,
+          646.88,
+          654.18,
+          942.62,
+          4054.21,
+          1159.14,
+          1424.05,
+          642.57,
+          655.88
+        ],
+        "c_reference": [
+          2196.81,
+          2542.13,
+          2279.24,
+          2265.21,
+          2147.63,
+          4716.7,
+          2431.26,
+          2130.21,
+          2152.75,
+          2132.81,
+          4678.35
+        ],
+        "c_approx": [
+          2134.01,
+          2142.42,
+          2825.75,
+          2969.98,
+          2123.09,
+          3307.58,
+          2133.51,
+          3266.02,
+          5445.1,
+          3228.66,
+          2613.44
+        ]
+      }
+    },
+    {
+      "size": 64,
+      "passes": 16,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 64,
+      "median_call_ns": {
+        "python": 6689.5,
+        "c_reference": 5295.5,
+        "c_approx": 4829.125
+      },
+      "speedup_approx_vs_python": 1.3852405974167163,
+      "speedup_approx_vs_c_reference": 1.096575466570031,
+      "raw_call_ns": {
+        "python": [
+          6783.375,
+          6689.5,
+          6667.5625,
+          6770.8125,
+          8422.6875,
+          6606.875,
+          6640.625,
+          10063.25,
+          6755.1875,
+          6684.4375,
+          6679.4375
+        ],
+        "c_reference": [
+          6619.375,
+          5201.5625,
+          24056.875,
+          5172.8125,
+          33237.5625,
+          5295.5,
+          8728.125,
+          9421.0625,
+          5216.625,
+          5190.9375,
+          5192.8125
+        ],
+        "c_approx": [
+          4795.375,
+          4807.25,
+          4799.125,
+          10709.875,
+          7151.375,
+          4774.0625,
+          4829.125,
+          20532.1875,
+          4957.4375,
+          4750.9375,
+          6116.125
+        ]
+      }
+    },
+    {
+      "size": 4096,
+      "passes": 2,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 4096,
+      "median_call_ns": {
+        "python": 493693.5,
+        "c_reference": 238164.0,
+        "c_approx": 249586.0
+      },
+      "speedup_approx_vs_python": 1.9780496502207656,
+      "speedup_approx_vs_c_reference": 0.9542362151723254,
+      "raw_call_ns": {
+        "python": [
+          598506.5,
+          412852.0,
+          493693.5,
+          1131570.0,
+          702250.5,
+          409006.5,
+          715252.5,
+          510519.0,
+          425691.5,
+          425481.0,
+          387328.5
+        ],
+        "c_reference": [
+          191163.0,
+          359391.0,
+          203641.5,
+          200106.5,
+          831868.0,
+          241493.5,
+          4271412.5,
+          3352565.5,
+          199981.5,
+          182254.5,
+          238164.0
+        ],
+        "c_approx": [
+          170537.0,
+          217703.0,
+          273572.0,
+          160306.5,
+          249586.0,
+          342531.0,
+          1064033.0,
+          263922.5,
+          350252.5,
+          157557.0,
+          163471.5
+        ]
+      }
+    },
+    {
+      "size": 65536,
+      "passes": 1,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 65536,
+      "median_call_ns": {
+        "python": 8384451.0,
+        "c_reference": 4353699.0,
+        "c_approx": 3456967.0
+      },
+      "speedup_approx_vs_python": 2.425377795044037,
+      "speedup_approx_vs_c_reference": 1.2593984842782706,
+      "raw_call_ns": {
+        "python": [
+          6940886.0,
+          8235522.0,
+          8384451.0,
+          8233073.0,
+          8543240.0,
+          13663894.0,
+          9292509.0,
+          7204263.0,
+          9621875.0,
+          8405983.0,
+          6851442.0
+        ],
+        "c_reference": [
+          10630725.0,
+          4498376.0,
+          4353699.0,
+          4359778.0,
+          3752833.0,
+          4135440.0,
+          3862129.0,
+          3187232.0,
+          6205318.0,
+          3522937.0,
+          5709511.0
+        ],
+        "c_approx": [
+          6009893.0,
+          3659262.0,
+          3456967.0,
+          2926078.0,
+          3253306.0,
+          5842662.0,
+          4457405.0,
+          2932778.0,
+          5326544.0,
+          3002133.0,
+          2849163.0
+        ]
+      }
+    }
+  ],
+  "sink": -2249.2495092134745,
+  "included": "Finite input scan, output allocation, ctypes buffer views, C call, tolerance validation and output use. Python baseline has same array input/output and finite scan. Rotated/reversed order.",
+  "excluded": "Construction of input array, compilation and cold load excluded from call timings (build reported separately); CLI/JSON startup, input list conversion and application pipeline excluded.",
+  "limitations": "Short noisy VM experiment on synthetic inputs. No runtime integration, backend auto-selection, continuous error certification or client gains. Requires an existing native array(d); conversion costs can remove the benefit."
+}
