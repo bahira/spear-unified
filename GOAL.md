@@ -12,7 +12,7 @@ Build a nonredundant pipeline: discover formulas with Superspear, validate preci
 1. DONE: benchmark domains, finite metrics, vendor checksums and total subprocess timing.
 2. DONE: independent identity validation including endpoints; candidate loses to x and is not promoted. See reports/validation-update.md.
 3. Explore precision/speed Pareto points with explicit tolerances and end-to-end measurements.
-4. Evaluate one optional native backend; keep only measured benefits.
+4. Optional native bridge measured in draft PR #11: prebuilt buffers can benefit, but list/JSON conversions show no robust gain (reports/native-conversion-20261108.md). Keep runtime unchanged pending application evidence.
 5. Add explicit browser/LLM/REA adapters after a concrete use case; avoid installing whole stacks prematurely.
 
 ## Completion criteria
