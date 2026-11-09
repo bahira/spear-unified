@@ -14,8 +14,11 @@ class DiscoveryChecks(unittest.TestCase):
         self.assertEqual(a['tree'],b['tree'])
         self.assertEqual(a['holdout'],b['holdout'])
         self.assertEqual(a['holdout']['max_abs_error'],0)
-        self.assertEqual(a['holdout']['rows'],129)
+        self.assertEqual(a['holdout']['rows'],257)
         self.assertTrue(a['holdout']['endpoints_included'])
+        self.assertTrue(a['holdout']['midpoints_included'])
+        self.assertEqual(a['holdout']['base_rows'],129)
+        self.assertEqual(a['holdout']['midpoint_rows'],128)
         from spear.core import compile_tree
         fn=compile_tree(a['tree'])
         for x in [-2,-1.2345,0,0.12345,1.71,2]:
@@ -37,9 +40,30 @@ class DiscoveryChecks(unittest.TestCase):
         endpoint_error=max(abs(fn(x)-(2*x+1)) for x in (0,0.1))
         self.assertGreater(endpoint_error,r['requested_max_abs_error'])
         self.assertFalse(r['accepted_on_probe'])
-        self.assertAlmostEqual(r['holdout']['max_abs_error'],endpoint_error,places=13)
+        self.assertGreaterEqual(r['holdout']['max_abs_error'],endpoint_error-1e-13)
         self.assertTrue(r['holdout']['endpoints_included'])
-        self.assertEqual(r['holdout']['rows'],129)
+        self.assertEqual(r['holdout']['rows'],257)
+        self.assertFalse(r['registry_updated'])
+
+    def test_midpoint_probe_rejects_peak_hidden_between_base_points(self):
+        # Synthetic counterexample: a peak lies between two old holdout points.
+        left=-1+2*(63+0.271828)/127
+        right=-1+2*(64+0.271828)/127
+        center=(left+right)/2
+        formula=f'exp(-1000000*(x-{center:.17g})*(x-{center:.17g}))'
+        r=discover({'formula':formula,'lo':-1,'hi':1,'seed':42,
+                    'max_abs_error':1e-4})
+        self.assertEqual(r['status'],'ok')
+        from spear.core import compile_tree
+        fn=compile_tree(r['tree'])
+        independent_error=abs(fn(center)-math.exp(0))
+        self.assertGreater(independent_error,0.99)
+        self.assertFalse(r['accepted_on_probe'])
+        self.assertGreaterEqual(r['holdout']['max_abs_error'],independent_error-1e-12)
+        self.assertTrue(r['holdout']['midpoints_included'])
+        self.assertEqual(r['holdout']['base_rows'],129)
+        self.assertEqual(r['holdout']['midpoint_rows'],128)
+        self.assertEqual(r['holdout']['rows'],257)
         self.assertFalse(r['registry_updated'])
 
     def test_budget_and_domain_validation(self):

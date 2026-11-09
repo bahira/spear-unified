@@ -4,7 +4,7 @@ Build a nonredundant pipeline: discover formulas with Superspear, validate preci
 
 ## Done
 - Pinned SiLU/GELU source records and executable Python runtime.
-- Bounded Superspear evolutionary search with deterministic seed and holdout; domain endpoints now participate in acceptance (draft iteration, 2026-11-02).
+- Bounded Superspear evolutionary search with deterministic seed and holdout; domain endpoints and interval midpoints participate in acceptance (draft PR #9, latest iteration 2026-11-09); no continuous-domain certificate.
 - Tests passing; reports distinguish modelled cost, search time and execution speed.
 - Parallel investigation and benchmark audit produced evidence in reports/.
 

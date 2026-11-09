@@ -1,5 +1,5 @@
 {
-  "session": 5,
+  "session": 6,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 5,
+  "sessions_since_self_retro": 6,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -211,6 +211,51 @@
       "adaptations": [],
       "visual_verification": "Not applicable: no visual output changed",
       "self_retrospective": "Not due: session 5"
+    },
+    {
+      "task": "Check fixed interval midpoints in Discovery holdout",
+      "date": "2026-11-09",
+      "base_commit": "d7d6800ca4ff4802afc9084c348c25f593616680",
+      "branch": "fix/discovery-validation-endpoints-20261102",
+      "draft_pr": 9,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "continuous-domain certification",
+        "adaptive validation",
+        "real client data",
+        "native backend selection"
+      ],
+      "counterexamples": [
+        "An intentionally placed narrow synthetic peak passes the 129-point grid despite error 1 at its center"
+      ],
+      "probes": {
+        "regression_failed_before_fix": true,
+        "python_tests_passed": 13,
+        "node_tests_passed": 3,
+        "base_refined_pairs": 3,
+        "same_candidate_all_pairs": true,
+        "base_rows": 129,
+        "midpoint_rows": 128,
+        "refined_rows": 257,
+        "base_max_error": 1.9287498479639178e-22,
+        "refined_max_error": 1,
+        "median_base_subprocess_ms": 105.59738899999616,
+        "median_refined_subprocess_ms": 108.2612620000134
+      },
+      "evidence": [
+        "tests/test_discovery.py",
+        "reports/discovery-midpoints-20261109.md",
+        "reports/discovery-midpoints-20261109.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 6"
     }
   ]
 }

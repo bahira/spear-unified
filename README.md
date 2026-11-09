@@ -46,7 +46,7 @@ python -m spear '{"kind":"discover","formula":"x*x","seed":42}'
 
 Budget par défaut : 64 points, population 32, 8 générations ; limites : 256 points, population 64, 30 générations ; arrêt du processus à 5 secondes et limite de heap V8 à 128 Mio (pas une limite de mémoire totale). La cible est évaluée une seule fois par jeu de données. Une graine fixe reproduit le candidat.
 
-Validation sur 129 points : les 127 points intérieurs précédents et les deux bornes exactes du domaine, distincts de l'apprentissage. Le rapport indique `holdout.endpoints_included=true`. `accepted_on_probe` compare l'erreur maximale à `max_abs_error` (défaut 1e-4) ; ceci ne certifie ni le domaine continu ni une nouvelle loi physique. `status=ok` signifie que la recherche a terminé, pas que la formule est assez précise. `registry_updated=false` : aucun candidat n'est promu automatiquement. Résultats : reports/discovery.json.
+Validation sur 257 évaluations : les 127 points intérieurs, les deux bornes exactes et les 128 milieux entre points de base, hors apprentissage. Le rapport indique `holdout.endpoints_included=true`, `midpoints_included=true`, `base_rows=129` et `midpoint_rows=128`. Ce raffinement fixe ne certifie pas le domaine continu. `accepted_on_probe` compare l'erreur maximale à `max_abs_error` (défaut 1e-4) ; ceci ne certifie ni le domaine continu ni une nouvelle loi physique. `status=ok` signifie que la recherche a terminé, pas que la formule est assez précise. `registry_updated=false` : aucun candidat n'est promu automatiquement. Résultats : reports/discovery.json.
 
 Moteur et sémantique de validation upstream ; contrôle indépendant Python ajouté pour le cas x². Recherche limitée aux opérateurs algébriques add/sub/mul/sq/neg ; elle peut échouer sur des cibles simples avec ce petit budget. Les adaptateurs LLM, navigateur et SIMD restent non connectés.
 
@@ -124,3 +124,5 @@ POC de recherche depuis des observations : `node --disable-warning=MODULE_TYPELE
 Grounded Loop : [reports/grounded-loop-prompt.md](reports/grounded-loop-prompt.md), noyau permanent recommandé et limites de preuve.
 
 Correction du contrôle aux bornes et exemple de faux positif rejeté : [reports/discovery-endpoints-20261102.md](reports/discovery-endpoints-20261102.md). Les rapports antérieurs restent des instantanés de leur protocole d’origine.
+
+Raffinement entre points de validation : [reports/discovery-midpoints-20261109.md](reports/discovery-midpoints-20261109.md), contre-exemple synthétique de pic étroit, test avant/après et mesure du coût. Les rapports précédents restent des instantanés de leurs grilles respectives.
