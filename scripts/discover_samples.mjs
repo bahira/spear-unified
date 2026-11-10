@@ -94,7 +94,20 @@ function metrics(node,rows) {
 }
 const splits={};
 for(const name of ['train','validation','test'])if(data[name])splits[name]={candidate:metrics(candidate,data[name]),affine_baseline:metrics(baseline,data[name]),quadratic_baseline:metrics(quadratic.predict,data[name])};
+// Descriptive coverage only, computed after fitting and never used for selection.
+const trainingDomain=[Math.min(...xs),Math.max(...xs)];
+const splitCoverage={};
+for(const name of ['train','validation','test'])if(data[name]) {
+ const rows=data[name],values=rows.map(p=>p.x);
+ const below=values.filter(x=>x<trainingDomain[0]).length;
+ const above=values.filter(x=>x>trainingDomain[1]).length;
+ splitCoverage[name]={rows:rows.length,domain:[Math.min(...values),Math.max(...values)],
+   below_training:below,above_training:above,outside_training:below+above,
+   extrapolation:below+above>0};
+}
+const coverageNote='Coordinate range check only: points outside the training range require extrapolation. Inside-range points do not establish data independence, causal validity or continuous-domain accuracy.';
 const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:cfg,
+ training_domain:trainingDomain,split_coverage:splitCoverage,coverage_note:coverageNote,
  source_files_verified:true,source_file_sha256:verifiedHashes,
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
  selection:'Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
@@ -106,6 +119,6 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  interpretation:'A formula fitted to supplied observations; finite split checks do not establish causality, a new physical law, generalization beyond the sampled domain, or an execution speedup.'};
 const output=path.join(root,'reports/samples-discovery.json');
 fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');
-const lines=['# Régression symbolique depuis des mesures','',`Origine : ${origin.kind}.`, '',`Candidat : ${report.candidate.formula}`,`Référence affine : ${report.baseline.formula}`,'',...Object.entries(splits).map(([name,m])=>`${name} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)} ; erreur max candidat ${m.candidate.max_abs_error.toPrecision(5)}.`),'',`Recherche : ${searchMs.toFixed(1)} ms ; ${result.evals} évaluations.`, '',report.selection,'',report.conclusion,'',report.interpretation,'',origin.kind==='synthetic_demo'?'Démo synthétique clairement étiquetée : y = 1,75 x² + 0,4, bruit uniforme ±0,01. Les coefficients sont ajustés sur les observations et ne sont pas une validation scientifique.':'Données fournies ; provenance et indépendance des partitions à confirmer.','', 'Aucun candidat ajouté au registre. Aucune dépendance supplémentaire.'];
+const lines=['# Régression symbolique depuis des mesures','',`Origine : ${origin.kind}.`, '',`Plage d’apprentissage x : [${trainingDomain.join(', ')}].`,...Object.entries(splitCoverage).map(([name,c])=>`${name} : ${c.outside_training}/${c.rows} hors plage, extrapolation ${c.extrapolation?'oui':'non'} ; plage x [${c.domain.join(', ')}].`),'',coverageNote,'',`Candidat : ${report.candidate.formula}`,`Référence affine : ${report.baseline.formula}`,'',...Object.entries(splits).map(([name,m])=>`${name} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)} ; erreur max candidat ${m.candidate.max_abs_error.toPrecision(5)}.`),'',`Recherche : ${searchMs.toFixed(1)} ms ; ${result.evals} évaluations.`, '',report.selection,'',report.conclusion,'',report.interpretation,'',origin.kind==='synthetic_demo'?'Démo synthétique clairement étiquetée : y = 1,75 x² + 0,4, bruit uniforme ±0,01. Les coefficients sont ajustés sur les observations et ne sont pas une validation scientifique.':'Données fournies ; provenance et indépendance des partitions à confirmer.','', 'Aucun candidat ajouté au registre. Aucune dépendance supplémentaire.'];
 fs.writeFileSync(path.join(root,'reports/samples-discovery.md'),lines.join('\n')+'\n');
 console.log(JSON.stringify(report,null,2));

@@ -1,5 +1,5 @@
 {
-  "session": 6,
+  "session": 7,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 6,
+  "sessions_since_self_retro": 7,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -253,6 +253,50 @@
       "adaptations": [],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Not due: branch state session 6"
+    },
+    {
+      "task": "Report held-out sample extrapolation beyond the training range",
+      "date": "2026-11-10",
+      "base_commit": "2f6f7f7fa8dd9db2939c59d8b6c17a634217a318",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "real client data",
+        "multivariable coverage",
+        "runtime backend selection"
+      ],
+      "counterexamples": [
+        "Default synthetic test contains one point above training max, previously not labeled as extrapolation"
+      ],
+      "probes": {
+        "regression_tests_failed_before_change": true,
+        "python_tests_passed": 22,
+        "node_tests_passed": 3,
+        "base_covered_pairs": 3,
+        "candidate_and_metrics_unchanged": true,
+        "default_training_domain": [
+          -1.975,
+          1.9
+        ],
+        "default_test_outside_training": 1,
+        "base_median_process_ms": 170.49664200001757,
+        "covered_median_process_ms": 148.9235730000189
+      },
+      "evidence": [
+        "tests/test_samples_coverage.py",
+        "reports/samples-coverage-20261110.md",
+        "reports/samples-coverage-20261110.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 7"
     }
   ]
 }
