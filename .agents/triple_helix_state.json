@@ -1,5 +1,5 @@
 {
-  "session": 6,
+  "session": 7,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 6,
+  "sessions_since_self_retro": 7,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -279,6 +279,57 @@
       "adaptations": [],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Not due: branch-local session 6"
+    },
+    {
+      "task": "Measure native buffer behavior with mixed in/out-of-domain inputs",
+      "date": "2026-11-11",
+      "base_commit": "855e58f0f94bf053fa8cb49c7afd302fa6922d3f",
+      "branch": "perf/native-buffer-bridge-20261105",
+      "draft_pr": 11,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "client distributions",
+        "automatic backend selection",
+        "runtime integration"
+      ],
+      "counterexamples": [
+        "100 percent outside domain still has timing variation despite zero approximation calls",
+        "Python-only comparison cannot attribute gains to the polynomial"
+      ],
+      "probes": {
+        "python_tests_passed": 18,
+        "node_tests_passed": 3,
+        "independent_processes": 2,
+        "outside_fractions": [
+          0,
+          0.5,
+          1
+        ],
+        "sizes": [
+          4096,
+          65536
+        ],
+        "all_outside_approximation_count": 0,
+        "all_outside_max_abs_error": 0,
+        "mixed_max_abs_error": 2.7308396425285153e-06,
+        "budget": 3e-06
+      },
+      "evidence": [
+        "scripts/bench_native_mixed.py",
+        "tests/test_native_bridge.py",
+        "reports/native-mixed-20261111.md",
+        "reports/native-mixed-20261111.json",
+        "reports/native-mixed-20261111-repeat.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 7"
     }
   ]
 }
