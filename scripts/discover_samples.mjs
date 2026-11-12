@@ -105,9 +105,24 @@ for(const name of ['train','validation','test'])if(data[name]) {
    below_training:below,above_training:above,outside_training:below+above,
    extrapolation:below+above>0};
 }
+// Empty groups carry no evidence: report null rather than a zero error.
+const rangeMetrics={};
+for(const name of Object.keys(splits)) {
+ const inside=p=>p.x>=trainingDomain[0]&&p.x<=trainingDomain[1];
+ rangeMetrics[name]={};
+ for(const [group,rows] of [['inside_training',data[name].filter(inside)],
+                           ['outside_training',data[name].filter(p=>!inside(p))]]) {
+  rangeMetrics[name][group]=rows.length?{candidate:metrics(candidate,rows),
+   affine_baseline:metrics(baseline,rows),quadratic_baseline:metrics(quadratic.predict,rows)}:null;
+ }
+}
+const rangeLines=Object.entries(rangeMetrics).flatMap(([name,groups])=>
+ Object.entries(groups).map(([group,m])=>m?
+  `${name} / ${group} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)}.`:
+  `${name} / ${group} : aucune observation (null).`));
 const coverageNote='Coordinate range check only: points outside the training range require extrapolation. Inside-range points do not establish data independence, causal validity or continuous-domain accuracy.';
 const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:cfg,
- training_domain:trainingDomain,split_coverage:splitCoverage,coverage_note:coverageNote,
+ training_domain:trainingDomain,split_coverage:splitCoverage,range_metrics:rangeMetrics,coverage_note:coverageNote,
  source_files_verified:true,source_file_sha256:verifiedHashes,
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
  selection:'Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
@@ -119,6 +134,6 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  interpretation:'A formula fitted to supplied observations; finite split checks do not establish causality, a new physical law, generalization beyond the sampled domain, or an execution speedup.'};
 const output=path.join(root,'reports/samples-discovery.json');
 fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');
-const lines=['# Régression symbolique depuis des mesures','',`Origine : ${origin.kind}.`, '',`Plage d’apprentissage x : [${trainingDomain.join(', ')}].`,...Object.entries(splitCoverage).map(([name,c])=>`${name} : ${c.outside_training}/${c.rows} hors plage, extrapolation ${c.extrapolation?'oui':'non'} ; plage x [${c.domain.join(', ')}].`),'',coverageNote,'',`Candidat : ${report.candidate.formula}`,`Référence affine : ${report.baseline.formula}`,'',...Object.entries(splits).map(([name,m])=>`${name} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)} ; erreur max candidat ${m.candidate.max_abs_error.toPrecision(5)}.`),'',`Recherche : ${searchMs.toFixed(1)} ms ; ${result.evals} évaluations.`, '',report.selection,'',report.conclusion,'',report.interpretation,'',origin.kind==='synthetic_demo'?'Démo synthétique clairement étiquetée : y = 1,75 x² + 0,4, bruit uniforme ±0,01. Les coefficients sont ajustés sur les observations et ne sont pas une validation scientifique.':'Données fournies ; provenance et indépendance des partitions à confirmer.','', 'Aucun candidat ajouté au registre. Aucune dépendance supplémentaire.'];
+const lines=['# Régression symbolique depuis des mesures','',`Origine : ${origin.kind}.`, '',`Plage d’apprentissage x : [${trainingDomain.join(', ')}].`,...Object.entries(splitCoverage).map(([name,c])=>`${name} : ${c.outside_training}/${c.rows} hors plage, extrapolation ${c.extrapolation?'oui':'non'} ; plage x [${c.domain.join(', ')}].`),'',coverageNote,'',`Candidat : ${report.candidate.formula}`,`Référence affine : ${report.baseline.formula}`,'',...Object.entries(splits).map(([name,m])=>`${name} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)} ; erreur max candidat ${m.candidate.max_abs_error.toPrecision(5)}.`),'',...rangeLines,'',`Recherche : ${searchMs.toFixed(1)} ms ; ${result.evals} évaluations.`, '',report.selection,'',report.conclusion,'',report.interpretation,'',origin.kind==='synthetic_demo'?'Démo synthétique clairement étiquetée : y = 1,75 x² + 0,4, bruit uniforme ±0,01. Les coefficients sont ajustés sur les observations et ne sont pas une validation scientifique.':'Données fournies ; provenance et indépendance des partitions à confirmer.','', 'Aucun candidat ajouté au registre. Aucune dépendance supplémentaire.'];
 fs.writeFileSync(path.join(root,'reports/samples-discovery.md'),lines.join('\n')+'\n');
 console.log(JSON.stringify(report,null,2));

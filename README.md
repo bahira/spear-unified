@@ -128,3 +128,5 @@ La démo sur observations vérifie maintenant les empreintes locales du moteur e
 Le chemin Python `discover` exige lui aussi les deux empreintes obligatoires avant Node : un manifeste vide, incomplet ou mal formé ne peut plus désactiver les contrôles. Les réponses réussies exposent les empreintes vérifiées. Preuves : [reports/discovery-manifest-20261104.md](reports/discovery-manifest-20261104.md).
 
 Les rapports de régression sur observations exposent aussi la plage d’apprentissage et la couverture de chaque partition, avec le nombre de points en extrapolation. Ces indications sont descriptives et ne changent pas le modèle ; être dans la plage ne prouve pas l’indépendance des données. Voir [reports/samples-coverage-20261110.md](reports/samples-coverage-20261110.md).
+
+Les erreurs sont aussi séparées dans `range_metrics` entre `inside_training` (bornes incluses) et `outside_training`, pour le candidat et les deux références. Un groupe vide vaut `null`, jamais une erreur nulle. Voir [la vérification du 12 novembre](reports/samples-range-errors-20261112.md) ; aucun changement d’ajustement ni gain de vitesse revendiqué.
