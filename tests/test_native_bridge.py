@@ -52,3 +52,11 @@ class NativeBridgeChecks(unittest.TestCase):
             with self.assertRaises(ValueError):python_reference(xs)
         for tol in [-1,True,'1',float('nan'),float('inf'),10**400]:
             with self.assertRaises(ValueError):native(array('d'),self.fn,tol)
+
+    def test_independent_random_boundaries_and_extreme_fallback(self):
+        from scripts.check_native_precision import probe
+        rows = probe(self.fn)
+        self.assertEqual(len(rows),6)
+        self.assertEqual(sum(r['points'] for r in rows),8222)
+        self.assertTrue(all(r['fallback_matches_python_libm'] for r in rows))
+        self.assertEqual([r['approximated'] for r in rows if r['group']=='extreme_fallback'],[0,0])

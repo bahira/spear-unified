@@ -1,5 +1,5 @@
 {
-  "session": 7,
+  "session": 8,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 7,
+  "sessions_since_self_retro": 8,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -330,6 +330,41 @@
       "adaptations": [],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Not due: branch-local session 7"
+    },
+    {
+      "task": "Independent randomized, boundary and extreme fallback precision qualification",
+      "date": "2026-11-13",
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Keep runtime unchanged; test random precision, adjacent boundary routing, extreme fallback, input ownership and zero sign; run one small existing benchmark.",
+      "counterexamples": [
+        "Grid-only validation misses non-grid inputs",
+        "Apparent all-fallback timing gain cannot be attributed to approximation"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "python_tests_passed": 19,
+        "node_tests_passed": 3,
+        "evaluations": 8222,
+        "max_abs_error": 2.7308396425285153e-06,
+        "budget": 3e-06
+      },
+      "evidence": [
+        "reports/native-precision-20261113.md",
+        "reports/native-precision-20261113.json",
+        "reports/native-mixed-20261113.json"
+      ],
+      "deferred": [
+        "runtime integration",
+        "client workload qualification"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 8"
     }
   ]
 }
