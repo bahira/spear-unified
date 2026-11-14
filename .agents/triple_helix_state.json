@@ -1,5 +1,5 @@
 {
-  "session": 8,
+  "session": 9,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 8,
+  "sessions_since_self_retro": 9,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -326,6 +326,46 @@
       ],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Not due: branch-local session 8"
+    },
+    {
+      "task": "Add train-only mean baseline to sample validation",
+      "date": "2026-11-14",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Add only descriptive constant baseline; verify analytical errors, held-out independence, group accounting and unchanged search with bounded pairs.",
+      "counterexamples": [
+        "Beating a constant baseline does not establish advantage over a quadratic baseline"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regressions_failed_before_change": true,
+        "python_tests_passed": 28,
+        "node_tests_passed": 3,
+        "pairs": 3,
+        "existing_candidate_and_metrics_unchanged": true,
+        "median_process_ms": {
+          "base": 168.56914299999914,
+          "new": 148.5702009999983
+        }
+      },
+      "evidence": [
+        "tests/test_samples_constant_baseline.py",
+        "reports/samples-constant-20261114.md",
+        "reports/samples-constant-20261114.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real data qualification",
+        "runtime backend selection"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 9"
     }
   ]
 }

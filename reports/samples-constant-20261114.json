@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-14",
+  "base_commit": "c5c3fbeab810e273573f4c67a98edaadc096cef1",
+  "fixture": "default seeded synthetic quadratic only",
+  "pairs": [
+    {
+      "base": {
+        "process_ms": 152.8709410000033,
+        "search_ms": 48.82015700000001
+      },
+      "new": {
+        "process_ms": 148.5702009999983,
+        "search_ms": 57.14852299999998
+      }
+    },
+    {
+      "new": {
+        "process_ms": 169.16490199999146,
+        "search_ms": 54.91130099999998
+      },
+      "base": {
+        "process_ms": 171.19377100000577,
+        "search_ms": 48.863021
+      }
+    },
+    {
+      "base": {
+        "process_ms": 168.56914299999914,
+        "search_ms": 66.094451
+      },
+      "new": {
+        "process_ms": 141.38355900000477,
+        "search_ms": 48.95942199999999
+      }
+    }
+  ],
+  "median_process_ms": {
+    "base": 168.56914299999914,
+    "new": 148.5702009999983
+  },
+  "existing_candidate_and_metrics_unchanged": true,
+  "constant_baseline": {
+    "kind": "training_mean",
+    "value": 2.733126466998365
+  },
+  "rmse": {
+    "train": {
+      "candidate": 0.005905153159226002,
+      "affine_baseline": 2.0807511228103435,
+      "quadratic_baseline": 0.005774070550840505,
+      "constant_baseline": 2.086162020070568
+    },
+    "validation": {
+      "candidate": 0.005644839416171431,
+      "affine_baseline": 2.0749611834861215,
+      "quadratic_baseline": 0.0054139311024072505,
+      "constant_baseline": 2.076644433938274
+    },
+    "test": {
+      "candidate": 0.006042421625984302,
+      "affine_baseline": 2.097784693344532,
+      "quadratic_baseline": 0.006147563401295138,
+      "constant_baseline": 2.081794366615177
+    }
+  },
+  "limits": "Three noisy process pairs; includes Node startup, source checks, search and report writes. Not runtime formula execution benchmarking or evidence of speedup. No real data or new physical law."
+}

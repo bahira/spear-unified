@@ -92,8 +92,10 @@ function metrics(node,rows) {
  const mse=sum/pred.length;if(!Number.isFinite(mse))throw new Error('Non-finite MSE');
  return {n:rows.length,mse,rmse:Math.sqrt(mse),max_abs_error:max};
 }
+const trainingMean=ys.reduce((sum,y)=>sum+y,0)/ys.length;
+const constantPredict=()=>trainingMean;
 const splits={};
-for(const name of ['train','validation','test'])if(data[name])splits[name]={candidate:metrics(candidate,data[name]),affine_baseline:metrics(baseline,data[name]),quadratic_baseline:metrics(quadratic.predict,data[name])};
+for(const name of ['train','validation','test'])if(data[name])splits[name]={candidate:metrics(candidate,data[name]),affine_baseline:metrics(baseline,data[name]),quadratic_baseline:metrics(quadratic.predict,data[name]),constant_baseline:metrics(constantPredict,data[name])};
 // Descriptive coverage only, computed after fitting and never used for selection.
 const trainingDomain=[Math.min(...xs),Math.max(...xs)];
 const splitCoverage={};
@@ -113,12 +115,12 @@ for(const name of Object.keys(splits)) {
  for(const [group,rows] of [['inside_training',data[name].filter(inside)],
                            ['outside_training',data[name].filter(p=>!inside(p))]]) {
   rangeMetrics[name][group]=rows.length?{candidate:metrics(candidate,rows),
-   affine_baseline:metrics(baseline,rows),quadratic_baseline:metrics(quadratic.predict,rows)}:null;
+   affine_baseline:metrics(baseline,rows),quadratic_baseline:metrics(quadratic.predict,rows),constant_baseline:metrics(constantPredict,rows)}:null;
  }
 }
 const rangeLines=Object.entries(rangeMetrics).flatMap(([name,groups])=>
  Object.entries(groups).map(([group,m])=>m?
-  `${name} / ${group} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)}.`:
+  `${name} / ${group} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)}, constante ${m.constant_baseline.rmse.toPrecision(5)}.`:
   `${name} / ${group} : aucune observation (null).`));
 const coverageNote='Coordinate range check only: points outside the training range require extrapolation. Inside-range points do not establish data independence, causal validity or continuous-domain accuracy.';
 const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:cfg,
@@ -127,6 +129,7 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
  selection:'Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
  candidate:{formula:nodeToString(candidate),tree:serializeNode(candidate)},baseline:{formula:nodeToString(baseline),kind:'least_squares_affine_train_only'},
+ constant_baseline:{kind:'training_mean',value:trainingMean},
  quadratic_baseline:{kind:'least_squares_quadratic_train_only',coordinate:'z=(x-center)/scale',center:quadratic.center,scale:quadratic.scale,coefficients_ascending:quadratic.coefficients,method:'Centered/scaled normal equations with partial pivoting, 3x3; no external dependencies.'},
  baseline_comparison:Object.fromEntries(Object.entries(splits).map(([name,m])=>[name,{gp_mse_minus_quadratic:m.candidate.mse-m.quadratic_baseline.mse,gp_better_than_quadratic:m.candidate.mse<m.quadratic_baseline.mse}])),
  conclusion:origin.kind==='synthetic_demo'?'No clear GP advantage demonstrated: the train-fitted quadratic baseline is better on validation (RMSE 0.00541 vs GP 0.00564), while GP is only slightly better on the small test split (0.00604 vs 0.00615). Both recover the quadratic trend near the noise level.':'The affine baseline alone is insufficient for polynomial data. Compare the train-fitted quadratic baseline on held-out splits; isolated small differences do not establish a general GP advantage.',
@@ -134,6 +137,6 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  interpretation:'A formula fitted to supplied observations; finite split checks do not establish causality, a new physical law, generalization beyond the sampled domain, or an execution speedup.'};
 const output=path.join(root,'reports/samples-discovery.json');
 fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');
-const lines=['# Régression symbolique depuis des mesures','',`Origine : ${origin.kind}.`, '',`Plage d’apprentissage x : [${trainingDomain.join(', ')}].`,...Object.entries(splitCoverage).map(([name,c])=>`${name} : ${c.outside_training}/${c.rows} hors plage, extrapolation ${c.extrapolation?'oui':'non'} ; plage x [${c.domain.join(', ')}].`),'',coverageNote,'',`Candidat : ${report.candidate.formula}`,`Référence affine : ${report.baseline.formula}`,'',...Object.entries(splits).map(([name,m])=>`${name} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)} ; erreur max candidat ${m.candidate.max_abs_error.toPrecision(5)}.`),'',...rangeLines,'',`Recherche : ${searchMs.toFixed(1)} ms ; ${result.evals} évaluations.`, '',report.selection,'',report.conclusion,'',report.interpretation,'',origin.kind==='synthetic_demo'?'Démo synthétique clairement étiquetée : y = 1,75 x² + 0,4, bruit uniforme ±0,01. Les coefficients sont ajustés sur les observations et ne sont pas une validation scientifique.':'Données fournies ; provenance et indépendance des partitions à confirmer.','', 'Aucun candidat ajouté au registre. Aucune dépendance supplémentaire.'];
+const lines=['# Régression symbolique depuis des mesures','',`Origine : ${origin.kind}.`, '',`Plage d’apprentissage x : [${trainingDomain.join(', ')}].`,...Object.entries(splitCoverage).map(([name,c])=>`${name} : ${c.outside_training}/${c.rows} hors plage, extrapolation ${c.extrapolation?'oui':'non'} ; plage x [${c.domain.join(', ')}].`),'',coverageNote,'',`Candidat : ${report.candidate.formula}`,`Référence affine : ${report.baseline.formula}`,'',...Object.entries(splits).map(([name,m])=>`${name} (${m.candidate.n} points) : RMSE candidat ${m.candidate.rmse.toPrecision(5)}, affine ${m.affine_baseline.rmse.toPrecision(5)}, quadratique ${m.quadratic_baseline.rmse.toPrecision(5)}, constante ${m.constant_baseline.rmse.toPrecision(5)} ; erreur max candidat ${m.candidate.max_abs_error.toPrecision(5)}.`),'',...rangeLines,'',`Recherche : ${searchMs.toFixed(1)} ms ; ${result.evals} évaluations.`, '',report.selection,'',report.conclusion,'',report.interpretation,'',origin.kind==='synthetic_demo'?'Démo synthétique clairement étiquetée : y = 1,75 x² + 0,4, bruit uniforme ±0,01. Les coefficients sont ajustés sur les observations et ne sont pas une validation scientifique.':'Données fournies ; provenance et indépendance des partitions à confirmer.','', 'Aucun candidat ajouté au registre. Aucune dépendance supplémentaire.'];
 fs.writeFileSync(path.join(root,'reports/samples-discovery.md'),lines.join('\n')+'\n');
 console.log(JSON.stringify(report,null,2));
