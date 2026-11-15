@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-15",
+  "base_commit": "8e31880686d76a4b7aea76ebb161149078f2c52a",
+  "runs": [
+    {
+      "fixture": "default",
+      "base": {
+        "process_ms": 184.73734500003047,
+        "search_ms": 53.865228,
+        "validation_affine_max_abs_error": 4.093364922268348
+      },
+      "new": {
+        "process_ms": 141.43228300235933,
+        "search_ms": 55.639943,
+        "validation_affine_max_abs_error": 4.093364922268346
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "default",
+      "new": {
+        "process_ms": 146.1705300025642,
+        "search_ms": 52.962256999999994,
+        "validation_affine_max_abs_error": 4.093364922268346
+      },
+      "base": {
+        "process_ms": 160.2594359937939,
+        "search_ms": 54.95015399999998,
+        "validation_affine_max_abs_error": 4.093364922268348
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "default",
+      "base": {
+        "process_ms": 153.44291699875612,
+        "search_ms": 47.363759,
+        "validation_affine_max_abs_error": 4.093364922268348
+      },
+      "new": {
+        "process_ms": 153.6367890003021,
+        "search_ms": 59.930260000000004,
+        "validation_affine_max_abs_error": 4.093364922268346
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "offset",
+      "base": {
+        "process_ms": 147.99498500360642,
+        "search_ms": 52.26149100000001,
+        "validation_affine_max_abs_error": 0.0007500000000000284
+      },
+      "new": {
+        "process_ms": 161.43317399837542,
+        "search_ms": 53.194528000000005,
+        "validation_affine_max_abs_error": 5.381251000358134e-12
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "tiny",
+      "base": {
+        "process_ms": 135.9346929966705,
+        "search_ms": 37.654714999999996,
+        "validation_affine_max_abs_error": 1.4500000089512355e-08
+      },
+      "new": {
+        "process_ms": 131.43996299913852,
+        "search_ms": 35.72980299999999,
+        "validation_affine_max_abs_error": 2.220446049250313e-16
+      },
+      "candidate_unchanged": true
+    }
+  ],
+  "default_median_process_ms": {
+    "base": 160.2594359937939,
+    "new": 146.1705300025642
+  },
+  "limitations": "Synthetic fixtures only, finite checks not continuous certification. Process includes startup, source checks, search, reports; search timing separate. Three noisy default pairs do not establish speedup; formula runtime execution unmeasured."
+}

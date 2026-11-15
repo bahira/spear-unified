@@ -62,7 +62,19 @@ const result=evolve({variables:['x'],constRange:[-3,3],ops:cfg.ops,maxDepth:cfg.
 const searchMs=performance.now()-searchStart;
 const candidate=scaled(result.best)?.node;
 if(!candidate)throw new Error('No finite candidate');
-const baseline=scaled(makeNode('var',{name:'x'})).node;
+// Independent centered/scaled affine reference; leave GP scaling untouched.
+function fitAffine(rows) {
+ const center=rows.reduce((sum,p)=>sum+p.x,0)/rows.length;
+ const mean=rows.reduce((sum,p)=>sum+p.y,0)/rows.length;
+ const scale=Math.max(...rows.map(p=>Math.abs(p.x-center)));
+ if(!Number.isFinite(scale)||scale===0)throw new Error('Degenerate affine baseline domain');
+ let covariance=0,variance=0;
+ for(const p of rows){const z=(p.x-center)/scale;covariance+=z*(p.y-mean);variance+=z*z;}
+ const coefficient=covariance/variance;
+ if(!Number.isFinite(coefficient))throw new Error('Non-finite affine coefficient');
+ return {center,scale,mean,coefficient,predict:x=>mean+coefficient*((x-center)/scale)};
+}
+const affine=fitAffine(data.train),baseline=affine.predict;
 // Quadratic least squares: fit on training only, center/scale before a 3x3 solve.
 function fitQuadratic(rows) {
  const center=rows.reduce((sum,p)=>sum+p.x,0)/rows.length;
@@ -128,7 +140,7 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  source_files_verified:true,source_file_sha256:verifiedHashes,
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
  selection:'Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
- candidate:{formula:nodeToString(candidate),tree:serializeNode(candidate)},baseline:{formula:nodeToString(baseline),kind:'least_squares_affine_train_only'},
+ candidate:{formula:nodeToString(candidate),tree:serializeNode(candidate)},baseline:{formula:`${affine.mean} + ${affine.coefficient} * ((x - ${affine.center}) / ${affine.scale})`,kind:'least_squares_affine_train_only',method:'Centered/scaled training coordinates',center:affine.center,scale:affine.scale,mean:affine.mean,coefficient:affine.coefficient},
  constant_baseline:{kind:'training_mean',value:trainingMean},
  quadratic_baseline:{kind:'least_squares_quadratic_train_only',coordinate:'z=(x-center)/scale',center:quadratic.center,scale:quadratic.scale,coefficients_ascending:quadratic.coefficients,method:'Centered/scaled normal equations with partial pivoting, 3x3; no external dependencies.'},
  baseline_comparison:Object.fromEntries(Object.entries(splits).map(([name,m])=>[name,{gp_mse_minus_quadratic:m.candidate.mse-m.quadratic_baseline.mse,gp_better_than_quadratic:m.candidate.mse<m.quadratic_baseline.mse}])),

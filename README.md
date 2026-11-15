@@ -132,3 +132,5 @@ Les rapports de régression sur observations exposent aussi la plage d’apprent
 Les erreurs sont aussi séparées dans `range_metrics` entre `inside_training` (bornes incluses) et `outside_training`, pour le candidat et les deux références. Un groupe vide vaut `null`, jamais une erreur nulle. Voir [la vérification du 12 novembre](reports/samples-range-errors-20261112.md) ; aucun changement d’ajustement ni gain de vitesse revendiqué.
 
 La régression sur observations expose aussi `constant_baseline` : moyenne des y d’apprentissage uniquement, avec erreurs globales et par plage. Voir [la comparaison du 14 novembre](reports/samples-constant-20261114.md). Battre cette référence minimale ne suffit pas à démontrer un avantage face à la quadratique.
+
+La référence affine utilise désormais des coordonnées centrées et normalisées pour les plages étroites ou décalées : [preuve de stabilité](reports/affine-stability-20261115.md). Le scaling interne du GP est inchangé et ne bénéficie pas de cette correction.

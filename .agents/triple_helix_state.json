@@ -1,5 +1,5 @@
 {
-  "session": 9,
+  "session": 10,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 9,
+  "sessions_since_self_retro": 0,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -366,6 +366,47 @@
       ],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Not due: branch-local session 9"
+    },
+    {
+      "task": "Stabilize affine baseline on narrow offset domains",
+      "date": "2026-11-15",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Reproduce loss of affine precision on offset/narrow inputs; center and scale baseline only; test three ranges and bounded cost pairs; audit persistent state at session 10.",
+      "counterexamples": [
+        "Distinct bounded x can trigger cancellation or absolute variance threshold in uncentered affine baseline"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "new_tests": 3,
+        "regressions_failed_before_change": 2,
+        "python_tests_passed": 31,
+        "node_tests_passed": 3,
+        "candidate_unchanged_pairs": 5,
+        "default_median_process_ms": {
+          "base": 160.2594359937939,
+          "new": 146.1705300025642
+        }
+      },
+      "evidence": [
+        "tests/test_samples_affine_stability.py",
+        "reports/affine-stability-20261115.md",
+        "reports/affine-stability-20261115.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "GP scaling numerical stability",
+        "real data qualification",
+        "backend integration"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Performed at session 10; all signals null, no trials/adaptations/edges; adaptation remains disabled; counter reset."
     }
   ]
 }
