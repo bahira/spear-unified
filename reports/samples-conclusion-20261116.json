@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-16",
+  "base_commit": "994d03fddeb35630cb527d25e8da1c425c1b083c",
+  "fixture": "default seeded synthetic quadratic",
+  "pairs": [
+    {
+      "base": {
+        "process_ms": 166.2439830000011,
+        "search_ms": 62.565383
+      },
+      "new": {
+        "process_ms": 153.70105699999215,
+        "search_ms": 54.893069999999994
+      }
+    },
+    {
+      "new": {
+        "process_ms": 160.22632199999975,
+        "search_ms": 51.626492
+      },
+      "base": {
+        "process_ms": 158.97665300001051,
+        "search_ms": 52.979997
+      }
+    },
+    {
+      "base": {
+        "process_ms": 150.96675699999196,
+        "search_ms": 58.854096
+      },
+      "new": {
+        "process_ms": 147.06736200000137,
+        "search_ms": 58.00162000000002
+      }
+    }
+  ],
+  "median_process_ms": {
+    "base": 158.97665300001051,
+    "new": 153.70105699999215
+  },
+  "candidate_and_metrics_unchanged": true,
+  "new_conclusion": "validation: candidate RMSE is higher than the train-fitted quadratic baseline (0.00564484 vs 0.00541393). test: candidate RMSE is lower than the train-fitted quadratic baseline (0.00604242 vs 0.00614756). No statistical significance, general GP advantage, continuous-domain accuracy or execution speedup is established by these finite split comparisons.",
+  "limits": "Three noisy process pairs including startup, source verification, search, report writes. Search timing separate. No execution speedup, continuous accuracy certificate, real data or physical law claim."
+}

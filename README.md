@@ -134,3 +134,5 @@ Les erreurs sont aussi séparées dans `range_metrics` entre `inside_training` (
 La régression sur observations expose aussi `constant_baseline` : moyenne des y d’apprentissage uniquement, avec erreurs globales et par plage. Voir [la comparaison du 14 novembre](reports/samples-constant-20261114.md). Battre cette référence minimale ne suffit pas à démontrer un avantage face à la quadratique.
 
 La référence affine utilise désormais des coordonnées centrées et normalisées pour les plages étroites ou décalées : [preuve de stabilité](reports/affine-stability-20261115.md). Le scaling interne du GP est inchangé et ne bénéficie pas de cette correction.
+
+La conclusion de régression sur observations est calculée depuis les erreurs courantes de validation/test, sans RMSE écrite en dur : [vérification](reports/samples-conclusion-20261116.md). Le classement observé ne constitue pas une preuve de significativité ou de gain général.

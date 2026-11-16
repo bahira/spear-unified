@@ -1,5 +1,5 @@
 {
-  "session": 10,
+  "session": 11,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 0,
+  "sessions_since_self_retro": 1,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -407,6 +407,46 @@
       ],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Performed at session 10; all signals null, no trials/adaptations/edges; adaptation remains disabled; counter reset."
+    },
+    {
+      "task": "Derive sample report conclusion from current held-out metrics",
+      "date": "2026-11-16",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Replace canned conclusion only; falsify with changed synthetic generator and missing optional test; verify unchanged model and metrics in three bounded pairs.",
+      "counterexamples": [
+        "Hardcoded synthetic RMSE and quadratic-trend text survive generator changes"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regressions_failed_before_change": 3,
+        "python_tests_passed": 34,
+        "node_tests_passed": 3,
+        "candidate_and_metrics_unchanged_pairs": 3,
+        "median_process_ms": {
+          "base": 158.97665300001051,
+          "new": 153.70105699999215
+        }
+      },
+      "evidence": [
+        "tests/test_samples_conclusion.py",
+        "reports/samples-conclusion-20261116.md",
+        "reports/samples-conclusion-20261116.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "GP scaling stability",
+        "real data qualification",
+        "backend selection"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: session 11; counter 1 since audit at session 10."
     }
   ]
 }

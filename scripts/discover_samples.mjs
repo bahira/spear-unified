@@ -144,7 +144,10 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  constant_baseline:{kind:'training_mean',value:trainingMean},
  quadratic_baseline:{kind:'least_squares_quadratic_train_only',coordinate:'z=(x-center)/scale',center:quadratic.center,scale:quadratic.scale,coefficients_ascending:quadratic.coefficients,method:'Centered/scaled normal equations with partial pivoting, 3x3; no external dependencies.'},
  baseline_comparison:Object.fromEntries(Object.entries(splits).map(([name,m])=>[name,{gp_mse_minus_quadratic:m.candidate.mse-m.quadratic_baseline.mse,gp_better_than_quadratic:m.candidate.mse<m.quadratic_baseline.mse}])),
- conclusion:origin.kind==='synthetic_demo'?'No clear GP advantage demonstrated: the train-fitted quadratic baseline is better on validation (RMSE 0.00541 vs GP 0.00564), while GP is only slightly better on the small test split (0.00604 vs 0.00615). Both recover the quadratic trend near the noise level.':'The affine baseline alone is insufficient for polynomial data. Compare the train-fitted quadratic baseline on held-out splits; isolated small differences do not establish a general GP advantage.',
+ conclusion:['validation','test'].filter(name=>splits[name]).map(name=>{
+  const m=splits[name],relation=m.candidate.mse<m.quadratic_baseline.mse?'lower':m.candidate.mse>m.quadratic_baseline.mse?'higher':'equal';
+  return `${name}: candidate RMSE is ${relation} ${relation==='equal'?'to':'than'} the train-fitted quadratic baseline (${m.candidate.rmse.toPrecision(6)} vs ${m.quadratic_baseline.rmse.toPrecision(6)}).`;
+ }).join(' ')+' No statistical significance, general GP advantage, continuous-domain accuracy or execution speedup is established by these finite split comparisons.',
  splits,search_ms:searchMs,total_ms:performance.now()-started,evaluations:result.evals,registry_updated:false,
  interpretation:'A formula fitted to supplied observations; finite split checks do not establish causality, a new physical law, generalization beyond the sampled domain, or an execution speedup.'};
 const output=path.join(root,'reports/samples-discovery.json');
