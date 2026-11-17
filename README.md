@@ -136,3 +136,5 @@ La régression sur observations expose aussi `constant_baseline` : moyenne des y
 La référence affine utilise désormais des coordonnées centrées et normalisées pour les plages étroites ou décalées : [preuve de stabilité](reports/affine-stability-20261115.md). Le scaling interne du GP est inchangé et ne bénéficie pas de cette correction.
 
 La conclusion de régression sur observations est calculée depuis les erreurs courantes de validation/test, sans RMSE écrite en dur : [vérification](reports/samples-conclusion-20261116.md). Le classement observé ne constitue pas une preuve de significativité ou de gain général.
+
+Le score de régression sur observations évalue l’arbre affine simplifié réellement retourné, avec `training_objective` pour vérifier la parité entre fitness, MSE d’apprentissage et complexité : [preuve et coût](reports/fitness-parity-20261117.md). Le conditionnement du scaling GP demeure une limite ouverte.

@@ -1,5 +1,5 @@
 {
-  "session": 11,
+  "session": 12,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 1,
+  "sessions_since_self_retro": 2,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -447,6 +447,48 @@
       ],
       "visual_verification": "Not applicable: no visual changes",
       "self_retrospective": "Not due: session 11; counter 1 since audit at session 10."
+    },
+    {
+      "task": "Score the simplified returned tree rather than pre-simplification affine values",
+      "date": "2026-11-17",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Reproduce rounded constant objective mismatch, score actual wrapped tree, expose training objective, test parity and bounded process costs.",
+      "counterexamples": [
+        "Rounded constant contributes no old training MSE but nonzero returned-tree MSE"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regression_failed_before_change": true,
+        "python_tests_passed": 37,
+        "node_tests_passed": 3,
+        "constant_old_objective_discrepancy": 4.4521000000775146e-14,
+        "constant_new_objective_discrepancy": 0,
+        "candidate_unchanged_pairs": 4,
+        "default_median_process_ms": {
+          "base": 182.10179599999776,
+          "new": 198.12298899999803
+        }
+      },
+      "evidence": [
+        "tests/test_samples_fitness_parity.py",
+        "reports/fitness-parity-20261117.md",
+        "reports/fitness-parity-20261117.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "GP scaling condition number",
+        "real data qualification",
+        "backend selection"
+      ],
+      "visual_verification": "No visual application change; inline table uses checked measurements, no screenshot required.",
+      "self_retrospective": "Not due: local session 12, two since session-10 audit."
     }
   ]
 }

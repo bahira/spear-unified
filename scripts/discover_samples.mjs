@@ -46,13 +46,16 @@ function scaled(node) {
  if(!pred.every(Number.isFinite))return null;
  const {a,b}=fitLinearScaling(pred,ys);
  if(!Number.isFinite(a)||!Number.isFinite(b))return null;
- return {node:wrapAffine(node,a,b),pred,a,b};
+ const wrapped=wrapAffine(node,a,b);
+ const actual=evaluateNode(wrapped,{x:xs},xs.length);
+ if(!actual.every(Number.isFinite))return null;
+ return {node:wrapped,pred:actual};
 }
 function score(node) {
  const fit=scaled(node);
  if(!fit)return {fitness:-1e100,size:node.size+4};
  let sum=0;
- for(let i=0;i<ys.length;i++){const e=fit.a*fit.pred[i]+fit.b-ys[i];sum+=e*e;}
+ for(let i=0;i<ys.length;i++){const e=fit.pred[i]-ys[i];sum+=e*e;}
  const mse=sum/ys.length;
  return {fitness:Number.isFinite(mse)?-(mse+cfg.complexity_penalty*fit.node.size):-1e100,size:fit.node.size,extra:mse};
 }
@@ -139,7 +142,8 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  training_domain:trainingDomain,split_coverage:splitCoverage,range_metrics:rangeMetrics,coverage_note:coverageNote,
  source_files_verified:true,source_file_sha256:verifiedHashes,
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
- selection:'Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
+ selection:'Fitness evaluates the simplified returned tree on training data. Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
+ training_objective:{best_fitness:result.bestFitness,complexity_cost:cfg.complexity_penalty*candidate.size},
  candidate:{formula:nodeToString(candidate),tree:serializeNode(candidate)},baseline:{formula:`${affine.mean} + ${affine.coefficient} * ((x - ${affine.center}) / ${affine.scale})`,kind:'least_squares_affine_train_only',method:'Centered/scaled training coordinates',center:affine.center,scale:affine.scale,mean:affine.mean,coefficient:affine.coefficient},
  constant_baseline:{kind:'training_mean',value:trainingMean},
  quadratic_baseline:{kind:'least_squares_quadratic_train_only',coordinate:'z=(x-center)/scale',center:quadratic.center,scale:quadratic.scale,coefficients_ascending:quadratic.coefficients,method:'Centered/scaled normal equations with partial pivoting, 3x3; no external dependencies.'},
