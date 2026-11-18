@@ -1,5 +1,5 @@
 {
-  "session": 12,
+  "session": 13,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 2,
+  "sessions_since_self_retro": 3,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -489,6 +489,49 @@
       ],
       "visual_verification": "No visual application change; inline table uses checked measurements, no screenshot required.",
       "self_retrospective": "Not due: local session 12, two since session-10 audit."
+    },
+    {
+      "task": "Center and normalize GP scaling in samples adapter",
+      "date": "2026-11-18",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Reproduce scaling failure on narrow offset coordinates; fix local fit only, preserve constant case and effective-tree score, measure bounded pairs including no-gain case.",
+      "counterexamples": [
+        "Raw covariance loses narrow offset signal",
+        "Small-slope data may still prefer constant due to complexity penalty"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regression_failed_before_change": true,
+        "python_tests_passed": 40,
+        "node_tests_passed": 3,
+        "offset_slope5_max_error_before": 0.0005034150731517695,
+        "offset_slope5_max_error_after": 1.3562484468820912e-11,
+        "pairs": 6,
+        "default_median_process_ms": {
+          "base": 149.40669099999582,
+          "new": 159.75238900000477
+        }
+      },
+      "evidence": [
+        "tests/test_samples_gp_scaling.py",
+        "reports/gp-scaling-20261118.md",
+        "reports/gp-scaling-20261118.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real client data qualification",
+        "backend selection",
+        "general numerical conditioning guarantees"
+      ],
+      "visual_verification": "No application visual change; table checked against raw JSON.",
+      "self_retrospective": "Not due: session 13, three since session-10 audit."
     }
   ]
 }

@@ -17,7 +17,7 @@ for(const name of ['engine.ts','math-utils.ts']) {
  if(actual!==expected)throw new Error(`Vendor checksum mismatch: ${name}`);
  verifiedHashes[name]=actual;
 }
-const {evolve,setSeed,evaluateNode,fitLinearScaling,wrapAffine,makeNode,nodeToString,serializeNode}=await import('../vendor/superspear/engine.ts');
+const {evolve,setSeed,evaluateNode,wrapAffine,makeNode,nodeToString,serializeNode}=await import('../vendor/superspear/engine.ts');
 const cfg={seed:42,generations:20,population:48,maxDepth:3,ops:['add','sub','mul','sq','neg'],complexity_penalty:1e-7};
 let data,origin;
 if(process.argv[2]) {
@@ -44,7 +44,20 @@ const xs=Float64Array.from(data.train,p=>p.x),ys=Float64Array.from(data.train,p=
 function scaled(node) {
  const pred=evaluateNode(node,{x:xs},xs.length);
  if(!pred.every(Number.isFinite))return null;
- const {a,b}=fitLinearScaling(pred,ys);
+ // Center and normalize predictions before covariance; an absolute variance
+ // threshold or subtracting raw sums can erase narrow affine signals.
+ const center=pred.reduce((sum,p)=>sum+p,0)/pred.length;
+ const mean=ys.reduce((sum,y)=>sum+y,0)/ys.length;
+ const scale=Math.max(...pred.map(p=>Math.abs(p-center)));
+ let a=0,b=mean;
+ if(scale>0) {
+  let covariance=0,variance=0;
+  for(let i=0;i<pred.length;i++) {
+   const z=(pred[i]-center)/scale;
+   covariance+=z*(ys[i]-mean);variance+=z*z;
+  }
+  a=(covariance/variance)/scale;b=mean-a*center;
+ }
  if(!Number.isFinite(a)||!Number.isFinite(b))return null;
  const wrapped=wrapAffine(node,a,b);
  const actual=evaluateNode(wrapped,{x:xs},xs.length);
@@ -65,7 +78,7 @@ const result=evolve({variables:['x'],constRange:[-3,3],ops:cfg.ops,maxDepth:cfg.
 const searchMs=performance.now()-searchStart;
 const candidate=scaled(result.best)?.node;
 if(!candidate)throw new Error('No finite candidate');
-// Independent centered/scaled affine reference; leave GP scaling untouched.
+// Independent centered/scaled affine reference.
 function fitAffine(rows) {
  const center=rows.reduce((sum,p)=>sum+p.x,0)/rows.length;
  const mean=rows.reduce((sum,p)=>sum+p.y,0)/rows.length;
@@ -143,7 +156,7 @@ const report={status:'ok',kind:'symbolic_regression_from_samples',origin,config:
  source_files_verified:true,source_file_sha256:verifiedHashes,
  source_commit:JSON.parse(fs.readFileSync(path.join(root,'spear/data/source.json'),'utf8')).commit,
  selection:'Fitness evaluates the simplified returned tree on training data. Evolution, least-squares affine scaling and candidate selection use training data only; validation and optional test are evaluated afterwards, never fitness or selection.',
- training_objective:{best_fitness:result.bestFitness,complexity_cost:cfg.complexity_penalty*candidate.size},
+ training_objective:{scaling:'centered_normalized_predictions_train_only',best_fitness:result.bestFitness,complexity_cost:cfg.complexity_penalty*candidate.size},
  candidate:{formula:nodeToString(candidate),tree:serializeNode(candidate)},baseline:{formula:`${affine.mean} + ${affine.coefficient} * ((x - ${affine.center}) / ${affine.scale})`,kind:'least_squares_affine_train_only',method:'Centered/scaled training coordinates',center:affine.center,scale:affine.scale,mean:affine.mean,coefficient:affine.coefficient},
  constant_baseline:{kind:'training_mean',value:trainingMean},
  quadratic_baseline:{kind:'least_squares_quadratic_train_only',coordinate:'z=(x-center)/scale',center:quadratic.center,scale:quadratic.scale,coefficients_ascending:quadratic.coefficients,method:'Centered/scaled normal equations with partial pivoting, 3x3; no external dependencies.'},
