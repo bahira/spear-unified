@@ -3,6 +3,7 @@ import hashlib
 import time
 import json
 import math
+import re
 from pathlib import Path
 import subprocess
 
@@ -26,9 +27,17 @@ def discover(task):
         cfg[key]=v
     if cfg['lo']>=cfg['hi']:raise ValueError('lo must be below hi')
     checksums=json.loads((ROOT/'vendor/superspear/checksums.json').read_text())
-    for name,expected in checksums.items():
-        if hashlib.sha256((ROOT/'vendor/superspear'/name).read_bytes()).hexdigest()!=expected:
-            raise ValueError('Vendor checksum mismatch: '+name)
+    if not isinstance(checksums, dict):
+        raise ValueError('Invalid vendor checksum manifest')
+    verified = {}
+    for name in ('engine.ts', 'math-utils.ts'):
+        expected = checksums.get(name)
+        if not isinstance(expected, str) or re.fullmatch(r'[a-f0-9]{64}', expected) is None:
+            raise ValueError('Invalid vendor checksum: ' + name)
+        actual = hashlib.sha256((ROOT/'vendor/superspear'/name).read_bytes()).hexdigest()
+        if actual != expected:
+            raise ValueError('Vendor checksum mismatch: ' + name)
+        verified[name] = actual
     started=time.perf_counter()
     try:
         p=subprocess.run(['node','--disable-warning=MODULE_TYPELESS_PACKAGE_JSON','--max-old-space-size=128',str(ROOT/'spear/discover.mjs'),json.dumps(cfg)],capture_output=True,text=True,timeout=5,cwd=ROOT)
@@ -43,6 +52,8 @@ def discover(task):
     for v in [result['holdout']['mse'],result['holdout']['max_abs_error'],result['duration_ms']]:
         if type(v) not in (int,float) or not math.isfinite(v):
             return {'status':'error','reason':'Non-finite discovery metrics'}
+    result['source_files_verified']=True
+    result['source_file_sha256']=verified
     result['elapsed_total_ms']=elapsed
     result['effective_seed']=cfg['seed'] or 1
     result['accepted_on_probe']=result['holdout']['max_abs_error']<=tolerance
