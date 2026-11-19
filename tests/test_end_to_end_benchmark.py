@@ -13,6 +13,8 @@ class EndToEndBenchmarkTests(unittest.TestCase):
         for name in ("silu", "gelu"):
             kernel = result["kernels"][name]
             self.assertGreater(kernel["median_ns_per_request"], 0)
+            self.assertGreater(kernel["reference_median_ns_per_request"], 0)
+            self.assertTrue(math.isfinite(kernel["reference_to_router_ratio"]))
             self.assertTrue(math.isfinite(kernel["max_abs_error"]))
             self.assertLess(kernel["max_abs_error"], 3e-5)
         json.dumps(result, allow_nan=False)
