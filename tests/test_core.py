@@ -24,6 +24,29 @@ class Checks(unittest.TestCase):
         for x in (float('nan'),float('inf')):
             with self.assertRaises(ValueError): Registry().compute('silu',x)
 
+    def test_tree_shape_and_limits(self):
+        invalid = [
+            None, [], {'o': 'var'}, {'o': 'var', 'n': 'y'},
+            {'o': 'const', 'v': True}, {'o': 'const', 'v': 'bad'},
+            {'o': 'const', 'v': float('inf')},
+            {'o': 'add', 'c': None}, {'o': 'add', 'c': []},
+            {'o': 'neg', 'c': [{'o': 'var', 'n': 'x'}], 'extra': 1},
+        ]
+        for tree in invalid:
+            with self.subTest(tree=tree), self.assertRaises(ValueError):
+                compile_tree(tree)
+        tree = {'o': 'var', 'n': 'x'}
+        for _ in range(64):
+            tree = {'o': 'neg', 'c': [tree]}
+        with self.assertRaisesRegex(ValueError, 'depth limit'):
+            compile_tree(tree)
+        wide = {'o': 'var', 'n': 'x'}
+        for _ in range(11):
+            wide = {'o': 'add', 'c': [wide, wide]}
+        with self.assertRaisesRegex(ValueError, 'node limit'):
+            compile_tree(wide)
+        self.assertEqual(compile_tree({'o': 'sq', 'c': [{'o': 'var', 'n': 'x'}]})(3), 9)
+
     def test_no_silent_fallback(self):
         r=Router()
         for kind in ('browser','llm'):
