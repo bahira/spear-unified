@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-17",
+  "base_commit": "1588326bad3962bf96052fe367c5af7925cbfabc",
+  "base_instrumentation": "Added output-only training_objective metadata to observe result.bestFitness; no old scoring change.",
+  "runs": [
+    {
+      "fixture": "default",
+      "base": {
+        "process_ms": 229.89501099999643,
+        "search_ms": 81.32230100000001,
+        "best_fitness": -3.5470833833916835e-05,
+        "expected_fitness": -3.5470833833916835e-05,
+        "objective_discrepancy": 0.0,
+        "train_mse": 3.4870833833916834e-05,
+        "validation_rmse": 0.005644839416171431
+      },
+      "new": {
+        "process_ms": 215.4152499999924,
+        "search_ms": 77.639749,
+        "best_fitness": -3.5470833833916835e-05,
+        "expected_fitness": -3.5470833833916835e-05,
+        "objective_discrepancy": 0.0,
+        "train_mse": 3.4870833833916834e-05,
+        "validation_rmse": 0.005644839416171431
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "default",
+      "new": {
+        "process_ms": 198.12298899999803,
+        "search_ms": 71.611468,
+        "best_fitness": -3.5470833833916835e-05,
+        "expected_fitness": -3.5470833833916835e-05,
+        "objective_discrepancy": 0.0,
+        "train_mse": 3.4870833833916834e-05,
+        "validation_rmse": 0.005644839416171431
+      },
+      "base": {
+        "process_ms": 182.10179599999776,
+        "search_ms": 65.76709899999999,
+        "best_fitness": -3.5470833833916835e-05,
+        "expected_fitness": -3.5470833833916835e-05,
+        "objective_discrepancy": 0.0,
+        "train_mse": 3.4870833833916834e-05,
+        "validation_rmse": 0.005644839416171431
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "default",
+      "base": {
+        "process_ms": 172.26750199999685,
+        "search_ms": 64.77409800000001,
+        "best_fitness": -3.5470833833916835e-05,
+        "expected_fitness": -3.5470833833916835e-05,
+        "objective_discrepancy": 0.0,
+        "train_mse": 3.4870833833916834e-05,
+        "validation_rmse": 0.005644839416171431
+      },
+      "new": {
+        "process_ms": 183.52096400001017,
+        "search_ms": 71.962788,
+        "best_fitness": -3.5470833833916835e-05,
+        "expected_fitness": -3.5470833833916835e-05,
+        "objective_discrepancy": 0.0,
+        "train_mse": 3.4870833833916834e-05,
+        "validation_rmse": 0.005644839416171431
+      },
+      "candidate_unchanged": true
+    },
+    {
+      "fixture": "rounded_constant",
+      "base": {
+        "process_ms": 190.98109600000157,
+        "search_ms": 53.81344200000001,
+        "best_fitness": -1e-07,
+        "expected_fitness": -1.00000044521e-07,
+        "objective_discrepancy": 4.4521000000775146e-14,
+        "train_mse": 4.4520999999983635e-14,
+        "validation_rmse": 2.1099999999996122e-07
+      },
+      "new": {
+        "process_ms": 168.5333429999929,
+        "search_ms": 46.871230999999995,
+        "best_fitness": -1.00000044521e-07,
+        "expected_fitness": -1.00000044521e-07,
+        "objective_discrepancy": 0.0,
+        "train_mse": 4.4520999999983635e-14,
+        "validation_rmse": 2.1099999999996122e-07
+      },
+      "candidate_unchanged": true
+    }
+  ],
+  "default_median_process_ms": {
+    "base": 182.10179599999776,
+    "new": 198.12298899999803
+  },
+  "limits": "Finite synthetic probes, one seed, three noisy default pairs. Full process includes startup, verification, search, reports; formula execution and Python/C cost unmeasured. No speedup or new physical law claimed."
+}

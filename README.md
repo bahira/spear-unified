@@ -122,3 +122,23 @@ Analyse du noyau de priorisation pour les instructions permanentes : [reports/pa
 POC de recherche depuis des observations : `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/discover_samples.mjs` ; entrée JSON facultative train/validation/test, données synthétiques par défaut. Rapports : reports/samples-discovery.md et .json. Aucun avantage clair contre la baseline quadratique.
 
 Grounded Loop : [reports/grounded-loop-prompt.md](reports/grounded-loop-prompt.md), noyau permanent recommandé et limites de preuve.
+
+La démo sur observations vérifie maintenant les empreintes locales du moteur et de son helper **avant leur import**, puis expose `source_files_verified` et `source_file_sha256`. Un fichier divergent ou une empreinte requise absente provoque un échec sans écriture de rapport. Le manifeste doit rester fiable ; ce n’est pas une signature amont ni une sandbox. Voir [reports/samples-provenance-20261103.md](reports/samples-provenance-20261103.md).
+
+Le chemin Python `discover` exige lui aussi les deux empreintes obligatoires avant Node : un manifeste vide, incomplet ou mal formé ne peut plus désactiver les contrôles. Les réponses réussies exposent les empreintes vérifiées. Preuves : [reports/discovery-manifest-20261104.md](reports/discovery-manifest-20261104.md).
+
+Les rapports de régression sur observations exposent aussi la plage d’apprentissage et la couverture de chaque partition, avec le nombre de points en extrapolation. Ces indications sont descriptives et ne changent pas le modèle ; être dans la plage ne prouve pas l’indépendance des données. Voir [reports/samples-coverage-20261110.md](reports/samples-coverage-20261110.md).
+
+Les erreurs sont aussi séparées dans `range_metrics` entre `inside_training` (bornes incluses) et `outside_training`, pour le candidat et les deux références. Un groupe vide vaut `null`, jamais une erreur nulle. Voir [la vérification du 12 novembre](reports/samples-range-errors-20261112.md) ; aucun changement d’ajustement ni gain de vitesse revendiqué.
+
+La régression sur observations expose aussi `constant_baseline` : moyenne des y d’apprentissage uniquement, avec erreurs globales et par plage. Voir [la comparaison du 14 novembre](reports/samples-constant-20261114.md). Battre cette référence minimale ne suffit pas à démontrer un avantage face à la quadratique.
+
+La référence affine utilise désormais des coordonnées centrées et normalisées pour les plages étroites ou décalées : [preuve de stabilité](reports/affine-stability-20261115.md). Cette correction du 15 novembre concernait la baseline ; le scaling GP local a ensuite été traité le 18 novembre (voir ci-dessous).
+
+La conclusion de régression sur observations est calculée depuis les erreurs courantes de validation/test, sans RMSE écrite en dur : [vérification](reports/samples-conclusion-20261116.md). Le classement observé ne constitue pas une preuve de significativité ou de gain général.
+
+Le score de régression sur observations évalue l’arbre affine simplifié réellement retourné, avec `training_objective` pour vérifier la parité entre fitness, MSE d’apprentissage et complexité : [preuve et coût](reports/fitness-parity-20261117.md). Le conditionnement du scaling GP demeure une limite ouverte.
+
+Le scaling GP de l’adaptateur sur observations centre et normalise désormais les prédictions avant covariance : [preuves et limites du 18 novembre](reports/gp-scaling-20261118.md). Le vendor reste inchangé ; pénalité de complexité, arrondis et conditionnement extrême demeurent des limites.
+
+Pour les fichiers de mesures fournis, `origin.path` est remplacé par `origin.input_sha256` et `origin.input_bytes` : identité des octets lus, sans chemin local dans les rapports de succès. Voir [preuves et limites](reports/input-identity-20261119.md). Les espaces JSON changent aussi cette empreinte ; elle ne prouve ni anonymat ni provenance scientifique.

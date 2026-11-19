@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-19",
+  "base_commit": "c755c06c5d94a14bf9e710bc1fc7ae49aa3804fc",
+  "fixture": "synthetic y=x*x+1, eight train and eight validation points, validation shifted 0.25",
+  "input_bytes": 389,
+  "synthetic_input_sha256": "5c132de0a2b3e97f282dc7cf30d32c5bd523d0562480d0be7abc4b1d2883eb62",
+  "pairs": [
+    {
+      "base": {
+        "process_ms": 165.11037299999032,
+        "search_ms": 44.455028
+      },
+      "new": {
+        "process_ms": 148.85072300000957,
+        "search_ms": 43.49060200000001
+      }
+    },
+    {
+      "new": {
+        "process_ms": 137.4194810000091,
+        "search_ms": 41.28187600000001
+      },
+      "base": {
+        "process_ms": 153.7352259999949,
+        "search_ms": 47.515851999999995
+      }
+    },
+    {
+      "base": {
+        "process_ms": 132.7516099999997,
+        "search_ms": 37.98085999999999
+      },
+      "new": {
+        "process_ms": 151.61648500000524,
+        "search_ms": 51.640296000000006
+      }
+    }
+  ],
+  "candidate_and_metrics_unchanged": true,
+  "median_process_ms": {
+    "base": 153.7352259999949,
+    "new": 148.85072300000957
+  },
+  "limits": "Three noisy process pairs include startup, source checks, input read/hash, search and reports. Not formula execution or Python/C benchmark; no speedup or physical law claim. Hash identifies exact bytes, not scientific provenance, privacy, independence or authorization."
+}

@@ -1,5 +1,5 @@
 {
-  "session": 4,
+  "session": 14,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -174,6 +174,405 @@
         "dashboard": "not performed: supported preview unavailable",
         "sprite_animation": "not integrated or playback-verified"
       }
+    },
+    {
+      "task": "Verify samples-discovery engine checksums before module execution",
+      "date": "2026-11-03",
+      "base_commit": "ee0e9fe86a2cd89546ed3771273325b8ec7bab61",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "native backend integration",
+        "real client data",
+        "service adapters"
+      ],
+      "counterexamples": [
+        "Modified helper still produced success while claiming the pinned source revision",
+        "Static engine import executed an injected sentinel before any integrity check"
+      ],
+      "probes": {
+        "regressions_failed_before_fix": true,
+        "python_tests_passed": 15,
+        "node_tests_passed": 3,
+        "base_patched_pairs": 5,
+        "candidate_and_metrics_unchanged": true,
+        "base_median_process_ms": 150.94655600000806,
+        "patched_median_process_ms": 159.48969999999463
+      },
+      "evidence": [
+        "tests/test_samples_provenance.py",
+        "reports/samples-provenance-20261103.md",
+        "reports/samples-provenance-20261103.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual output changed",
+      "self_retrospective": "Not due: branch-local state session 5; draft PR #9 remains independent"
+    },
+    {
+      "task": "Require both vendor checksums before Python discovery starts Node",
+      "date": "2026-11-04",
+      "base_commit": "3be3bcfcd6630026369e2a43323aaa35f4b5f8e4",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "native backend integration",
+        "real client data",
+        "service adapters"
+      ],
+      "counterexamples": [
+        "Empty manifest bypassed all Python integrity checks",
+        "Omitted helper checksum hid helper drift"
+      ],
+      "probes": {
+        "regressions_failed_before_fix": true,
+        "python_tests_passed": 19,
+        "node_tests_passed": 3,
+        "base_patched_pairs": 5,
+        "candidate_holdout_acceptance_unchanged": true,
+        "base_median_full_call_ms": 111.91675799997824,
+        "patched_median_full_call_ms": 107.59044899998571
+      },
+      "evidence": [
+        "tests/test_discovery_manifest.py",
+        "reports/discovery-manifest-20261104.md",
+        "reports/discovery-manifest-20261104.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch state session 6"
+    },
+    {
+      "task": "Report held-out sample extrapolation beyond the training range",
+      "date": "2026-11-10",
+      "base_commit": "2f6f7f7fa8dd9db2939c59d8b6c17a634217a318",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "required_tasks_skipped": 0,
+      "deferred": [
+        "real client data",
+        "multivariable coverage",
+        "runtime backend selection"
+      ],
+      "counterexamples": [
+        "Default synthetic test contains one point above training max, previously not labeled as extrapolation"
+      ],
+      "probes": {
+        "regression_tests_failed_before_change": true,
+        "python_tests_passed": 22,
+        "node_tests_passed": 3,
+        "base_covered_pairs": 3,
+        "candidate_and_metrics_unchanged": true,
+        "default_training_domain": [
+          -1.975,
+          1.9
+        ],
+        "default_test_outside_training": 1,
+        "base_median_process_ms": 170.49664200001757,
+        "covered_median_process_ms": 148.9235730000189
+      },
+      "evidence": [
+        "tests/test_samples_coverage.py",
+        "reports/samples-coverage-20261110.md",
+        "reports/samples-coverage-20261110.json"
+      ],
+      "adaptations": [],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 7"
+    },
+    {
+      "task": "Separate in-range and extrapolation errors without changing fitting",
+      "date": "2026-11-12",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "plan": "Add descriptive grouped metrics after fitting; falsify with shifted held-out labels and reconstruct global MSE; compare three bounded process pairs.",
+      "probes": {
+        "python_tests_passed": 25,
+        "node_tests_passed": 3,
+        "regressions_failed_before_change": true,
+        "candidate_and_metrics_unchanged": true,
+        "median_process_ms": {
+          "base": 162.06267199999047,
+          "patched": 167.0685649999939
+        }
+      },
+      "evidence": [
+        "tests/test_samples_range_metrics.py",
+        "reports/samples-range-errors-20261112.json",
+        "reports/samples-range-errors-20261112.md"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real data qualification",
+        "backend selection"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 8"
+    },
+    {
+      "task": "Add train-only mean baseline to sample validation",
+      "date": "2026-11-14",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Add only descriptive constant baseline; verify analytical errors, held-out independence, group accounting and unchanged search with bounded pairs.",
+      "counterexamples": [
+        "Beating a constant baseline does not establish advantage over a quadratic baseline"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regressions_failed_before_change": true,
+        "python_tests_passed": 28,
+        "node_tests_passed": 3,
+        "pairs": 3,
+        "existing_candidate_and_metrics_unchanged": true,
+        "median_process_ms": {
+          "base": 168.56914299999914,
+          "new": 148.5702009999983
+        }
+      },
+      "evidence": [
+        "tests/test_samples_constant_baseline.py",
+        "reports/samples-constant-20261114.md",
+        "reports/samples-constant-20261114.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real data qualification",
+        "runtime backend selection"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: branch-local session 9"
+    },
+    {
+      "task": "Stabilize affine baseline on narrow offset domains",
+      "date": "2026-11-15",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Reproduce loss of affine precision on offset/narrow inputs; center and scale baseline only; test three ranges and bounded cost pairs; audit persistent state at session 10.",
+      "counterexamples": [
+        "Distinct bounded x can trigger cancellation or absolute variance threshold in uncentered affine baseline"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "new_tests": 3,
+        "regressions_failed_before_change": 2,
+        "python_tests_passed": 31,
+        "node_tests_passed": 3,
+        "candidate_unchanged_pairs": 5,
+        "default_median_process_ms": {
+          "base": 160.2594359937939,
+          "new": 146.1705300025642
+        }
+      },
+      "evidence": [
+        "tests/test_samples_affine_stability.py",
+        "reports/affine-stability-20261115.md",
+        "reports/affine-stability-20261115.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "GP scaling numerical stability",
+        "real data qualification",
+        "backend integration"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Performed at session 10; all signals null, no trials/adaptations/edges; adaptation remains disabled; counter reset."
+    },
+    {
+      "task": "Derive sample report conclusion from current held-out metrics",
+      "date": "2026-11-16",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Replace canned conclusion only; falsify with changed synthetic generator and missing optional test; verify unchanged model and metrics in three bounded pairs.",
+      "counterexamples": [
+        "Hardcoded synthetic RMSE and quadratic-trend text survive generator changes"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regressions_failed_before_change": 3,
+        "python_tests_passed": 34,
+        "node_tests_passed": 3,
+        "candidate_and_metrics_unchanged_pairs": 3,
+        "median_process_ms": {
+          "base": 158.97665300001051,
+          "new": 153.70105699999215
+        }
+      },
+      "evidence": [
+        "tests/test_samples_conclusion.py",
+        "reports/samples-conclusion-20261116.md",
+        "reports/samples-conclusion-20261116.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "GP scaling stability",
+        "real data qualification",
+        "backend selection"
+      ],
+      "visual_verification": "Not applicable: no visual changes",
+      "self_retrospective": "Not due: session 11; counter 1 since audit at session 10."
+    },
+    {
+      "task": "Score the simplified returned tree rather than pre-simplification affine values",
+      "date": "2026-11-17",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Reproduce rounded constant objective mismatch, score actual wrapped tree, expose training objective, test parity and bounded process costs.",
+      "counterexamples": [
+        "Rounded constant contributes no old training MSE but nonzero returned-tree MSE"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regression_failed_before_change": true,
+        "python_tests_passed": 37,
+        "node_tests_passed": 3,
+        "constant_old_objective_discrepancy": 4.4521000000775146e-14,
+        "constant_new_objective_discrepancy": 0,
+        "candidate_unchanged_pairs": 4,
+        "default_median_process_ms": {
+          "base": 182.10179599999776,
+          "new": 198.12298899999803
+        }
+      },
+      "evidence": [
+        "tests/test_samples_fitness_parity.py",
+        "reports/fitness-parity-20261117.md",
+        "reports/fitness-parity-20261117.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "GP scaling condition number",
+        "real data qualification",
+        "backend selection"
+      ],
+      "visual_verification": "No visual application change; inline table uses checked measurements, no screenshot required.",
+      "self_retrospective": "Not due: local session 12, two since session-10 audit."
+    },
+    {
+      "task": "Center and normalize GP scaling in samples adapter",
+      "date": "2026-11-18",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Reproduce scaling failure on narrow offset coordinates; fix local fit only, preserve constant case and effective-tree score, measure bounded pairs including no-gain case.",
+      "counterexamples": [
+        "Raw covariance loses narrow offset signal",
+        "Small-slope data may still prefer constant due to complexity penalty"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regression_failed_before_change": true,
+        "python_tests_passed": 40,
+        "node_tests_passed": 3,
+        "offset_slope5_max_error_before": 0.0005034150731517695,
+        "offset_slope5_max_error_after": 1.3562484468820912e-11,
+        "pairs": 6,
+        "default_median_process_ms": {
+          "base": 149.40669099999582,
+          "new": 159.75238900000477
+        }
+      },
+      "evidence": [
+        "tests/test_samples_gp_scaling.py",
+        "reports/gp-scaling-20261118.md",
+        "reports/gp-scaling-20261118.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real client data qualification",
+        "backend selection",
+        "general numerical conditioning guarantees"
+      ],
+      "visual_verification": "No application visual change; table checked against raw JSON.",
+      "self_retrospective": "Not due: session 13, three since session-10 audit."
+    },
+    {
+      "task": "Identify supplied sample bytes without persisting input path",
+      "date": "2026-11-19",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Replace origin path with exact-input digest/length; falsify with relocated/edited files and verify unchanged numerical results in three bounded pairs.",
+      "counterexamples": [
+        "Same path can contain different measurements",
+        "Absolute local path unnecessarily persisted in successful reports"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regressions_failed_before_change": 3,
+        "python_tests_passed": 43,
+        "node_tests_passed": 3,
+        "candidate_and_metrics_unchanged_pairs": 3,
+        "median_process_ms": {
+          "base": 153.7352259999949,
+          "new": 148.85072300000957
+        }
+      },
+      "evidence": [
+        "tests/test_samples_input_identity.py",
+        "reports/input-identity-20261119.md",
+        "reports/input-identity-20261119.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real-data scientific provenance",
+        "backend selection",
+        "continuous numerical certification"
+      ],
+      "visual_verification": "No application visual change; progress table based on checked measurements.",
+      "self_retrospective": "Not due: session 14, four since session-10 audit."
     }
   ]
 }
