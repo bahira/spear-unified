@@ -122,6 +122,8 @@ def audit_ledger(kernel, *, domain=(-8.0, 8.0), probes=1025,
                      candidate, abs_tol, rel_tol)
     return dict(report, kernel=kernel, arithmetic=arithmetic,
                 domain=list(domain), abs_tol=abs_tol, rel_tol=rel_tol,
+                ledger_source_commit=registry.source.get('commit'),
+                ledger_source_sha256=registry.source['sha256'][kernel],
                 max_probes=MAX_PROBES, samples_certify_domain=False,
                 native_parity_verified=False, backend_promoted=False)
 
