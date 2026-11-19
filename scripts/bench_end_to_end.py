@@ -27,37 +27,42 @@ def run_benchmark(samples=1001, repeats=7, warmups=2):
         "warmups": warmups,
         "domain": [-8.0, 8.0],
         "method": "JSON encode request, decode request, dispatch compute, encode response",
-        "limitations": "Single-process scalar microbenchmark; no network, deployment, batch-native or client traffic",
+        "limitations": "Reference path omits Registry dispatch and source metadata; ratio is not a matched production speedup. Single-process scalar microbenchmark; no network, deployment, batch-native or client traffic",
         "kernels": {},
     }
     for kernel in ("silu", "gelu"):
-        def trial():
+        reference = (lambda x: x / (1 + math.exp(-x))) if kernel == "silu" else (lambda x: 0.5 * x * (1 + math.erf(x / math.sqrt(2))))
+        def trial(fn):
             start = time.perf_counter_ns()
             outputs = []
             for x in xs:
                 payload = json.dumps({"kind": "compute", "kernel": kernel, "x": x})
-                result = router.run(json.loads(payload))
+                task = json.loads(payload)
+                result = fn(task)
                 outputs.append(json.loads(json.dumps(result))["value"])
             elapsed = time.perf_counter_ns() - start
             return elapsed / samples, outputs
 
         for _ in range(warmups):
-            trial()
+            trial(router.run)
+            trial(lambda task: {"value": reference(task["x"])})
         timings = []
+        reference_timings = []
         outputs = None
         for _ in range(repeats):
-            ns, outputs = trial()
+            ns, outputs = trial(router.run)
             timings.append(ns)
-        if kernel == "silu":
-            expected = [x / (1 + math.exp(-x)) for x in xs]
-        else:
-            expected = [0.5 * x * (1 + math.erf(x / math.sqrt(2))) for x in xs]
+            ref_ns, _ = trial(lambda task: {"value": reference(task["x"])})
+            reference_timings.append(ref_ns)
+        expected = [reference(x) for x in xs]
         errors = [abs(a - b) for a, b in zip(outputs, expected)]
         report["kernels"][kernel] = {
             "median_ns_per_request": statistics.median(timings),
             "min_ns_per_request": min(timings),
             "max_ns_per_request": max(timings),
             "max_abs_error": max(errors),
+            "reference_median_ns_per_request": statistics.median(reference_timings),
+            "reference_to_router_ratio": statistics.median(reference_timings) / statistics.median(timings),
             "requests_per_second_median": 1e9 / statistics.median(timings),
         }
     return report
