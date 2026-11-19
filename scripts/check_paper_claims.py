@@ -43,6 +43,21 @@ def rk4_step(theta, omega, dt):
             omega + dt*(k1[1]+2*k2[1]+2*k3[1]+k4[1])/6)
 
 
+def local_eigenvalues(m=1.0, l=1.0):
+    """Unsaturated linearized printed plant with velocity-only control near origin."""
+    a = 3.0 * G / (2.0 * l)
+    damping = 3.0 * K / (m * l*l)
+    root = math.sqrt(damping*damping + 4.0*a)
+    return ((-damping + root)/2.0, (-damping - root)/2.0)
+
+
+def cycles_to_ns(cycles, clock_mhz):
+    """Idealized cycle timing lower bound, not a compiled-kernel measurement."""
+    if type(cycles) not in (int, float) or type(clock_mhz) not in (int, float) or not math.isfinite(cycles) or not math.isfinite(clock_mhz) or cycles <= 0 or clock_mhz <= 0:
+        raise ValueError('Cycles and clock frequency must be finite positive numbers')
+    return 1000.0 * cycles / clock_mhz
+
+
 def run(duration=2.0, dt=0.001):
     theta, omega = 0.1, 0.0
     trace = [(0.0, theta, omega, energy(theta, omega))]
@@ -58,6 +73,8 @@ def run(duration=2.0, dt=0.001):
         'actual_Vdot': energy_derivative(t, w),
         'manuscript_Vdot': manuscript_claimed_derivative(t, w),
         'omitted_gravity_term': 2.5*G*w*math.sin(t),
+        'linearized_origin_eigenvalues_per_second': list(local_eigenvalues()),
+        'three_cycles_at_84mhz_ns': cycles_to_ns(3, 84),
         'trace': trace,
         'limits': 'Numerical illustration only; no hardware timing, complete simulator reproduction, or global Lyapunov certificate.'
     }
