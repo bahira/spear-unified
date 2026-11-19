@@ -54,6 +54,8 @@ Les expériences natives compilent des bibliothèques temporaires. Elles ne chan
 4. Construire un cas d'usage SDK/pilote avant toute promesse commerciale d'accélération.
 5. Connecter les adaptateurs navigateur/LLM uniquement pour un besoin concret et autorisé.
 
+Rapport d'intégration et protocole d'expérimentation : [reports/INTEGRATION-AND-EXPERIMENT-2026-11-19.md](reports/INTEGRATION-AND-EXPERIMENT-2026-11-19.md).
+
 Suivi : [issues](https://github.com/bahira/spear-unified/issues), [pull requests](https://github.com/bahira/spear-unified/pulls), [roadmap](reports/ROADMAP-2026-11-19.md). Les PR historiques [#10](https://github.com/bahira/spear-unified/pull/10) et [#11](https://github.com/bahira/spear-unified/pull/11) ne sont **pas** fusionnées intégralement ; des éléments ont été repris dans les PR #20, #21 et #23.
 
 ## Ce qui fonctionne

@@ -22,6 +22,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Validate Python runtime and discovery
         run: python -m unittest discover -s tests -v
+      - name: Measure bounded end-to-end scalar CPU reference
+        if: matrix.python-version == '3.12'
+        run: python -m scripts.bench_end_to_end --samples 257 --repeats 3 --warmups 1
       - name: Validate native precision experiment
         if: matrix.python-version == '3.12'
         run: python scripts/check_native_precision.py
