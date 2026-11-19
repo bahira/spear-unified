@@ -11,6 +11,19 @@
 ## Expérience intégrée dans la présente PR
 La PR #26 ajoute la régression symbolique enrichie : stabilisation affine centrée/normalisée, comparaison à des références constante, affine et quadratique ajustées **uniquement sur l'entraînement**, erreurs sur train/validation/test, couverture des domaines et séparation des points à l'intérieur/extérieur du domaine d'entraînement. Neuf modules de tests ont été réintégrés depuis la PR #10. La CI ajoute une expérience bornée de latence CPU pour SiLU et GELU (257 échantillons, 3 répétitions, 1 échauffement) avec rapport JSON dans les logs Python 3.12.
 
+## Résultats expérimentaux observés en CI
+
+Source : [GitHub Actions run #25](https://github.com/bahira/spear-unified/actions/runs/44602403651), job Python 3.12 (Ubuntu Azure x86_64, Python 3.12.16), 257 points [-8,8], 3 répétitions, 1 échauffement.
+
+| Fonction | Router + JSON (médiane µs/requête) | Référence directe + JSON (µs/requête) | Ratio référence / Router | Erreur absolue maximale |
+| --- | ---: | ---: | ---: | ---: |
+| SiLU | 12.346 | 9.525 | 0.771 | 0 |
+| GELU | 11.757 | 9.726 | 0.827 | 2.1092e-7 |
+
+**Résultat : le Router est plus lent** que la référence mathématique directe dans cette sonde : environ 29.6 % de temps supplémentaire pour SiLU et 20.9 % pour GELU, rapportés à la durée de la référence. Cette comparaison inclut la gestion du registre côté Router mais pas côté référence ; elle n'établit pas la vitesse intrinsèque des approximations. Les mesures sont spécifiques au runner CI et ne doivent pas être extrapolées à un serveur client.
+
+La sonde native de précision a également été exécutée avec succès dans ce job ; elle ne mesure pas un gain end-to-end.
+
 ## Interprétation et limites
 - La comparaison référence mathématique vs Router n'est pas un duel de backends équivalents : le Router exécute aussi la sélection du registre et les métadonnées.
 - Un candidat de recherche peut perdre contre une simple baseline quadratique : l'algorithme ne prouve ni supériorité, ni découverte d'une loi physique.
