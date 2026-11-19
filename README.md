@@ -14,6 +14,10 @@ python bench.py
 
 Read the [first-principles strategy and go/no-go gates](reports/FIRST-PRINCIPLES-EDGE-2026-11-19.md) and [updated project goal](GOAL.md).
 
+## Audit des anciens papiers SPEAR
+
+[Audit de 20 vérifications documentaires](reports/LEGACY-PAPER-20-CHECK-AUDIT-2026-11-19.md) : manuscrit original, brouillon corrigé, coût théorique vs mesuré, précision f32, compositions hors domaine, négatifs PyTorch/ORT. Ces vérifications portent sur les **sources historiques** et ne constituent pas 20 nouveaux benchmarks.
+
 ## SpearVM — réutilisation sélective
 
 Audit source de [bahira/SpearVM](https://github.com/bahira/SpearVM) : [rapport d'intégration](reports/SPEARVM-INTEGRATION-AUDIT-2026-11-19.md). Le candidat prioritaire n'est pas le calcul scalaire mais l'inférence répétée de petits MLP CPU avec poids pré-empaquetés (`PackedNT`, `PackedMLP`) et fusion `matmul + bias + GELU`. SpearVM reste moins rapide qu'OpenBLAS en GEMM pur et que PyTorch/ONNX sur l'encodeur testé. Ses benchmarks positifs de serving digits demandent une reproduction indépendante. Pas d'intégration native automatique ni de dépendance SpearVM imposée.
