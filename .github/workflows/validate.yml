@@ -22,6 +22,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Validate Python runtime and discovery
         run: python -m unittest discover -s tests -v
+      - name: Validate native precision experiment
+        if: matrix.python-version == '3.12'
+        run: python scripts/check_native_precision.py
   node:
     runs-on: ubuntu-latest
     timeout-minutes: 10
