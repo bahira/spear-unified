@@ -65,7 +65,7 @@ Comparaison de latence sur le **même contrat d'API** (tailles 1, 64 et 4096) :
 python -m scripts.bench_pilot
 ```
 
-Le benchmark mesure le coût complet du pilote, y compris validation des entrées, sortie et calcul d'erreur, et non uniquement la fonction mathématique. Les timings restent dépendants du matériel et ne constituent pas une promesse de vitesse.
+Le benchmark mesure le coût complet du pilote, y compris validation des entrées, sortie et calcul d'erreur, et non uniquement la fonction mathématique. **Résultat CI observé : le backend ledger est 1,40× à 2,58× plus lent que la référence** sur les six scénarios mesurés (lots 1/64/4096). Voir [rapport CPU pilote](reports/PILOT-CPU-BENCHMARK-2026-11-19.md). Les timings restent dépendants du matériel et ne constituent pas une promesse de vitesse.
 
 ### Travail restant, par priorité
 
