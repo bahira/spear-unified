@@ -10,7 +10,7 @@ import math
 import platform
 from pathlib import Path
 
-MAX_ELEMENTS = 65536
+MAX_ELEMENTS = 262144
 
 
 def cpu_supported():
