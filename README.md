@@ -46,6 +46,27 @@ python -m unittest tests.test_native_bridge tests.test_native_conversion -v
 
 Les expériences natives compilent des bibliothèques temporaires. Elles ne changent pas le chemin de calcul utilisé par la CLI.
 
+### Pilote SDK CPU explicite (expérimental)
+
+```python
+from spear.pilot import CPUPilot
+xs = [-2.0, 0.0, 2.0]
+baseline = CPUPilot(backend='reference', domain=(-8, 8))
+candidate = CPUPilot(backend='python-ledger', domain=(-8, 8), max_abs_error=1e-4)
+print(baseline.compute('silu', xs))
+print(candidate.compute('silu', xs))
+```
+
+Les backends `reference` et `python-ledger` sont explicites : pas d'auto-sélection, de backend C/WASM activé ou de fallback silencieux. Les entrées sont limitées à 65 536 valeurs numériques finies et à un domaine configuré ; l'erreur est vérifiée contre la référence pour chaque sortie. La tolérance est facultative, mais si elle est renseignée un dépassement provoque une exception.
+
+Comparaison de latence sur le **même contrat d'API** (tailles 1, 64 et 4096) :
+
+```sh
+python -m scripts.bench_pilot
+```
+
+Le benchmark mesure le coût complet du pilote, y compris validation des entrées, sortie et calcul d'erreur, et non uniquement la fonction mathématique. Les timings restent dépendants du matériel et ne constituent pas une promesse de vitesse.
+
 ### Travail restant, par priorité
 
 1. Consolider les améliorations de découverte depuis les échantillons encore dans la PR #10, en évitant de réintroduire les conflits documentaires.
