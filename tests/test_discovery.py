@@ -9,6 +9,8 @@ class DiscoveryChecks(unittest.TestCase):
         task={'formula':'x*x','seed':42}
         a,b=discover(task),discover(task)
         self.assertEqual(a['status'],'ok')
+        self.assertTrue(a['source_files_verified'])
+        self.assertEqual(set(a['source_file_sha256']), {'engine.ts', 'math-utils.ts'})
         self.assertTrue(a['accepted_on_probe'])
         self.assertFalse(a['registry_updated'])
         self.assertEqual(a['tree'],b['tree'])
