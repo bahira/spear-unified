@@ -1,3 +1,8 @@
+
+## Full-paper source audit and executable claim check
+
+The complete research-site Markdown manuscripts were recovered at a pinned source commit. The [full-paper verification report](reports/FULL-PAPERS-VERIFICATION-2026-11-19.md) includes corrected pendulum Lyapunov algebra and an executable counterexample (`python -m scripts.check_paper_claims`). This exposes a **mathematical error in a historical stability claim**; it is not an independent replication of all nine papers or hardware performance. No experimental controller is deployed.
+
 # SPEAR Unified — prototype léger
 
 Socle local sans dépendance externe ni service : Python 3.10+ suffit.
