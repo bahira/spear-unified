@@ -31,11 +31,11 @@ def run_benchmark(samples=1001, repeats=7, warmups=2):
         "kernels": {},
     }
     for kernel in ("silu", "gelu"):
-        requests = [json.dumps({"kind": "compute", "kernel": kernel, "x": x}) for x in xs]
         def trial():
             start = time.perf_counter_ns()
             outputs = []
-            for payload in requests:
+            for x in xs:
+                payload = json.dumps({"kind": "compute", "kernel": kernel, "x": x})
                 result = router.run(json.loads(payload))
                 outputs.append(json.loads(json.dumps(result))["value"])
             elapsed = time.perf_counter_ns() - start
