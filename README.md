@@ -1,3 +1,5 @@
+[Session research and native integration progress, 2026-11-19](reports/SESSION-PROGRESS-2026-11-19.md): 4 Unified PRs, 1 SpearVM packaging PR, real CI evidence and remaining blockers.
+
 
 ## Research-site correction and progress
 
