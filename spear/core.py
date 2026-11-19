@@ -24,8 +24,48 @@ OPS = {'erf': (1, erf), 'add': (2, lambda a,b: a+b), 'mul': (2, lambda a,b: a*b)
        'relu': (1, lambda a: max(0, a)),
        'sub': (2, lambda a,b: a-b), 'sq': (1, lambda a: a*a)}
 
+MAX_TREE_DEPTH = 64
+MAX_TREE_NODES = 1024
+
+def validate_tree(root):
+    """Validate tree shape and size iteratively, before recursive AST construction."""
+    stack = [(root, 1)]
+    count = 0
+    while stack:
+        node, depth = stack.pop()
+        count += 1
+        if count > MAX_TREE_NODES:
+            raise ValueError('Tree node limit exceeded')
+        if depth > MAX_TREE_DEPTH:
+            raise ValueError('Tree depth limit exceeded')
+        if not isinstance(node, dict):
+            raise ValueError('Tree node must be an object')
+        op = node.get('o')
+        if op == 'var':
+            if set(node) != {'o', 'n'} or node['n'] != 'x':
+                raise ValueError('Only variable x is supported')
+        elif op == 'const':
+            if set(node) != {'o', 'v'} or isinstance(node['v'], bool):
+                raise ValueError('Invalid constant')
+            try:
+                value = float(node['v'])
+            except (TypeError, ValueError, OverflowError):
+                raise ValueError('Invalid constant') from None
+            if not math.isfinite(value):
+                raise ValueError('Non-finite constant')
+        elif isinstance(op, str) and op in OPS:
+            if set(node) != {'o', 'c'}:
+                raise ValueError('Invalid operator node')
+            children = node['c']
+            if not isinstance(children, list) or len(children) != OPS[op][0]:
+                raise ValueError('Invalid operator arity')
+            stack.extend((child, depth + 1) for child in children)
+        else:
+            raise ValueError('Unsupported operator')
+
 def compile_tree(node):
     """Build Python AST from whitelisted operators, never from formula text."""
+    validate_tree(node)
     def build(n):
         op = n['o']
         if op == 'var':
