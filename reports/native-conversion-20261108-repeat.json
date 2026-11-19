@@ -1,0 +1,399 @@
+{
+  "date": "2026-11-08",
+  "status": "ok",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "compiler_flags": [
+    "-O2",
+    "-std=c11",
+    "-fPIC",
+    "-shared",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-builtin-sin"
+  ],
+  "source_sha256": "d5cd2e40ce4d66816806ac089d31a39b4c7d8ec926e5e8ed270c31767f4d987d",
+  "domain": [
+    -1,
+    1
+  ],
+  "requested_max_abs_error": 3e-06,
+  "warmup": 2,
+  "repetitions": 7,
+  "build_ms": 39.49484600001085,
+  "elapsed_seconds": 1.8440136689999918,
+  "results": [
+    {
+      "mode": "list",
+      "size": 1,
+      "passes": 30,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 1,
+      "median_call_ns": {
+        "python": 518.7666666666667,
+        "c_reference": 2689.366666666667,
+        "c_approx": 2676.7
+      },
+      "speedup_approx_vs_python": 0.19380829628522683,
+      "speedup_approx_vs_c_reference": 1.0047321951158765,
+      "serialized_output_bytes": null,
+      "raw_call_ns": {
+        "python": [
+          688.0333333333333,
+          518.7666666666667,
+          511.1,
+          583.2,
+          546.1666666666666,
+          510.76666666666665,
+          512.1333333333333
+        ],
+        "c_reference": [
+          2853.9666666666667,
+          2726.4333333333334,
+          2684.7,
+          2689.366666666667,
+          2698.0333333333333,
+          2653.0,
+          2673.3333333333335
+        ],
+        "c_approx": [
+          2725.766666666667,
+          2676.7,
+          2637.266666666667,
+          3149.0666666666666,
+          3702.233333333333,
+          2637.633333333333,
+          2629.633333333333
+        ]
+      }
+    },
+    {
+      "mode": "list",
+      "size": 64,
+      "passes": 4,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 64,
+      "median_call_ns": {
+        "python": 6570.0,
+        "c_reference": 11347.0,
+        "c_approx": 10948.75
+      },
+      "speedup_approx_vs_python": 0.6000685009704304,
+      "speedup_approx_vs_c_reference": 1.03637401529855,
+      "serialized_output_bytes": null,
+      "raw_call_ns": {
+        "python": [
+          7205.75,
+          6570.0,
+          6632.5,
+          10338.0,
+          6552.25,
+          6487.25,
+          6472.25
+        ],
+        "c_reference": [
+          11612.5,
+          11322.0,
+          11459.75,
+          11207.0,
+          11512.25,
+          11294.5,
+          11347.0
+        ],
+        "c_approx": [
+          11129.25,
+          11051.5,
+          10823.75,
+          10838.75,
+          11071.5,
+          10946.5,
+          10948.75
+        ]
+      }
+    },
+    {
+      "mode": "list",
+      "size": 4096,
+      "passes": 1,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 4096,
+      "median_call_ns": {
+        "python": 402375.0,
+        "c_reference": 616327.0,
+        "c_approx": 522265.0
+      },
+      "speedup_approx_vs_python": 0.7704422084573923,
+      "speedup_approx_vs_c_reference": 1.1801039702066958,
+      "serialized_output_bytes": null,
+      "raw_call_ns": {
+        "python": [
+          402375.0,
+          455004.0,
+          381794.0,
+          475104.0,
+          400692.0,
+          411939.0,
+          387002.0
+        ],
+        "c_reference": [
+          612912.0,
+          593753.0,
+          635966.0,
+          649236.0,
+          657378.0,
+          599170.0,
+          616327.0
+        ],
+        "c_approx": [
+          513693.0,
+          521134.0,
+          632761.0,
+          522225.0,
+          522265.0,
+          523146.0,
+          554914.0
+        ]
+      }
+    },
+    {
+      "mode": "list",
+      "size": 65536,
+      "passes": 1,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 65536,
+      "median_call_ns": {
+        "python": 6595625.0,
+        "c_reference": 9619912.0,
+        "c_approx": 8997266.0
+      },
+      "speedup_approx_vs_python": 0.7330699125712189,
+      "speedup_approx_vs_c_reference": 1.0692039114993377,
+      "serialized_output_bytes": null,
+      "raw_call_ns": {
+        "python": [
+          6595625.0,
+          6461534.0,
+          6810980.0,
+          6106090.0,
+          6670789.0,
+          6788626.0,
+          6382705.0
+        ],
+        "c_reference": [
+          10162708.0,
+          9090657.0,
+          9874705.0,
+          9085159.0,
+          9639853.0,
+          9354624.0,
+          9619912.0
+        ],
+        "c_approx": [
+          9502676.0,
+          8869585.0,
+          9036976.0,
+          9294363.0,
+          8997266.0,
+          8816785.0,
+          8803675.0
+        ]
+      }
+    },
+    {
+      "mode": "json",
+      "size": 1,
+      "passes": 30,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 1,
+      "median_call_ns": {
+        "python": 3147.4,
+        "c_reference": 5432.166666666667,
+        "c_approx": 5291.633333333333
+      },
+      "speedup_approx_vs_python": 0.5947879986645586,
+      "speedup_approx_vs_c_reference": 1.0265576476072291,
+      "serialized_output_bytes": {
+        "python": 21,
+        "c_reference": 21,
+        "c_approx": 20
+      },
+      "raw_call_ns": {
+        "python": [
+          3318.3333333333335,
+          3186.8,
+          3128.0333333333333,
+          3112.0,
+          3147.4,
+          3170.1,
+          3139.4
+        ],
+        "c_reference": [
+          5432.166666666667,
+          5424.166666666667,
+          7992.7,
+          6664.666666666667,
+          5284.266666666666,
+          9019.233333333334,
+          5346.366666666667
+        ],
+        "c_approx": [
+          8209.7,
+          6220.366666666667,
+          5278.266666666666,
+          5281.633333333333,
+          10201.0,
+          5291.633333333333,
+          5275.6
+        ]
+      }
+    },
+    {
+      "mode": "json",
+      "size": 64,
+      "passes": 4,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 64,
+      "median_call_ns": {
+        "python": 42949.75,
+        "c_reference": 47877.0,
+        "c_approx": 48663.25
+      },
+      "speedup_approx_vs_python": 0.8825910723184334,
+      "speedup_approx_vs_c_reference": 0.9838430437753335,
+      "serialized_output_bytes": {
+        "python": 1334,
+        "c_reference": 1334,
+        "c_approx": 1324
+      },
+      "raw_call_ns": {
+        "python": [
+          42846.75,
+          48916.0,
+          42949.75,
+          47681.75,
+          42478.75,
+          42709.25,
+          66965.75
+        ],
+        "c_reference": [
+          63603.0,
+          47228.5,
+          54214.0,
+          47393.75,
+          46792.75,
+          85663.75,
+          47877.0
+        ],
+        "c_approx": [
+          48663.25,
+          47118.25,
+          63012.25,
+          48002.0,
+          50561.0,
+          47619.25,
+          62266.0
+        ]
+      }
+    },
+    {
+      "mode": "json",
+      "size": 4096,
+      "passes": 1,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 4096,
+      "median_call_ns": {
+        "python": 2620039.0,
+        "c_reference": 2994422.0,
+        "c_approx": 2970095.0
+      },
+      "speedup_approx_vs_python": 0.8821397968751842,
+      "speedup_approx_vs_c_reference": 1.0081906471005135,
+      "serialized_output_bytes": {
+        "python": 85112,
+        "c_reference": 85112,
+        "c_approx": 85069
+      },
+      "raw_call_ns": {
+        "python": [
+          2621581.0,
+          2604686.0,
+          2620039.0,
+          2685507.0,
+          2918728.0,
+          2579428.0,
+          2541691.0
+        ],
+        "c_reference": [
+          3683277.0,
+          3049895.0,
+          2994422.0,
+          2892108.0,
+          2909634.0,
+          3136265.0,
+          2994051.0
+        ],
+        "c_approx": [
+          2970095.0,
+          2918848.0,
+          2885197.0,
+          3364979.0,
+          3233351.0,
+          2692618.0,
+          3049194.0
+        ]
+      }
+    },
+    {
+      "mode": "json",
+      "size": 65536,
+      "passes": 1,
+      "max_abs_error": 2.7308396425285153e-06,
+      "approximated": 65536,
+      "median_call_ns": {
+        "python": 43805781.0,
+        "c_reference": 45519353.0,
+        "c_approx": 45778336.0
+      },
+      "speedup_approx_vs_python": 0.9569107317487469,
+      "speedup_approx_vs_c_reference": 0.9943426733553618,
+      "serialized_output_bytes": {
+        "python": 1362298,
+        "c_reference": 1362298,
+        "c_approx": 1362227
+      },
+      "raw_call_ns": {
+        "python": [
+          43339556.0,
+          43805781.0,
+          43497699.0,
+          43128014.0,
+          44773921.0,
+          43964764.0,
+          43989161.0
+        ],
+        "c_reference": [
+          45519353.0,
+          45370443.0,
+          45344212.0,
+          47125526.0,
+          48000735.0,
+          44877819.0,
+          48238569.0
+        ],
+        "c_approx": [
+          44171817.0,
+          45730303.0,
+          46627034.0,
+          44238903.0,
+          48921173.0,
+          45778336.0,
+          46268056.0
+        ]
+      }
+    }
+  ],
+  "sink": 31987886,
+  "included": "List: numeric validation, list-to-array, native finite scan, output allocation, ctypes call, array-to-list. JSON: the same plus input json.loads and output json.dumps for every variant. Rotated/reversed order.",
+  "excluded": "Compilation/cold library load (build separately reported), synthetic input generation and initial input JSON encoding, process/CLI startup, network and actual application. Runtime remains unchanged.",
+  "limitations": "Classical Taylor7, not GP discovery. Synthetic inputs and short noisy VM measurements; approximated numbers may serialize to different strings/lengths. No automatic backend or client savings established."
+}

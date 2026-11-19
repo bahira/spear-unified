@@ -122,3 +122,13 @@ Analyse du noyau de priorisation pour les instructions permanentes : [reports/pa
 POC de recherche depuis des observations : `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/discover_samples.mjs` ; entrée JSON facultative train/validation/test, données synthétiques par défaut. Rapports : reports/samples-discovery.md et .json. Aucun avantage clair contre la baseline quadratique.
 
 Grounded Loop : [reports/grounded-loop-prompt.md](reports/grounded-loop-prompt.md), noyau permanent recommandé et limites de preuve.
+
+## Expérience du pont Python/C
+
+`python scripts/bench_native_bridge.py` compile temporairement les fonctions C déjà présentes et mesure leur appel depuis Python sur des buffers `array('d')`, avec validation et allocation incluses. Aucun composant installé ni backend activé. Sur cette VM, le grand lot est plus rapide que Python, le lot d’un élément est plus lent. Construction/conversion initiale du buffer et démarrage CLI exclus : voir [reports/native-bridge-20261105.md](reports/native-bridge-20261105.md) pour précision, deux essais indépendants et limites. Linux et compilateur C déjà présent requis.
+
+Le coût des conversions est mesuré séparément par `python scripts/bench_native_conversion.py` : listes et JSON avec contrôles, conversions et sérialisation inclus. Sur les deux essais du 8 novembre, aucun gain natif robuste n’est établi pour ces chemins ; le runtime reste inchangé. Voir [reports/native-conversion-20261108.md](reports/native-conversion-20261108.md). Les rapports sur buffers préconstruits restent des cas distincts.
+
+Le repli hors domaine est sondé par `python scripts/bench_native_mixed.py` (buffers préexistants, 0/50/100 % hors [-1,1]). Les comptes et erreurs sont contrôlés : 100 % hors domaine signifie zéro approximation. Les variations de temps ne doivent pas être attribuées à Taylor dans ce cas. Voir [reports/native-mixed-20261111.md](reports/native-mixed-20261111.md). Runtime inchangé, données synthétiques uniquement.
+
+Qualification numérique supplémentaire du pont expérimental : [sondes aléatoires, bornes et repli extrême](reports/native-precision-20261113.md). Exécution courte : `python scripts/check_native_precision.py`. Validation finie sur cette plateforme ; aucun changement du runtime.

@@ -1,0 +1,86 @@
+{
+  "seed": 20261113,
+  "results": [
+    {
+      "group": "seeded_uniform",
+      "tolerance": 0,
+      "points": 4096,
+      "approximated": 0,
+      "expected_approximated": 0,
+      "max_abs_error": 0.0,
+      "fallback_matches_python_libm": true,
+      "input_unchanged": true,
+      "negative_zero_preserved": true
+    },
+    {
+      "group": "seeded_uniform",
+      "tolerance": 3e-06,
+      "points": 4096,
+      "approximated": 4096,
+      "expected_approximated": 4096,
+      "max_abs_error": 2.7151859613994134e-06,
+      "fallback_matches_python_libm": true,
+      "input_unchanged": true,
+      "negative_zero_preserved": true
+    },
+    {
+      "group": "boundary_neighbors",
+      "tolerance": 0,
+      "points": 9,
+      "approximated": 0,
+      "expected_approximated": 0,
+      "max_abs_error": 0.0,
+      "fallback_matches_python_libm": true,
+      "input_unchanged": true,
+      "negative_zero_preserved": true
+    },
+    {
+      "group": "boundary_neighbors",
+      "tolerance": 3e-06,
+      "points": 9,
+      "approximated": 7,
+      "expected_approximated": 7,
+      "max_abs_error": 2.7308396425285153e-06,
+      "fallback_matches_python_libm": true,
+      "input_unchanged": true,
+      "negative_zero_preserved": true
+    },
+    {
+      "group": "extreme_fallback",
+      "tolerance": 0,
+      "points": 6,
+      "approximated": 0,
+      "expected_approximated": 0,
+      "max_abs_error": 0.0,
+      "fallback_matches_python_libm": true,
+      "input_unchanged": true,
+      "negative_zero_preserved": true
+    },
+    {
+      "group": "extreme_fallback",
+      "tolerance": 3e-06,
+      "points": 6,
+      "approximated": 0,
+      "expected_approximated": 0,
+      "max_abs_error": 0.0,
+      "fallback_matches_python_libm": true,
+      "input_unchanged": true,
+      "negative_zero_preserved": true
+    }
+  ],
+  "limits": "Finite synthetic probes on this platform, not continuous certification; exact fallback agreement is platform-specific.",
+  "date": "2026-11-13",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "flags": [
+    "-O2",
+    "-std=c11",
+    "-fPIC",
+    "-shared",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-builtin-sin"
+  ],
+  "source_sha256": "d5cd2e40ce4d66816806ac089d31a39b4c7d8ec926e5e8ed270c31767f4d987d",
+  "base_commit": "eda955ff50b42a5044fc6dcf507b35f3df95f932"
+}

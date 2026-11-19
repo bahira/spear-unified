@@ -1,0 +1,299 @@
+{
+  "date": "2026-11-13",
+  "status": "ok",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "flags": [
+    "-O2",
+    "-std=c11",
+    "-fPIC",
+    "-shared",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-fno-builtin-sin"
+  ],
+  "source_sha256": "d5cd2e40ce4d66816806ac089d31a39b4c7d8ec926e5e8ed270c31767f4d987d",
+  "approximation_domain": [
+    -1,
+    1
+  ],
+  "outside_absolute_range": [
+    2,
+    8
+  ],
+  "requested_max_abs_error": 3e-06,
+  "warmup": 2,
+  "repetitions": 7,
+  "build_ms": 38.59858000001282,
+  "elapsed_seconds": 0.5546032489999959,
+  "results": [
+    {
+      "size": 4096,
+      "requested_outside_fraction": 0,
+      "outside_count": 0,
+      "approximated": 4096,
+      "max_abs_error": 2.7308396425285153e-06,
+      "fallback_max_abs_error": 0,
+      "median_call_ns": {
+        "python": 379311,
+        "c_reference": 218359,
+        "c_mixed": 176936
+      },
+      "speedup_mixed_vs_python": 2.143775150336845,
+      "speedup_mixed_vs_c_reference": 1.234112899579509,
+      "raw_call_ns": {
+        "python": [
+          379311,
+          378360,
+          392752,
+          378851,
+          385050,
+          394294,
+          378260
+        ],
+        "c_reference": [
+          235175,
+          229997,
+          243016,
+          200733,
+          218359,
+          204578,
+          203296
+        ],
+        "c_mixed": [
+          177968,
+          175454,
+          260062,
+          176936,
+          174553,
+          175775,
+          190927
+        ]
+      }
+    },
+    {
+      "size": 4096,
+      "requested_outside_fraction": 0.5,
+      "outside_count": 2048,
+      "approximated": 2048,
+      "max_abs_error": 2.7308396425285153e-06,
+      "fallback_max_abs_error": 0.0,
+      "median_call_ns": {
+        "python": 420624,
+        "c_reference": 206541,
+        "c_mixed": 187913
+      },
+      "speedup_mixed_vs_python": 2.2383975563159546,
+      "speedup_mixed_vs_c_reference": 1.0991309808262335,
+      "raw_call_ns": {
+        "python": [
+          446493,
+          415316,
+          420624,
+          466353,
+          430519,
+          397920,
+          413413
+        ],
+        "c_reference": [
+          209205,
+          203247,
+          206061,
+          205981,
+          255635,
+          207292,
+          206541
+        ],
+        "c_mixed": [
+          190468,
+          189756,
+          187873,
+          187913,
+          188554,
+          186812,
+          186611
+        ]
+      }
+    },
+    {
+      "size": 4096,
+      "requested_outside_fraction": 1,
+      "outside_count": 4096,
+      "approximated": 0,
+      "max_abs_error": 0.0,
+      "fallback_max_abs_error": 0.0,
+      "median_call_ns": {
+        "python": 407554,
+        "c_reference": 224928,
+        "c_mixed": 208894
+      },
+      "speedup_mixed_vs_python": 1.9510086455331412,
+      "speedup_mixed_vs_c_reference": 1.07675663255048,
+      "raw_call_ns": {
+        "python": [
+          403398,
+          440704,
+          404539,
+          407063,
+          407554,
+          480885,
+          444920
+        ],
+        "c_reference": [
+          224608,
+          232461,
+          225589,
+          209045,
+          224928,
+          279451,
+          212049
+        ],
+        "c_mixed": [
+          207282,
+          221814,
+          235735,
+          207903,
+          206030,
+          226781,
+          208894
+        ]
+      }
+    },
+    {
+      "size": 65536,
+      "requested_outside_fraction": 0,
+      "outside_count": 0,
+      "approximated": 65536,
+      "max_abs_error": 2.7308396425285153e-06,
+      "fallback_max_abs_error": 0,
+      "median_call_ns": {
+        "python": 6288616,
+        "c_reference": 3269057,
+        "c_mixed": 2816805
+      },
+      "speedup_mixed_vs_python": 2.2325350885134045,
+      "speedup_mixed_vs_c_reference": 1.1605549549933347,
+      "raw_call_ns": {
+        "python": [
+          6108295,
+          6157259,
+          6274936,
+          6821910,
+          6379314,
+          6388858,
+          6288616
+        ],
+        "c_reference": [
+          3368537,
+          3230007,
+          3258981,
+          3232711,
+          3269057,
+          3387605,
+          3285371
+        ],
+        "c_mixed": [
+          2900530,
+          2795562,
+          2785447,
+          2816805,
+          2792027,
+          3083476,
+          2859549
+        ]
+      }
+    },
+    {
+      "size": 65536,
+      "requested_outside_fraction": 0.5,
+      "outside_count": 32768,
+      "approximated": 32768,
+      "max_abs_error": 2.7308396425285153e-06,
+      "fallback_max_abs_error": 0.0,
+      "median_call_ns": {
+        "python": 6504051,
+        "c_reference": 3352922,
+        "c_mixed": 3050637
+      },
+      "speedup_mixed_vs_python": 2.1320304579010876,
+      "speedup_mixed_vs_c_reference": 1.0990891410548027,
+      "raw_call_ns": {
+        "python": [
+          6516590,
+          6506575,
+          6504051,
+          6327335,
+          6471031,
+          6573005,
+          6461757
+        ],
+        "c_reference": [
+          3352922,
+          3459884,
+          3337079,
+          3302717,
+          3405782,
+          3362717,
+          3314464
+        ],
+        "c_mixed": [
+          3025720,
+          3050637,
+          3085710,
+          3037597,
+          3014443,
+          3089516,
+          3067773
+        ]
+      }
+    },
+    {
+      "size": 65536,
+      "requested_outside_fraction": 1,
+      "outside_count": 65536,
+      "approximated": 0,
+      "max_abs_error": 0.0,
+      "fallback_max_abs_error": 0.0,
+      "median_call_ns": {
+        "python": 6606115,
+        "c_reference": 3347715,
+        "c_mixed": 3308095
+      },
+      "speedup_mixed_vs_python": 1.9969544405465987,
+      "speedup_mixed_vs_c_reference": 1.0119766814435498,
+      "raw_call_ns": {
+        "python": [
+          6614478,
+          6606115,
+          6571403,
+          6624553,
+          6655299,
+          6553266,
+          6560627
+        ],
+        "c_reference": [
+          3335277,
+          3562589,
+          3347715,
+          3361916,
+          3336608,
+          3348286,
+          3342426
+        ],
+        "c_mixed": [
+          3275676,
+          3306122,
+          3384130,
+          3621677,
+          3274454,
+          3705864,
+          3308095
+        ]
+      }
+    }
+  ],
+  "sink": -47.76434958618745,
+  "included": "Existing native array input; finite scan, output allocation, ctypes views/call, tolerance check and output consumption. Python reference uses same input and output types. Rotated/reversed timing order.",
+  "excluded": "Input construction, compilation/cold loading (build reported separately), list/JSON conversion, process startup, network and application pipeline.",
+  "limitations": "Deterministically interleaved synthetic mixtures, not client traffic or random workload sampling. Fixed fractions may not reflect branch/cache behavior of a real system. Classical Taylor7, not GP discovery; no runtime change, selection policy or client gain."
+}
