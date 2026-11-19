@@ -8,6 +8,54 @@ python -m unittest discover -s tests -v
 python bench.py
 ```
 
+## État vérifié — 19 novembre 2026
+
+**Statut : prototype de recherche/validation CPU, pas accélérateur universel prêt pour la production.**
+
+| Composant | État | Preuve / limite |
+| --- | --- | --- |
+| Runtime Python SiLU/GELU et CLI JSON | Opérationnel | Registre figé, compilation AST bornée et tests Python |
+| Découverte Superspear depuis une formule | Opérationnelle sous Node 22.18+/24+ | Recherche bornée, graine fixe, 257 points de sonde avec bornes et milieux ; pas de garantie sur le continu |
+| Découverte depuis des échantillons x/y | POC opérationnel | Script Node, provenance SHA-256 des fichiers fournis, contrôles du moteur avant import ; pas de loi scientifique prouvée |
+| Benchmarks Python | Opérationnels | Mesure end-to-end JSON/routage et comparaison de référence, ordre AB/BA alterné ; pas de gain applicatif prouvé |
+| Expériences C/ctypes | Disponibles, **non activées** | Sondes de conversion, domaine, précision et fallback ; pas de sélection native automatique |
+| CI GitHub Actions | Active | Tests Python 3.10/3.12, Node, smoke-test de découverte d'échantillons et contrôle de précision native Linux |
+| Adaptateurs navigateur, LLM, SpearVM | Non connectés | Aucune automatisation distante ou accélération SpearVM revendiquée |
+
+### Démarrage et validation
+
+Depuis la racine du dépôt, avec Python 3.10+ et Node 22.18+ ou 24+ pour la découverte :
+
+```sh
+python -m spear '{"kind":"compute","kernel":"silu","x":1}'
+python -m spear '{"kind":"discover","formula":"x*x","seed":42}'
+python -m unittest discover -s tests -v
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/benchmark.test.mjs
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/discover_samples.mjs
+python scripts/bench_end_to_end.py --samples 1001 --repeats 7 --warmups 2 --output reports/local-end-to-end.json
+```
+
+La dernière commande écrit un fichier local ; les temps dépendent du matériel et ne constituent pas des résultats universels. Le rapport contient des ratios **indicatifs**, pas une comparaison de deux implémentations fonctionnellement identiques.
+
+Expériences natives **optionnelles sur Linux avec un compilateur C** :
+
+```sh
+python scripts/check_native_precision.py
+python -m unittest tests.test_native_bridge tests.test_native_conversion -v
+```
+
+Les expériences natives compilent des bibliothèques temporaires. Elles ne changent pas le chemin de calcul utilisé par la CLI.
+
+### Travail restant, par priorité
+
+1. Consolider les améliorations de découverte depuis les échantillons encore dans la PR #10, en évitant de réintroduire les conflits documentaires.
+2. Comparer les calculs natifs et Python sur des tailles de lots représentatives, avec coûts de conversion, erreurs, distribution des domaines et matériel documentés.
+3. Définir des seuils d'acceptation mesurables (précision, latence, coût, fallback), puis seulement envisager un backend optionnel.
+4. Construire un cas d'usage SDK/pilote avant toute promesse commerciale d'accélération.
+5. Connecter les adaptateurs navigateur/LLM uniquement pour un besoin concret et autorisé.
+
+Suivi : [issues](https://github.com/bahira/spear-unified/issues), [pull requests](https://github.com/bahira/spear-unified/pulls), [roadmap](reports/ROADMAP-2026-11-19.md). Les PR historiques [#10](https://github.com/bahira/spear-unified/pull/10) et [#11](https://github.com/bahira/spear-unified/pull/11) ne sont **pas** fusionnées intégralement ; des éléments ont été repris dans les PR #20, #21 et #23.
+
 ## Ce qui fonctionne
 
 - Registre unique de deux enregistrements Superspear (SiLU, GELU), importés à une révision figée et contrôlés par SHA-256 au chargement.
@@ -18,7 +66,7 @@ python bench.py
 
 ## État réel
 
-Les adaptateurs navigateur et LLM renvoient `unavailable` : ils ne sont pas encore connectés. SpearVM n'est pas installé et aucun gain natif n'est revendiqué. Pas de classifieur de langage naturel, de serveur, d'entraînement ou d'appel payant. Aucun dépôt distant modifié.
+Les adaptateurs navigateur et LLM renvoient `unavailable` : ils ne sont pas encore connectés. SpearVM n'est pas installé et aucun gain natif n'est revendiqué. Pas de classifieur de langage naturel, de serveur, d'entraînement ou d'appel payant. Le dépôt privé GitHub est utilisé pour les modifications et validations.
 
 Les champions sont plus lents que les références mathématiques directes dans ce premier moteur Python. Le but de cette étape est une sémantique traçable et mesurable, pas une promesse d'accélération. Les timings de quelques microsecondes sont bruités et propres à cette VM.
 
@@ -54,7 +102,7 @@ Moteur et sémantique de validation upstream ; contrôle indépendant Python ajo
 
 Voir GOAL.md et AGENTS.md. La skill fournie est disponible dans `.agents/skills/triple-helix/SKILL.md` ; son état local est `.agents/triple_helix_state.json`. Les adaptations automatiques restent désactivées tant que les contradictions du texte ne sont pas clarifiées.
 
-Le projet est publié sur le dépôt privé https://github.com/bahira/spear-unified avec 3 milestones et 6 issues. Le plan source reste dans github-plan.json.
+Le projet est publié sur le dépôt privé https://github.com/bahira/spear-unified ; consulter GitHub pour le nombre actuel d'issues et de milestones. Le plan source initial reste dans github-plan.json.
 
 Pour republier les éléments manquants sans dupliquer les titres existants :
 
