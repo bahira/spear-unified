@@ -30,6 +30,21 @@ class PublishedPendulumCounterexampleTests(unittest.TestCase):
         self.assertGreater(trace[-1][1], 0.5)
         self.assertGreater(trace[-1][3], trace[0][3])
 
+    def test_local_linearization_has_positive_eigenvalue(self):
+        # Positive root implies local instability for the printed dynamics
+        # and unsaturated velocity-only controller; not a global theorem.
+        positive, negative = paper.local_eigenvalues()
+        self.assertGreater(positive, 1)
+        self.assertLess(negative, -1)
+
+    def test_three_cycles_at_84mhz_is_not_4_point_2_ns(self):
+        actual = paper.cycles_to_ns(3, 84)
+        self.assertAlmostEqual(actual, 35.71428571428571)
+        self.assertGreater(actual, 4.2)
+        for cycles, mhz in ((0, 84), (3, 0), (True, 84), (3, float('inf'))):
+            with self.assertRaises(ValueError):
+                paper.cycles_to_ns(cycles, mhz)
+
     def test_smaller_rk4_timestep_agrees(self):
         a = paper.run(duration=2, dt=0.001)['trace'][-1]
         b = paper.run(duration=2, dt=0.0005)['trace'][-1]
