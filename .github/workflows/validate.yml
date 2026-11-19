@@ -34,6 +34,9 @@ jobs:
       - name: Benchmark exact fused C versus Python and NumPy
         if: matrix.python-version == '3.12'
         run: python -m scripts.bench_fused_pipeline
+      - name: Reproduce full-paper numerical counterexample
+        if: matrix.python-version == '3.12'
+        run: python -m scripts.check_paper_claims
       - name: Validate native precision experiment
         if: matrix.python-version == '3.12'
         run: python scripts/check_native_precision.py
