@@ -8,6 +8,12 @@ python -m unittest discover -s tests -v
 python bench.py
 ```
 
+## Strategic direction: seek a measurable asymmetric edge
+
+**New north star:** reduce the full end-to-end cost of a *real repeated CPU workload*, not merely approximate SiLU/GELU. The current Python ledger is 1.40–2.58× slower than the direct reference in matched pilot CI measurements. The highest-priority hypothesis is **fusion of workload-specific vector operations** to eliminate intermediate allocations, conversion and repeated dispatch. Compare against the strongest optimized baseline; only then test approximation. No acceleration or commercial moat has yet been demonstrated.
+
+Read the [first-principles strategy and go/no-go gates](reports/FIRST-PRINCIPLES-EDGE-2026-11-19.md) and [updated project goal](GOAL.md).
+
 ## État vérifié — 19 novembre 2026
 
 **Statut : prototype de recherche/validation CPU, pas accélérateur universel prêt pour la production.**
