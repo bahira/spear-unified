@@ -3,6 +3,17 @@
 
 [20-point paper verification checkpoint](reports/PAPER-RESEARCH-PROGRESS-2026-11-19.md) and [public-site erratum proposal](reports/RESEARCH-SITE-ERRATUM-PROPOSAL-2026-11-19.md) document a counterexample to the published embedded controller's stability argument and a corrected 84 MHz cycle calculation. The original public research-site file is **not** modified (GitHub branch write HTTP 403).
 
+## Opt-in SpearVM packed CPU inference experiment
+
+Experimental integration of [SpearVM](https://github.com/bahira/SpearVM) without copying its native runtime or imposing base dependencies. `spear.spearvm.SpearVMPackedGELU` constructs a packed f32 weights+bias `matmul + GELU` kernel on explicit request only, Linux x86_64 AVX2/FMA, no silent fallback; full independent libm comparison can be enabled per call. Does **not** replace scalar `CPUPilot`.
+
+```sh
+python -m pip install 'numpy>=2,<3' 'spur-math==0.5.3'
+python -m scripts.bench_spearvm
+```
+
+See the [optional benchmark](scripts/bench_spearvm.py), [experiment workflow](.github/workflows/spearvm-experiment.yml) and [measured native CPU report](reports/SPEARVM-NATIVE-CPU-EXPERIMENT-2026-11-19.md). On one shared CI runner, batch 1024 was 2.18× faster than unpacked C, while batches 1/32/256 were slower; no general or commercial gain is established. PyPI Linux 0.5.3 failed on import, so the experiment builds the pinned source.
+
 ## Numerical quality gates
 
 [Offline float32/domain/composition audit](reports/NUMERIC-QUALITY-GATES-2026-11-19.md): use `python -m scripts.audit_precision --kernel gelu --dtype emulated-f32-step-rounded --abs-tol 0.001`. These are sampled checks, **not** native C/WASM parity proofs or automatic backend promotion.
