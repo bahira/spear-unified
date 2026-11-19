@@ -140,3 +140,5 @@ La conclusion de régression sur observations est calculée depuis les erreurs c
 Le score de régression sur observations évalue l’arbre affine simplifié réellement retourné, avec `training_objective` pour vérifier la parité entre fitness, MSE d’apprentissage et complexité : [preuve et coût](reports/fitness-parity-20261117.md). Le conditionnement du scaling GP demeure une limite ouverte.
 
 Le scaling GP de l’adaptateur sur observations centre et normalise désormais les prédictions avant covariance : [preuves et limites du 18 novembre](reports/gp-scaling-20261118.md). Le vendor reste inchangé ; pénalité de complexité, arrondis et conditionnement extrême demeurent des limites.
+
+Pour les fichiers de mesures fournis, `origin.path` est remplacé par `origin.input_sha256` et `origin.input_bytes` : identité des octets lus, sans chemin local dans les rapports de succès. Voir [preuves et limites](reports/input-identity-20261119.md). Les espaces JSON changent aussi cette empreinte ; elle ne prouve ni anonymat ni provenance scientifique.

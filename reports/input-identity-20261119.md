@@ -1,0 +1,13 @@
+# Identité du fichier de mesures — 19 novembre 2026
+
+Pour les données fournies au CLI, origin.path enregistrait le chemin absolu local mais n’identifiait pas le contenu lu. Il est remplacé par origin.input_sha256 et origin.input_bytes : empreinte SHA-256 des octets bruts effectivement lus et nombre d’octets. JSON et parsing utilisent le même buffer ; la taille est revérifiée après lecture, en plus du contrôle existant de 100 kB avant lecture. Le rapport Markdown expose aussi l’empreinte. Les résultats de démo sans fichier conservent leur origine synthetic_demo.
+
+Changement de schéma volontaire : origin.path n’est plus émis. Un déplacement ou renommage ne change pas l’identité ; tout changement d’octets, y compris espaces JSON ou ordre des clés, la change. Il ne s’agit pas d’une canonicalisation des observations. L’empreinte ne prouve ni collecte, indépendance des partitions, consentement, anonymat ou validité scientifique. Les autres résultats du rapport peuvent révéler des informations sur le jeu : ce changement ne rend pas un rapport privé librement publiable. Les messages d’échec du CLI ne sont pas expurgés par cette itération.
+
+Trois nouveaux tests échouaient avant modification et passent après : digest/nombre d’octets et absence du chemin dans les sorties de succès, stabilité après déplacement, changement après édition des mesures. Total : 43 tests Python en 4,969 s et 3 tests Node en 0,169 s. git diff --check passe. Aucune installation.
+
+Sonde synthétique y=x²+1, huit points train x=0..7 et huit validation x=0,25..7,25 : 389 octets. Trois paires alternées avant/après gardent candidat, métriques globales/par plage et objectif de recherche exactement identiques. Médianes processus complet 153,74 ms avant / 148,85 ms après ; petit échantillon bruité, aucun gain de vitesse revendiqué. JSON voisin : empreinte du seul témoin synthétique, temps de recherche séparés et coûts complets. Les temps incluent démarrage Node, vérification des sources, lecture/hash, recherche et rapports ; ni calcul isolé de formule, ni coût Python/C ou pipeline client mesuré.
+
+Les domaines, tolérances, algorithmes et candidats ne sont pas modifiés. Aucune donnée réelle utilisée ou publiée, aucune promotion au registre, aucun avantage GP ou nouvelle loi physique revendiqué. Vérifications finies uniquement, pas de garantie continue. Aucun changement visuel applicatif ; tableau de suivi fondé sur les preuves brutes, pas de capture d’interface requise.
+
+Suite : qualification d’un jeu réel autorisé avec unités, bruit et partitions documentés ; l’identité de fichier seule ne termine pas l’issue #8. Rétrospective locale session 14 : preuve avant/après conservée, adaptation désactivée, signaux indéfinis null, audit décennal non dû.

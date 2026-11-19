@@ -1,5 +1,5 @@
 {
-  "session": 13,
+  "session": 14,
   "signals": {
     "RFR": null,
     "CSR": null,
@@ -37,7 +37,7 @@
   "discovered_signals": [],
   "discovered_edges": [],
   "cascade_reversals_this_session": 0,
-  "sessions_since_self_retro": 3,
+  "sessions_since_self_retro": 4,
   "history": [
     {
       "task": "Make skill available and publish private project with tracking",
@@ -532,6 +532,47 @@
       ],
       "visual_verification": "No application visual change; table checked against raw JSON.",
       "self_retrospective": "Not due: session 13, three since session-10 audit."
+    },
+    {
+      "task": "Identify supplied sample bytes without persisting input path",
+      "date": "2026-11-19",
+      "branch": "fix/samples-engine-provenance-20261103",
+      "draft_pr": 10,
+      "loops": [
+        "tactical",
+        "strategic",
+        "operational",
+        "retrospective"
+      ],
+      "plan": "Replace origin path with exact-input digest/length; falsify with relocated/edited files and verify unchanged numerical results in three bounded pairs.",
+      "counterexamples": [
+        "Same path can contain different measurements",
+        "Absolute local path unnecessarily persisted in successful reports"
+      ],
+      "required_tasks_skipped": 0,
+      "probes": {
+        "regressions_failed_before_change": 3,
+        "python_tests_passed": 43,
+        "node_tests_passed": 3,
+        "candidate_and_metrics_unchanged_pairs": 3,
+        "median_process_ms": {
+          "base": 153.7352259999949,
+          "new": 148.85072300000957
+        }
+      },
+      "evidence": [
+        "tests/test_samples_input_identity.py",
+        "reports/input-identity-20261119.md",
+        "reports/input-identity-20261119.json"
+      ],
+      "adaptations": [],
+      "deferred": [
+        "real-data scientific provenance",
+        "backend selection",
+        "continuous numerical certification"
+      ],
+      "visual_verification": "No application visual change; progress table based on checked measurements.",
+      "self_retrospective": "Not due: session 14, four since session-10 audit."
     }
   ]
 }
