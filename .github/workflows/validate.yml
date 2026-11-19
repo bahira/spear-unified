@@ -37,6 +37,9 @@ jobs:
       - name: Reproduce full-paper numerical counterexample
         if: matrix.python-version == '3.12'
         run: python -m scripts.check_paper_claims
+      - name: Audit bounded precision with explicit error budget
+        if: matrix.python-version == '3.12'
+        run: python -m scripts.audit_precision --kernel silu --dtype emulated-f32-step-rounded --abs-tol 1 --probes 257
       - name: Validate native precision experiment
         if: matrix.python-version == '3.12'
         run: python scripts/check_native_precision.py

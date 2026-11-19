@@ -1,4 +1,8 @@
 
+## Numerical quality gates
+
+[Offline float32/domain/composition audit](reports/NUMERIC-QUALITY-GATES-2026-11-19.md): use `python -m scripts.audit_precision --kernel gelu --dtype emulated-f32-step-rounded --abs-tol 0.001`. These are sampled checks, **not** native C/WASM parity proofs or automatic backend promotion.
+
 ## Full-paper source audit and executable claim check
 
 The complete research-site Markdown manuscripts were recovered at a pinned source commit. The [full-paper verification report](reports/FULL-PAPERS-VERIFICATION-2026-11-19.md) includes corrected pendulum Lyapunov algebra and an executable counterexample (`python -m scripts.check_paper_claims`). This exposes a **mathematical error in a historical stability claim**; it is not an independent replication of all nine papers or hardware performance. No experimental controller is deployed.
