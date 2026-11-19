@@ -1,0 +1,314 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "d7d6800ca4ff4802afc9084c348c25f593616680",
+  "task": {
+    "formula": "exp(-1000000*(x-0.0042807559055118016)*(x-0.0042807559055118016))",
+    "lo": -1,
+    "hi": 1,
+    "seed": 42,
+    "max_abs_error": 0.0001
+  },
+  "center": 0.004280755905511802,
+  "independent_target_at_center": 1.0,
+  "method": "Three alternating pairs of fresh Node subprocesses using identical pinned vendor files in temporary roots. Same search/candidate; only post-search validation changes. Complete subprocess time includes startup, search and holdout; Python hash checks excluded from this reported subprocess field.",
+  "same_candidate_in_all_pairs": true,
+  "pairs": [
+    {
+      "base": {
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "neg",
+              "c": [
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "neg",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "formula": "((-(x)\u00b2) + ((-x))\u00b2)",
+        "holdout": {
+          "mse": 3.720075976020839e-44,
+          "max_abs_error": 1.9287498479639178e-22,
+          "rows": 129,
+          "endpoints_included": true
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "elapsed_total_ms": 105.59738899999616,
+        "duration_ms": 16.460487
+      },
+      "refined": {
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "neg",
+              "c": [
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "neg",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "formula": "((-(x)\u00b2) + ((-x))\u00b2)",
+        "holdout": {
+          "mse": 0.0038910505836575876,
+          "max_abs_error": 1,
+          "rows": 257,
+          "endpoints_included": true,
+          "midpoints_included": true,
+          "base_rows": 129,
+          "midpoint_rows": 128
+        },
+        "accepted_on_probe": false,
+        "registry_updated": false,
+        "elapsed_total_ms": 110.0478459999863,
+        "duration_ms": 16.50807300000001
+      }
+    },
+    {
+      "refined": {
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "neg",
+              "c": [
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "neg",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "formula": "((-(x)\u00b2) + ((-x))\u00b2)",
+        "holdout": {
+          "mse": 0.0038910505836575876,
+          "max_abs_error": 1,
+          "rows": 257,
+          "endpoints_included": true,
+          "midpoints_included": true,
+          "base_rows": 129,
+          "midpoint_rows": 128
+        },
+        "accepted_on_probe": false,
+        "registry_updated": false,
+        "elapsed_total_ms": 102.61030000000915,
+        "duration_ms": 17.725649000000004
+      },
+      "base": {
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "neg",
+              "c": [
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "neg",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "formula": "((-(x)\u00b2) + ((-x))\u00b2)",
+        "holdout": {
+          "mse": 3.720075976020839e-44,
+          "max_abs_error": 1.9287498479639178e-22,
+          "rows": 129,
+          "endpoints_included": true
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "elapsed_total_ms": 114.10348100000078,
+        "duration_ms": 14.401720999999995
+      }
+    },
+    {
+      "base": {
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "neg",
+              "c": [
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "neg",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "formula": "((-(x)\u00b2) + ((-x))\u00b2)",
+        "holdout": {
+          "mse": 3.720075976020839e-44,
+          "max_abs_error": 1.9287498479639178e-22,
+          "rows": 129,
+          "endpoints_included": true
+        },
+        "accepted_on_probe": true,
+        "registry_updated": false,
+        "elapsed_total_ms": 100.77360200000385,
+        "duration_ms": 16.19104800000001
+      },
+      "refined": {
+        "tree": {
+          "o": "add",
+          "c": [
+            {
+              "o": "neg",
+              "c": [
+                {
+                  "o": "sq",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "o": "sq",
+              "c": [
+                {
+                  "o": "neg",
+                  "c": [
+                    {
+                      "o": "var",
+                      "n": "x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "formula": "((-(x)\u00b2) + ((-x))\u00b2)",
+        "holdout": {
+          "mse": 0.0038910505836575876,
+          "max_abs_error": 1,
+          "rows": 257,
+          "endpoints_included": true,
+          "midpoints_included": true,
+          "base_rows": 129,
+          "midpoint_rows": 128
+        },
+        "accepted_on_probe": false,
+        "registry_updated": false,
+        "elapsed_total_ms": 108.2612620000134,
+        "duration_ms": 15.520526000000004
+      }
+    }
+  ],
+  "median_base_subprocess_ms": 105.59738899999616,
+  "median_refined_subprocess_ms": 108.2612620000134,
+  "elapsed_seconds": 0.6466511309999987,
+  "python": "3.12.14",
+  "node": "v24.19.0",
+  "limitations": "Engineered synthetic narrow peak, not real data. Fixed extra points reduce this blind spot but can still miss other peaks; no continuous-domain certificate, adaptive search, kernel speedup or new physical law."
+}

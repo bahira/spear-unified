@@ -1,0 +1,49 @@
+{
+  "task": {
+    "formula": "2*x+1",
+    "lo": 0,
+    "hi": 0.1,
+    "seed": 42,
+    "max_abs_error": 0.167
+  },
+  "source_commit": "dc74937e396a81e62853962ddd7f9c8c8d43cc7a",
+  "candidate": "1.032672",
+  "tree": {
+    "o": "const",
+    "v": 1.032672
+  },
+  "previous_interior_grid": {
+    "rows": 127,
+    "independent_max_abs_error": 0.16618127244094483,
+    "accepted_at_requested_tolerance": true
+  },
+  "new_holdout": {
+    "mse": 0.00792204050239898,
+    "max_abs_error": 0.16732799999999992,
+    "rows": 129,
+    "endpoints_included": true
+  },
+  "independent_endpoint_max_abs_error": 0.16732799999999992,
+  "accepted_on_probe": false,
+  "registry_updated": false,
+  "repeats": 5,
+  "same_tree_all_runs": true,
+  "search_and_validation_ms": [
+    16.610856999999996,
+    16.07995799999999,
+    13.341081000000003,
+    14.624836000000002,
+    15.652494000000004
+  ],
+  "elapsed_subprocess_ms": [
+    104.48856499999692,
+    101.91318399999716,
+    98.67347200000154,
+    97.56279299999449,
+    96.19090200000358
+  ],
+  "median_search_and_validation_ms": 15.652494000000004,
+  "median_subprocess_ms": 98.67347200000154,
+  "probe_script_elapsed_seconds": 0.5003630970000046,
+  "limitations": "One synthetic affine target. Independent Python checks of interior and boundary errors; finite-grid validation does not certify the continuous domain. No candidate/kernel speedup measured. No real client data."
+}
