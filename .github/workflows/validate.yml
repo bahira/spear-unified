@@ -32,3 +32,5 @@ jobs:
           node-version: '24'
       - name: Validate Node benchmark tests
         run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/benchmark.test.mjs
+      - name: Smoke-test symbolic regression from samples
+        run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/discover_samples.mjs > /dev/null
