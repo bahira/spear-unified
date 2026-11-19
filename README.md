@@ -14,6 +14,10 @@ python bench.py
 
 Read the [first-principles strategy and go/no-go gates](reports/FIRST-PRINCIPLES-EDGE-2026-11-19.md) and [updated project goal](GOAL.md).
 
+## SpearVM — réutilisation sélective
+
+Audit source de [bahira/SpearVM](https://github.com/bahira/SpearVM) : [rapport d'intégration](reports/SPEARVM-INTEGRATION-AUDIT-2026-11-19.md). Le candidat prioritaire n'est pas le calcul scalaire mais l'inférence répétée de petits MLP CPU avec poids pré-empaquetés (`PackedNT`, `PackedMLP`) et fusion `matmul + bias + GELU`. SpearVM reste moins rapide qu'OpenBLAS en GEMM pur et que PyTorch/ONNX sur l'encodeur testé. Ses benchmarks positifs de serving digits demandent une reproduction indépendante. Pas d'intégration native automatique ni de dépendance SpearVM imposée.
+
 ## État vérifié — 19 novembre 2026
 
 **Statut : prototype de recherche/validation CPU, pas accélérateur universel prêt pour la production.**
