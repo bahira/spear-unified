@@ -12,7 +12,7 @@ python -m pip install 'numpy>=2,<3' 'spur-math==0.5.3'
 python -m scripts.bench_spearvm
 ```
 
-See the [optional benchmark](scripts/bench_spearvm.py) and [experiment workflow](.github/workflows/spearvm-experiment.yml). Results are synthetic CPU microbenchmarks and do not prove a commercial advantage.
+See the [optional benchmark](scripts/bench_spearvm.py), [experiment workflow](.github/workflows/spearvm-experiment.yml) and [measured native CPU report](reports/SPEARVM-NATIVE-CPU-EXPERIMENT-2026-11-19.md). On one shared CI runner, batch 1024 was 2.18× faster than unpacked C, while batches 1/32/256 were slower; no general or commercial gain is established. PyPI Linux 0.5.3 failed on import, so the experiment builds the pinned source.
 
 ## Numerical quality gates
 
