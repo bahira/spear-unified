@@ -26,7 +26,7 @@ def run_benchmark(samples=1001, repeats=7, warmups=2):
         "repeats": repeats,
         "warmups": warmups,
         "domain": [-8.0, 8.0],
-        "method": "JSON encode request, decode request, dispatch compute, encode response",
+        "method": "Alternating AB/BA paired trials: JSON encode request, decode request, dispatch compute, encode response",
         "limitations": "Reference path omits Registry dispatch and source metadata; ratio is not a matched production speedup. Single-process scalar microbenchmark; no network, deployment, batch-native or client traffic",
         "kernels": {},
     }
@@ -49,10 +49,14 @@ def run_benchmark(samples=1001, repeats=7, warmups=2):
         timings = []
         reference_timings = []
         outputs = None
-        for _ in range(repeats):
-            ns, outputs = trial(router.run)
+        for repeat in range(repeats):
+            if repeat % 2 == 0:
+                ns, outputs = trial(router.run)
+                ref_ns, _ = trial(lambda task: {"value": reference(task["x"])})
+            else:
+                ref_ns, _ = trial(lambda task: {"value": reference(task["x"])})
+                ns, outputs = trial(router.run)
             timings.append(ns)
-            ref_ns, _ = trial(lambda task: {"value": reference(task["x"])})
             reference_timings.append(ref_ns)
         expected = [reference(x) for x in xs]
         errors = [abs(a - b) for a, b in zip(outputs, expected)]
