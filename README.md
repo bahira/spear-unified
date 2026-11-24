@@ -1,4 +1,14 @@
+<div align="center">
+
 # SPEAR Unified
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square) ![CPU](https://img.shields.io/badge/Compute-CPU-6366f1?style=flat-square) ![Research](https://img.shields.io/badge/Status-Research-f59e0b?style=flat-square)
+
+**Discover → Validate → Benchmark**
+
+[Quick start](#quick-start) · [Architecture](#architecture) · [Evidence](#research-evidence)
+
+</div>
 
 **Reproducible CPU inference research, symbolic kernels and numerical validation.**
 
